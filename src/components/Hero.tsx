@@ -38,8 +38,7 @@ export const Hero = () => {
       }
 
       setSubmitState("success");
-      setMessage(data.message || "You are on the waitlist. Please check your inbox for confirmation.");
-      setEmail("");
+      setMessage(data.message || "Successfully subscribed! Please check your inbox for confirmation.");
     } catch (error) {
       const fallbackMessage = error instanceof Error ? error.message : "Unable to join the waitlist right now.";
       setSubmitState("error");
@@ -92,9 +91,7 @@ export const Hero = () => {
             className={`mt-4 text-base ${
               submitState === "error"
                 ? "text-[#ffd7d7]"
-                : submitState === "success"
-                  ? "text-[#d8ffe7]"
-                  : "text-[var(--text-on-dark-muted)]"
+                : "text-[#e5e5e5]"
             }`}
           >
             {message}

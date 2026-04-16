@@ -128,3 +128,35 @@
     display: none;
   }
 }
+
+/* Kit Form Custom Styles */
+@layer components {
+  .kit-form-container [data-element="success"] {
+    display: none !important;
+  }
+
+  /* Keep form visible after submission */
+  .kit-form-container.formkit-form[data-formkit-state="success"] [data-element="fields"] {
+    display: flex !important;
+    opacity: 1 !important;
+  }
+
+  /* Add success message below form */
+  .kit-form-container::after {
+    content: "";
+    display: none;
+  }
+
+  .kit-form-container.submitted::after {
+    display: block;
+    content: "Successfully subscribed! Please check your email to confirm your subscription.";
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #e5e5e5;
+    font-size: 14px;
+    text-align: center;
+  }
+}

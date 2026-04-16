@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
  * Kit (ConvertKit) Form Component
  *
  * This component loads the Kit form script and initializes the form
- * without modifying your existing HTML structure.
+ * with custom success behavior to keep the form visible.
  *
  * @param formId - The Kit form ID (default: 8899105)
  * @param uid - The Kit form UID (default: 607eb344a1)
@@ -53,7 +53,7 @@ export const KitForm = ({
             after_subscribe: {
               action: "message",
               success_message:
-                "Success! Now check your email to confirm your subscription.",
+                "Successfully subscribed! Please check your email to confirm your subscription.",
               redirect_url: "",
             },
             analytics: {
@@ -100,6 +100,16 @@ export const KitForm = ({
         })
       );
       form.setAttribute("min-width", "400 500 600 700 800");
+
+      // Intercept form submission to show custom success message
+      form.addEventListener("submit", (e) => {
+        // Let the form submit normally, but add our custom handling after
+        setTimeout(() => {
+          if (containerRef.current) {
+            containerRef.current.classList.add("submitted");
+          }
+        }, 1000);
+      });
 
       // Create form inner content
       form.innerHTML = `
