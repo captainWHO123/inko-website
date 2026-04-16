@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Typography */
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Roboto Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, monospace;
+  /* Base palette */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-gray-950: #1a1a1a;
+  --color-gray-700: #555555;
+  --color-gray-400: #94a3b8;
+
+  --color-blue-700: #166eb1;
+  --color-blue-500: #33a6ff;
+  --color-blue-300: #72bdd2;
+  --color-blue-100: #d9edf4;
+  --color-blue-50: #f7fbff;
+
+  --color-hero-950: #1c1c1c;
+  --color-hero-900: #212528;
+  --color-hero-700: #305661;
+  --color-hero-warm: rgba(47, 35, 25, 0.3);
+  --color-hero-glow-strong: rgba(76, 210, 255, 0.42);
+  --color-hero-glow-soft: rgba(101, 230, 255, 0.2);
+
+  /* Semantic text */
+  --text-primary: var(--color-gray-950);
+  --text-secondary: var(--color-gray-700);
+  --text-muted: var(--color-gray-400);
+  --text-on-dark: var(--color-white);
+  --text-on-dark-muted: #c9c9c9;
+  --text-on-dark-subtle: rgba(255, 255, 255, 0.7);
+  --text-brand: var(--color-blue-500);
+  --text-brand-strong: var(--color-blue-700);
+
+  /* Semantic surfaces */
+  --surface-page: var(--color-white);
+  --surface-base: var(--color-white);
+  --surface-subtle: var(--color-blue-50);
+  --surface-overlay: rgba(255, 255, 255, 0.8);
+  --surface-brand-soft: rgba(51, 166, 255, 0.1);
+
+  /* Semantic borders */
+  --border-soft: #f3f6fa;
+  --border-default: rgba(26, 26, 26, 0.08);
+  --border-strong: rgba(26, 26, 26, 0.16);
+  --border-on-dark: rgba(255, 255, 255, 0.08);
+
+  /* Semantic interactive */
+  --interactive-primary: var(--color-blue-500);
+  --interactive-primary-hover: #219bfb;
+  --interactive-primary-strong: var(--color-blue-700);
+  --interactive-focus-ring: rgba(51, 166, 255, 0.2);
+
+  /* Hero gradient system */
+  --hero-gradient:
+    radial-gradient(90% 70% at 78% 22%, rgba(76, 210, 255, 0.42) 0%, rgba(76, 210, 255, 0.16) 34%, rgba(76, 210, 255, 0) 68%),
+    radial-gradient(70% 58% at 52% 38%, rgba(101, 230, 255, 0.20) 0%, rgba(101, 230, 255, 0.10) 32%, rgba(101, 230, 255, 0) 70%),
+    radial-gradient(84% 72% at 18% 8%, rgba(47, 35, 25, 0.30) 0%, rgba(47, 35, 25, 0.10) 34%, rgba(47, 35, 25, 0) 62%),
+    linear-gradient(180deg, #1c1c1c 0%, #212528 20%, #305661 42%, #72bdd2 62%, #d9edf4 82%, #f7fbff 92%, #ffffff 100%);
+
+  --hero-fade-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 52%, rgba(255, 255, 255, 0.9) 100%);
+
+  /* Footer gradient system */
+  --footer-gradient:
+    radial-gradient(128% 140% at 84% 62%, #000000 0%, #000000 68%, #211305 80%, #00bceb 82%, #044558 85%, #60a9b8 100%);
+  --text-footer: rgba(255, 255, 255, 0.78);
+  --text-footer-muted: rgba(255, 255, 255, 0.55);
+  --border-footer: rgba(255, 255, 255, 0.12);
+
+  /* Effects */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-panel: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Backward-compatible aliases for existing components */
+  --primary-blue: var(--color-blue-500);
+  --primary-blue-strong: var(--color-blue-700);
+  --bg-gray: var(--surface-subtle);
+  --text-main: var(--text-primary);
+  --input-bg: var(--surface-subtle);
+  --panel-bg: var(--surface-base);
+  --chip-bg: var(--interactive-primary);
+  --question-card-bg: var(--surface-subtle);
+  --question-text: var(--text-brand-strong);
+}
+
+@theme {
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --color-inko-blue: var(--color-blue-500);
+  --color-inko-blue-strong: var(--color-blue-700);
+  --color-inko-bg: var(--surface-page);
+  --color-inko-text: var(--text-primary);
+  --color-inko-text-secondary: var(--text-secondary);
+  --color-inko-border: var(--border-soft);
+}
+
+@layer base {
+  body {
+    @apply font-sans text-inko-text bg-inko-bg antialiased;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .header-ui-text {
+    @apply font-mono font-medium text-[12px] leading-none;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
