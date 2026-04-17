@@ -1,6 +1,5 @@
 import clientListImage from "../assets/features/client-list.png";
 import crmSyncImage from "../assets/features/crm-sync.png";
-import templateImage from "../assets/features/template.png";
 import askAdvisorImage from "../assets/features/ask-advisor.png";
 import followUpEmailImage from "../assets/features/follow-up-email.png";
 import captureImage from "../assets/how-to-use/capture.png";
@@ -29,22 +28,22 @@ export const FEATURE_SECTIONS: FeatureSectionProps[] = [
     tag: "Post-Conversation",
     title: "Template",
     description: "Inko provides multiple analysis dimensions, allowing you to freely combine them into your own custom analysis templates.",
-    image: templateImage,
-    bgColor: "bg-white",
+    bgColor: "bg-transparent",
+    visualType: "template",
   },
   {
     tag: "Post-Conversation",
     title: "Ask Advisor",
     description: "Inko transforms key conversation details into actionable insights. You can continue to ask AI questions based on a single client interaction, such as 'What should I do next?', 'What is the client really worried about?', or 'How should I prepare for the next meeting?' to get specific follow-up advice.",
     image: askAdvisorImage,
-    bgColor: "bg-white",
+    bgColor: "bg-transparent",
   },
   {
     tag: "Post-Conversation",
     title: "Follow-Up Email",
     description: "Inko can automatically generate ready-to-use follow-up email drafts based on conversation content. Professional yet friendly, it aims to reduce post-meeting friction and ensure follow-up actions actually happen.",
     image: followUpEmailImage,
-    bgColor: "bg-white",
+    bgColor: "bg-transparent",
   },
 ];
 

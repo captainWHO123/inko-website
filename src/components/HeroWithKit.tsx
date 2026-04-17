@@ -18,7 +18,7 @@ export const HeroWithKit = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-inko-blue/10 px-3 py-1 text-2xl font-semibold text-inko-blue">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-inko-blue/10 px-3 py-1 text-lg font-semibold text-inko-blue">
             <Zap className="h-4 w-4" />
             <span>Autopilot For Insurance Adviser</span>
           </div>

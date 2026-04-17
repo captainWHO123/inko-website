@@ -28,7 +28,7 @@ const FAQ_ITEMS = [
 ];
 
 export const FAQ = () => (
-  <section id="faq" className="bg-white px-6 py-32">
+  <section id="faq" className="bg-transparent px-6 py-32">
     <div className="mx-auto max-w-3xl">
       <h2 className="mb-20 text-center text-5xl tracking-tight font-mono font-bold">FAQ</h2>
       <div className="space-y-12">

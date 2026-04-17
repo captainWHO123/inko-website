@@ -38,7 +38,7 @@
   --text-brand-strong: var(--color-blue-700);
 
   /* Semantic surfaces */
-  --surface-page: var(--color-white);
+  --surface-page: #EEF7FA;
   --surface-base: var(--color-white);
   --surface-subtle: var(--color-blue-50);
   --surface-overlay: rgba(255, 255, 255, 0.8);
@@ -61,7 +61,7 @@
     radial-gradient(90% 70% at 78% 22%, rgba(76, 210, 255, 0.42) 0%, rgba(76, 210, 255, 0.16) 34%, rgba(76, 210, 255, 0) 68%),
     radial-gradient(70% 58% at 52% 38%, rgba(101, 230, 255, 0.20) 0%, rgba(101, 230, 255, 0.10) 32%, rgba(101, 230, 255, 0) 70%),
     radial-gradient(84% 72% at 18% 8%, rgba(47, 35, 25, 0.30) 0%, rgba(47, 35, 25, 0.10) 34%, rgba(47, 35, 25, 0) 62%),
-    linear-gradient(180deg, #1c1c1c 0%, #212528 20%, #305661 42%, #72bdd2 62%, #d9edf4 82%, #f7fbff 92%, #ffffff 100%);
+    linear-gradient(180deg, #1c1c1c 0%, #212528 20%, #305661 42%, #72bdd2 62%, #d9edf4 82%, #d9edf4 92%, #EEF7FA 100%);
 
   --hero-fade-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 52%, rgba(255, 255, 255, 0.9) 100%);
 

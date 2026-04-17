@@ -110,7 +110,7 @@ export const HowToUse = ({ steps }: HowToUseProps) => {
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full flex-col px-6 pb-6" style={{ paddingTop: `${HEADER_HEIGHT + 24}px` }}>
           <div className="mx-auto max-w-7xl text-center">
-            <p className="mb-4 text-2xl font-bold tracking-widest text-inko-blue uppercase">Process</p>
+            <p className="mb-4 text-lg font-bold tracking-widest text-inko-blue uppercase">How to Use </p>
           </div>
 
           <div ref={viewportRef} className="relative -mx-6 mt-6 min-h-0 flex-1 overflow-hidden">
