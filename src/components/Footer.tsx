@@ -6,12 +6,9 @@ export const Footer = () => (
       <div className="mb-32 flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
         <div className="max-w-sm">
           <img src={inkoDarkModeLogo} alt="Inko" className="mb-4 h-8 w-auto" />
-          <p className="mb-8 max-w-xs text-lg leading-tight" style={{ color: "var(--text-footer)" }}>
+          <p className="max-w-xs text-lg leading-tight" style={{ color: "var(--text-footer)" }}>
             Turn each conversation into a business asset.
           </p>
-          <a href="mailto:contact_us@inko.com" className="transition-colors hover:text-white" style={{ color: "var(--text-footer)" }}>
-            contact_us@inko.com
-          </a>
         </div>
 
         <div className="flex w-full flex-col gap-12 md:w-fit md:shrink-0 md:flex-row md:gap-20">

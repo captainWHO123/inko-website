@@ -44,7 +44,10 @@ function LandingPage() {
         <section className="relative overflow-hidden bg-transparent px-6 py-32 text-center">
           <div className="absolute top-1/2 left-1/2 -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2" style={{ background: "radial-gradient(circle at center, var(--surface-overlay-soft) 0%, transparent 70%)" }} />
           <h2 className="mb-12 text-5xl font-bold">Apply for Early Access</h2>
-          <button className="shadow-inko-blue/30 transform rounded-2xl bg-inko-blue px-12 py-5 text-xl font-mono font-medium text-white shadow-2xl transition-all hover:scale-105 hover:bg-inko-blue/90 active:scale-95">
+          <button
+            onClick={() => document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" })}
+            className="shadow-inko-blue/30 transform rounded-2xl bg-inko-blue px-12 py-5 text-xl font-mono font-medium text-white shadow-2xl transition-all hover:scale-105 hover:bg-inko-blue/90 active:scale-95"
+          >
             Get Early Access
           </button>
         </section>
