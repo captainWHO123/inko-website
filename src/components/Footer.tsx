@@ -25,8 +25,21 @@ export const Footer = () => (
         <div className="md:col-span-3">
           <h4 className="mb-10 text-sm tracking-widest uppercase font-mono" style={{ color: "var(--text-footer-muted)" }}>Legal</h4>
           <ul className="space-y-6 font-mono">
-            <li><a href="#" className="transition-colors hover:text-inko-blue">Privacy Policy</a></li>
-            <li><a href="#" className="transition-colors hover:text-inko-blue">Terms of Use</a></li>
+            <li><a href="#/privacy" className="transition-colors hover:text-inko-blue">Privacy Policy</a></li>
+            <li><a href="#/terms" className="transition-colors hover:text-inko-blue">Terms of Use</a></li>
+            <li><a href="#/cookies" className="transition-colors hover:text-inko-blue">Cookie Policy</a></li>
+            <li>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  (window as unknown as Record<string, () => void>).resetCookieConsent?.();
+                }}
+                className="transition-colors hover:text-inko-blue"
+              >
+                Manage Cookies
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -1,17 +1,20 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect, type ReactNode } from "react";
 import { FAQ } from "./components/FAQ";
 import { FeatureSection } from "./components/FeatureSection";
 import { Footer } from "./components/Footer";
 import { HeroWithKit } from "./components/HeroWithKit";
 import { HowToUse } from "./components/HowToUse";
 import { Navbar } from "./components/Navbar";
+import { CookieConsent } from "./components/CookieConsent";
+import { PrivacyPolicy } from "./components/PrivacyPolicy";
+import { TermsOfService } from "./components/TermsOfService";
+import { CookiePolicy } from "./components/CookiePolicy";
 import { FEATURE_SECTIONS, HOW_TO_USE_STEPS } from "./content/landing";
 
-export default function App() {
+function LandingPage() {
   return (
-    <div className="min-h-screen">
+    <>
       <Navbar />
-
       <main className="relative">
         <div
           className="absolute inset-x-0 top-0 -z-20 h-[1700px]"
@@ -48,8 +51,39 @@ export default function App() {
 
         <FAQ />
       </main>
-
       <Footer />
+    </>
+  );
+}
+
+export default function App() {
+  const [route, setRoute] = useState(window.location.hash);
+
+  useEffect(() => {
+    const onHash = () => setRoute(window.location.hash);
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  let page: ReactNode;
+  switch (route) {
+    case "#/privacy":
+      page = <PrivacyPolicy />;
+      break;
+    case "#/terms":
+      page = <TermsOfService />;
+      break;
+    case "#/cookies":
+      page = <CookiePolicy />;
+      break;
+    default:
+      page = <LandingPage />;
+  }
+
+  return (
+    <div className="min-h-screen">
+      {page}
+      <CookieConsent />
     </div>
   );
 }
