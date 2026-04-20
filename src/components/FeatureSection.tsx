@@ -27,8 +27,8 @@ export const FeatureSection = ({
 }: FeatureSectionProps) => (
   <section id={sectionId} className={`px-6 py-16 sm:py-20 lg:py-24 ${bgColor}`}>
     <div className="mx-auto max-w-7xl">
-      <div className="flex flex-col items-center gap-8 sm:gap-10 lg:flex-row lg:gap-16">
-        <div className="w-full lg:flex-[0_0_56%]">
+      <div className="flex flex-col items-center gap-8 sm:gap-10 lg:grid lg:grid-cols-[minmax(0,52fr)_minmax(0,48fr)] lg:items-center lg:gap-10 xl:grid-cols-[minmax(0,54fr)_minmax(0,46fr)] xl:gap-12 2xl:grid-cols-[minmax(0,56fr)_minmax(0,44fr)] 2xl:gap-16">
+        <div className="min-w-0 w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -50,10 +50,12 @@ export const FeatureSection = ({
             </div>
           </motion.div>
         </div>
-        <div className="w-full lg:flex-[0_0_44%]">
+        <div className="min-w-0 w-full">
           <p className="mb-3 text-lg font-bold tracking-widest text-inko-blue uppercase sm:mb-4">{tag}</p>
-          <h2 className="mb-4 font-mono text-[40px] leading-tight font-medium sm:mb-5 lg:mb-6">{title}</h2>
-          <p className="max-w-xl text-xl leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+          <h2 className="mb-4 font-mono text-[34px] leading-tight font-medium sm:mb-5 lg:mb-6 lg:text-[36px] 2xl:text-[40px]">
+            {title}
+          </h2>
+          <p className="text-lg leading-relaxed xl:text-xl" style={{ color: "var(--text-secondary)" }}>
             {description}
           </p>
         </div>
