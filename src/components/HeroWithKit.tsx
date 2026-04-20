@@ -20,7 +20,7 @@ export const HeroWithKit = () => {
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-inko-blue/10 px-3 py-1 text-lg font-semibold text-inko-blue">
             <Zap className="h-4 w-4" />
-            <span>Autopilot For Insurance Adviser</span>
+            <span>Autopilot For Sales Professionals</span>
           </div>
           <h1 className="mb-8 text-5xl leading-[1.1] font-bold text-[var(--text-on-dark)] lg:text-6xl">
             Turn Conversations <br />
