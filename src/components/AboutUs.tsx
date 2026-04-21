@@ -20,7 +20,7 @@ export const AboutUs = () => {
           <div className="mx-auto max-w-2xl space-y-6 text-xl leading-relaxed text-[var(--text-secondary)]">
             <p>
               Our founder <strong className="text-[var(--text-primary)]">Victor</strong> spent 7 years in
-              insurance sales — managing 80+ clients, juggling follow-ups, and watching good deals go
+              insurance sales — managing thousands of clients, juggling follow-ups, and watching good deals go
               cold because details fell through the cracks.
             </p>
             <p>
