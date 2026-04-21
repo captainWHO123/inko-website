@@ -16,7 +16,7 @@ export const HeroWithKit = () => {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-inko-blue opacity-75" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-inko-blue" />
             </span>
-            <span>Built for insurance sales professionals</span>
+            <span>Built for Sales Professionals</span>
           </div>
           <h1 className="mb-8 text-5xl leading-[1.1] font-bold text-[var(--text-on-dark)] lg:text-6xl">
             Stop losing deals because you{" "}
@@ -30,11 +30,16 @@ export const HeroWithKit = () => {
 
           {/* Social proof */}
           <div className="mb-8 flex items-center gap-3">
-            <div className="flex -space-x-2">
-              {["JM", "SK", "AR", "PL"].map((initials) => (
+            <div className="flex -space-x-3">
+              {["JM", "SK", "AR", "PL"].map((initials, i) => (
                 <div
                   key={initials}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-inko-blue/20 text-xs font-bold text-inko-blue"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-white text-xs font-bold shadow-sm"
+                  style={{
+                    backgroundColor: ["#33a6ff", "#4ACBEC", "#166eb1", "#72bdd2"][i],
+                    color: i === 2 ? "rgba(255,255,255,0.9)" : "#fff",
+                    zIndex: i + 1,
+                  }}
                 >
                   {initials}
                 </div>
