@@ -1,14 +1,7 @@
 import { motion } from "motion/react";
-import { Zap } from "lucide-react";
 import { HeroShowcaseCarousel } from "./showcase";
 import { StyledKitForm } from "./StyledKitForm";
 
-/**
- * Hero Component with Kit Form Integration
- *
- * This version uses Kit (ConvertKit) form instead of the custom form.
- * To use this, replace your existing Hero.tsx with this file.
- */
 export const HeroWithKit = () => {
   return (
     <section id="hero" className="relative overflow-hidden px-6 pt-20 pb-24">
@@ -19,20 +12,40 @@ export const HeroWithKit = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-inko-blue/10 px-3 py-1 text-lg font-semibold text-inko-blue">
-            <Zap className="h-4 w-4" />
-            <span>Autopilot For Sales Professionals</span>
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-inko-blue opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-inko-blue" />
+            </span>
+            <span>Built for insurance sales professionals</span>
           </div>
           <h1 className="mb-8 text-5xl leading-[1.1] font-bold text-[var(--text-on-dark)] lg:text-6xl">
-            Turn Conversations <br />
-            <span className="text-[var(--text-on-dark)]">Into Assets.</span>
+            Stop losing deals because you{" "}
+            <span className="italic">forgot what your client said.</span>
           </h1>
-          <p className="mb-10 max-w-xl text-xl leading-relaxed text-[var(--text-on-dark-muted)]">
-            Built for sales professionals, Inko records, parses, and permanently
-            stores the details from every in-person conversation. Turn each
-            context into a traceable, compounding asset.
+          <p className="mb-6 max-w-xl text-xl leading-relaxed text-[var(--text-on-dark-muted)]">
+            Inko captures every sales conversation and turns it into a structured
+            client record — automatically. Know exactly what to say next, every
+            time you walk in the door.
           </p>
 
-          {/* Kit Form - replaces the original custom form */}
+          {/* Social proof */}
+          <div className="mb-8 flex items-center gap-3">
+            <div className="flex -space-x-2">
+              {["JM", "SK", "AR", "PL"].map((initials) => (
+                <div
+                  key={initials}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-inko-blue/20 text-xs font-bold text-inko-blue"
+                >
+                  {initials}
+                </div>
+              ))}
+            </div>
+            <span className="text-sm text-[var(--text-on-dark-subtle)]">
+              140+ agents on the waitlist
+            </span>
+          </div>
+
+          {/* Kit Form */}
           <div className="w-full max-w-[503px]">
             <StyledKitForm />
           </div>

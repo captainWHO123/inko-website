@@ -101,14 +101,11 @@ export const KitForm = ({
       );
       form.setAttribute("min-width", "400 500 600 700 800");
 
-      // Intercept form submission to show custom success message
-      form.addEventListener("submit", (e) => {
-        // Let the form submit normally, but add our custom handling after
+      // Intercept form submission to redirect to thank-you page
+      form.addEventListener("submit", () => {
         setTimeout(() => {
-          if (containerRef.current) {
-            containerRef.current.classList.add("submitted");
-          }
-        }, 1000);
+          window.location.hash = "#/thank-you";
+        }, 1500);
       });
 
       // Create form inner content

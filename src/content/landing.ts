@@ -7,6 +7,8 @@ import analyzeImage from "../assets/how-to-use/analyze.png";
 import actImage from "../assets/how-to-use/act.png";
 import type { FeatureSectionProps } from "../components/FeatureSection";
 import type { HowToUseStep } from "../components/HowToUse";
+import type { LucideIcon } from "lucide-react";
+import { NotebookPen, Clock, Repeat } from "lucide-react";
 
 export const FEATURE_SECTIONS: FeatureSectionProps[] = [
   {
@@ -46,6 +48,47 @@ export const FEATURE_SECTIONS: FeatureSectionProps[] = [
     bgColor: "bg-transparent",
   },
 ];
+
+export interface PainPoint {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+export const PAIN_POINTS: PainPoint[] = [
+  {
+    icon: NotebookPen,
+    title: "You take notes, but never use them",
+    description:
+      "Scribbled notebooks, voice memos, sticky notes — none of it connects back to the right client at the right moment.",
+  },
+  {
+    icon: Clock,
+    title: "Follow-up emails take too long",
+    description:
+      "After a full day of client visits, writing professional follow-up emails feels like a second job. Most don't get sent at all.",
+  },
+  {
+    icon: Repeat,
+    title: "You ask the same questions twice",
+    description:
+      "Coming back to a client three months later and not remembering their situation kills trust faster than any competitor can.",
+  },
+];
+
+export interface TestimonialData {
+  quote: string;
+  attribution: { role: string; location: string };
+}
+
+export const TESTIMONIAL: TestimonialData = {
+  quote:
+    "I used to lose at least one deal a month because I couldn't remember the details from a conversation two weeks ago. That's just not acceptable when you're managing 80+ clients.",
+  attribution: {
+    role: "Beta tester",
+    location: "Independent insurance agent, Texas",
+  },
+};
 
 export const HOW_TO_USE_STEPS: HowToUseStep[] = [
   {
