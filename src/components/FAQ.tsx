@@ -45,11 +45,6 @@ export const FAQ = () => (
           </motion.div>
         ))}
       </div>
-      <div className="mt-20 text-center">
-        <p className="text-sm font-mono" style={{ color: "var(--text-muted)" }}>
-          Not answered here? Contact us via <a href="mailto:hello@inko.ai" className="underline transition-colors hover:text-inko-blue">email</a>.
-        </p>
-      </div>
     </div>
   </section>
 );

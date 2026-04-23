@@ -16,7 +16,6 @@ export const Footer = () => (
             <h4 className="mb-10 text-sm tracking-widest uppercase font-mono" style={{ color: "var(--text-footer-muted)" }}>About</h4>
             <ul className="space-y-6 font-mono">
               <li><a href="#faq" className="transition-colors hover:text-inko-blue">FAQ</a></li>
-              <li><a href="#" className="transition-colors hover:text-inko-blue">Join Us</a></li>
             </ul>
           </div>
 
