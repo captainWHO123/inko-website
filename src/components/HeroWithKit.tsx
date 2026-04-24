@@ -31,18 +31,14 @@ export const HeroWithKit = () => {
           {/* Social proof */}
           <div className="mb-8 flex items-center gap-3">
             <div className="flex -space-x-3">
-              {["JM", "SK", "AR", "PL"].map((initials, i) => (
-                <div
-                  key={initials}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-white text-xs font-bold shadow-sm"
-                  style={{
-                    backgroundColor: ["#33a6ff", "#4ACBEC", "#166eb1", "#72bdd2"][i],
-                    color: i === 2 ? "rgba(255,255,255,0.9)" : "#fff",
-                    zIndex: i + 1,
-                  }}
-                >
-                  {initials}
-                </div>
+              {[1, 2, 3, 4].map((n, i) => (
+                <img
+                  key={n}
+                  src={`/avatars/avatar-${n}.jpg`}
+                  alt=""
+                  className="h-9 w-9 rounded-full border-2 border-white object-cover shadow-sm"
+                  style={{ zIndex: i + 1 }}
+                />
               ))}
             </div>
             <span className="text-sm text-[var(--text-on-dark-subtle)]">
