@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inko | Mobile Post-Conversation Workspace</title>
+<meta name="description" content="Inko turns insurance advisor meetings and calls into summaries, follow-up drafts, next steps, and client records.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Inko | Mobile Post-Conversation Workspace">
+<meta property="og:description" content="Turn every client conversation into a clear next step.">
+<meta property="og:image" content="/og-image.png">
+<meta property="og:url" content="https://get-inko.com">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="canonical" href="https://get-inko.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --font-inter: 'Manrope', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-newsreader: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --color-primary: #1f8fff;
+  --color-primary-dark: #117dea;
+  --color-primary-light: #ccecff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-inter);
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(159, 211, 201, 0.5); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); border: 0;
+}
+
+/* ── Page Background ── */
+.stitch-homepage-viewport { background: #ffffff; }
+.stitch-homepage-canvas {
+  font-family: var(--font-inter);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(219,244,255,0.92), transparent 27%),
+    radial-gradient(circle at 88% 16%, rgba(202,235,255,0.7), transparent 26%),
+    linear-gradient(180deg, #fbfdff 0%, #f5fbff 35%, #ffffff 58%, #ffffff 100%);
+  color: #0a1733;
+  overflow: hidden;
+}
+
+/* ── Responsive Scaling ── */
+@media (max-width: 900px) {
+  .stitch-homepage-canvas { width: 900px; transform: none; zoom: calc(100vw / 900px); }
+}
+@media (max-width: 520px) {
+  .stitch-homepage-canvas { width: 100%; zoom: 1; }
+}
+
+/* ── Header ── */
+.header { position: relative; z-index: 30; }
+.header-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 1.25rem 1.25rem 2rem;
+}
+@media (min-width: 640px) { .header-inner { padding: 1.25rem 2rem; } }
+@media (min-width: 1024px) { .header-inner { padding: 2rem 2rem; } }
+
+.logo { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.78rem; font-weight: 800; line-height: 1; color: #06121f; text-decoration: none; }
+.logo-mark { position: relative; display: flex; height: 24px; width: 16px; align-items: center; justify-content: center; }
+.logo-mark-1 { position: absolute; left: 4px; top: 0; height: 12px; width: 8px; border-radius: 999px; background: #1f8fff; transform: rotate(24deg); }
+.logo-mark-2 { position: absolute; bottom: 0; left: 0; height: 16px; width: 8px; border-radius: 999px; background: #64d8ff; transform: rotate(24deg); }
+
+.nav { display: flex; align-items: center; gap: 1rem; font-size: 0.82rem; font-weight: 700; color: #07111f; }
+@media (min-width: 1024px) { .nav { gap: 2.25rem; } }
+@media (max-width: 520px) { .nav { display: none; } }
+.nav a { text-decoration: none; color: inherit; transition: color 0.15s; }
+.nav a:hover { color: #1d8dff; }
+
+.header-form { display: flex; align-items: center; gap: 0.5rem; }
+@media (max-width: 520px) { .header-form { display: none; } }
+.header-input {
+  height: 48px; width: 154px; padding: 0 1rem;
+  border-radius: 0.72rem; border: 1px solid #dbe8f4; background: #fff;
+  font-size: 0.78rem; font-weight: 600; color: #17243a;
+  box-shadow: 0 12px 28px -22px rgba(9,21,42,0.28); outline: none;
+}
+@media (min-width: 1024px) { .header-input { width: 200px; } }
+.header-input::placeholder { color: #8b9aaa; }
+
+.header-cta, .mobile-cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 0.72rem; background: #1f8fff; color: #fff; text-decoration: none;
+  font-size: 0.78rem; font-weight: 800;
+  box-shadow: 0 18px 34px -18px rgba(25,127,255,0.9); transition: background 0.15s;
+}
+.header-cta { height: 48px; padding: 0 1.5rem; }
+.header-cta:hover { background: #117dea; }
+.mobile-cta {
+  display: none; height: 40px; padding: 0 1rem;
+  font-size: 0.72rem;
+}
+@media (max-width: 520px) { .mobile-cta { display: inline-flex; } }
+
+/* ── Hero Section ── */
+.hero-section {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 0.88fr 1.18fr;
+  align-items: center; gap: 2rem;
+  padding: 1.75rem 2rem 3.5rem;
+}
+@media (max-width: 520px) { .hero-section { grid-template-columns: 1fr; padding: 1.75rem 1.25rem; text-align: center; } }
+@media (min-width: 1024px) { .hero-section { padding-top: 3.5rem; padding-bottom: 5rem; } }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 2rem; border-radius: 999px;
+  border: 1px solid #bfe7fb; background: #ecf8ff;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.74rem; font-weight: 800; color: #1b86d5;
+  box-shadow: 0 12px 26px -24px rgba(31,143,255,0.45);
+}
+.hero-badge-icon {
+  display: flex; width: 16px; height: 16px; align-items: center; justify-content: center;
+  border-radius: 999px; border: 1px solid #77cfff; font-size: 0.58rem;
+}
+
+.hero-h1 {
+  font-size: 4rem; font-weight: 800; line-height: 1.03; letter-spacing: -0.03em; color: #050d19;
+}
+@media (max-width: 520px) { .hero-h1 { font-size: 2.86rem; } }
+@media (min-width: 1024px) { .hero-h1 { font-size: 4.42rem; } }
+.hero-h1 em { font-style: normal; color: #1f8fff; }
+
+.hero-sub {
+  max-width: 496px; margin-top: 1.25rem;
+  font-size: 1.08rem; font-weight: 500; line-height: 1.75; color: #101b2a;
+}
+@media (max-width: 520px) { .hero-sub { margin-left: auto; margin-right: auto; } }
+
+/* ── Early Access Form ── */
+.early-access-form {
+  display: flex; width: 100%; max-width: 28rem; gap: 0.75rem; margin-top: 1.5rem;
+}
+@media (max-width: 520px) { .early-access-form { flex-direction: column; margin-left: auto; margin-right: auto; } }
+.early-access-input {
+  height: 52px; min-height: 52px; flex: 1;
+  border-radius: 0.82rem; border: 1px solid #dbe8f4; background: rgba(255,255,255,0.92);
+  padding: 0 1rem; font-size: 0.9rem; font-weight: 600; color: #17243a;
+  box-shadow: 0 18px 42px -32px rgba(9,21,42,0.34); outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+}
+.early-access-input::placeholder { color: #95a5b8; }
+.early-access-input:focus { border-color: #1f8fff; box-shadow: 0 18px 42px -32px rgba(9,21,42,0.34), 0 0 0 4px #ccecff; }
+@media (max-width: 520px) { .early-access-input { width: 100%; } }
+.early-access-btn {
+  height: 52px; min-height: 52px; border-radius: 0.82rem; border: none;
+  background: #1f8fff; padding: 0 1.5rem;
+  font-size: 0.86rem; font-weight: 800; color: #fff; cursor: pointer;
+  box-shadow: 0 18px 38px -20px rgba(31,143,255,0.9); transition: background 0.15s;
+  font-family: inherit; white-space: nowrap;
+}
+.early-access-btn:hover { background: #117dea; }
+.early-access-btn:disabled { background: #8ccaff; cursor: not-allowed; }
+@media (max-width: 520px) { .early-access-btn { width: 100%; } }
+.form-message {
+  flex-basis: 100%; font-size: 0.78rem; font-weight: 600; margin-top: 0.25rem;
+}
+.form-message.error { color: #c33b3b; }
+.form-message.success { color: #1f8fff; }
+
+/* ── Advisor Proof ── */
+.advisor-proof { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.25rem; }
+@media (max-width: 520px) { .advisor-proof { justify-content: center; } }
+.advisor-avatars { display: flex; padding-left: 0.5rem; }
+.advisor-avatar {
+  display: block; width: 36px; height: 36px; border-radius: 999px;
+  border: 2px solid #fff; background: #d9e9f7; background-size: cover; background-position: center;
+  box-shadow: 0 12px 22px -16px rgba(10,23,51,0.45); margin-left: -8px;
+}
+.advisor-avatar:first-child { margin-left: 0; }
+.advisor-proof-text { font-size: 0.76rem; line-height: 1.25rem; color: #162235; }
+.advisor-proof-text strong { font-weight: 800; }
+
+/* ── Product Mockups (3 phones) ── */
+.mockup-area {
+  position: relative; margin-top: 0; width: 100%; max-width: 38.5rem; margin-left: auto; margin-right: auto;
+}
+@media (max-width: 520px) { .mockup-area { margin-top: 2rem; max-width: 28rem; } }
+
+.mockup-blob-1 {
+  position: absolute; left: 3rem; right: 3rem; top: 2rem; height: 15rem;
+  border-radius: 999px; background: #dff3ff; filter: blur(48px);
+}
+.mockup-blob-2 {
+  position: absolute; left: 0; right: 0; bottom: 1.25rem; height: 4rem;
+  border-radius: 999px; background: #d6ecff; filter: blur(16px);
+}
+.mockup-caption {
+  position: absolute; left: 16%; top: 0; display: block; max-width: 12rem;
+  transform: rotate(-8deg); text-align: center;
+  font-size: 0.9rem; font-weight: 800; line-height: 1.25rem; color: #1f8fff;
+  font-family: var(--font-newsreader);
+}
+
+.phones-container {
+  position: relative; display: flex; min-height: 330px;
+  align-items: flex-end; justify-content: center;
+  gap: 0; transform: scale(0.93) translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+@media (min-width: 640px) { .phones-container { min-height: 390px; } }
+@media (min-width: 1024px) { .phones-container { min-height: 435px; } }
+@media (max-width: 520px) { .phones-container { transform: scale(0.86); } }
+
+/* ── Phone Frame ── */
+.phone-frame {
+  position: relative; aspect-ratio: 9 / 19.2;
+  border-radius: 1.55rem; border: 1px solid #c6ced8; background: #111827;
+  padding: 0.34rem;
+  box-shadow: 0 30px 48px -28px rgba(9,21,42,0.44), 0 10px 24px -18px rgba(9,21,42,0.5);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+@media (min-width: 640px) { .phone-frame { border-radius: 1.8rem; } }
+@media (min-width: 1024px) { .phone-frame { border-radius: 2rem; padding: 0.4rem; } }
+
+.phone-notch {
+  position: absolute; left: 50%; top: 6px; z-index: 20;
+  height: 8px; width: 54px; transform: translateX(-50%);
+  border-radius: 999px; background: #000;
+}
+@media (min-width: 640px) { .phone-notch { height: 9px; width: 60px; } }
+@media (min-width: 1024px) { .phone-notch { height: 10px; width: 67px; } }
+
+.phone-screen {
+  height: 100%; border-radius: 1.28rem; background: #fff; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+@media (min-width: 640px) { .phone-screen { border-radius: 1.45rem; } }
+@media (min-width: 1024px) { .phone-screen { border-radius: 1.62rem; } }
+
+.phone-status-bar {
+  display: flex; height: 20px; flex-shrink: 0; align-items: center; justify-content: space-between;
+  padding: 6px 10px 0; font-size: 0.42rem; font-weight: 800; color: #17243a;
+}
+.phone-status-icons { display: flex; align-items: center; gap: 4px; }
+.phone-status-battery { height: 6px; width: 10px; border-radius: 3px; border: 1px solid #17243a; }
+.phone-status-dot { height: 6px; width: 6px; border-radius: 999px; background: #17243a; }
+
+.phone-chrome {
+  display: flex; min-height: 0; flex: 1; flex-direction: column;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+  padding: 4px 10px 0;
+}
+.chrome-header {
+  display: flex; margin-bottom: 8px; flex-shrink: 0; align-items: center; justify-content: space-between;
+  color: #16233a;
+}
+.chrome-back { font-size: 0.65rem; font-weight: 800; }
+.chrome-title { font-size: 0.56rem; font-weight: 800; }
+.chrome-more { font-size: 0.62rem; color: #9badbf; }
+.chrome-body { position: relative; min-height: 0; flex: 1; overflow: hidden; padding-bottom: 8px; }
+
+/* ── Phone Sizes ── */
+.phone-recording { width: 146px; transform: rotate(-4deg) translateZ(0); transform-origin: bottom left; }
+.phone-summary { width: 168px; z-index: 20; transform: scale(1.02) translateZ(0); transform-origin: bottom; }
+.phone-followup { width: 146px; transform: rotate(4deg) translateZ(0); transform-origin: bottom right; }
+@media (min-width: 640px) {
+  .phone-recording { width: 160px; }
+  .phone-summary { width: 188px; }
+  .phone-followup { width: 160px; }
+}
+@media (min-width: 1024px) {
+  .phone-recording { width: 176px; transform: rotate(-4deg) translateY(28px) translateZ(0); }
+  .phone-summary { width: 212px; }
+  .phone-followup { width: 176px; transform: rotate(4deg) translateY(32px) translateZ(0); }
+}
+@media (max-width: 520px) {
+  .phone-recording { width: 146px; }
+  .phone-summary { width: 168px; }
+  .phone-followup { width: 146px; }
+}
+
+/* ── Recording Phone Content ── */
+.rec-header { display: flex; align-items: flex-start; justify-content: space-between; }
+.rec-name { font-size: 0.68rem; font-weight: 800; color: #17243a; }
+.rec-subtitle { margin-top: 2px; font-size: 0.43rem; font-weight: 600; color: #7d8ca0; }
+.rec-badge {
+  border-radius: 999px; background: #fff0f0; padding: 4px 6px;
+  font-size: 0.4rem; font-weight: 800; color: #ff4d4d;
+}
+.rec-timer { margin-top: 20px; text-align: center; font-size: 1.48rem; font-weight: 800; color: #17243a; }
+
+.waveform { display: flex; height: 76px; align-items: center; justify-content: center; gap: 4px; }
+.waveform-bar { width: 4px; border-radius: 999px; background: #1f8fff; }
+
+.live-transcript {
+  border-radius: 0.86rem; border: 1px solid #e6edf5; background: #fff;
+  padding: 8px; box-shadow: 0 12px 28px -24px rgba(9,21,42,0.35);
+}
+.live-transcript-header {
+  display: flex; margin-bottom: 6px; align-items: center; gap: 6px;
+  font-size: 0.45rem; font-weight: 800; color: #495c72;
+}
+.live-dot { width: 10px; height: 10px; border-radius: 4px; background: #e8f4ff; }
+.live-transcript-text { font-size: 0.43rem; line-height: 0.7rem; color: #7a8ba0; }
+
+.signal-chips { display: flex; margin-top: 10px; flex-wrap: wrap; gap: 6px; }
+.signal-chip {
+  border-radius: 999px; background: #edf7ff; padding: 4px 6px;
+  font-size: 0.38rem; font-weight: 800; color: #1d8dff;
+}
+
+/* ── Summary Phone Content ── */
+.sum-header { display: flex; margin-bottom: 10px; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.sum-name { font-size: 0.74rem; font-weight: 800; color: #17243a; }
+.sum-subtitle { margin-top: 2px; font-size: 0.45rem; font-weight: 600; color: #7d8ca0; }
+.sum-badge {
+  border-radius: 999px; background: #edf7ff; padding: 4px 6px;
+  font-size: 0.38rem; font-weight: 800; color: #1d8dff; white-space: nowrap;
+}
+.sum-cards { display: flex; flex-direction: column; gap: 6px; }
+.sum-card {
+  border-radius: 0.75rem; border: 1px solid #e5edf6; background: #fff;
+  padding: 6px 8px; box-shadow: 0 10px 26px -24px rgba(9,21,42,0.3);
+}
+.sum-card-inner { display: flex; gap: 8px; }
+.tone-icon {
+  flex-shrink: 0; display: flex; width: 14px; height: 14px;
+  align-items: center; justify-content: center;
+  border-radius: 5px; font-size: 0.42rem; font-weight: 800; margin-top: 2px;
+}
+.tone-blue { border: 1px solid #bfddff; background: #f0f8ff; color: #1f8fff; }
+.tone-orange { border: 1px solid #ffd9c2; background: #fff6ef; color: #ff7a1a; }
+.tone-cyan { border: 1px solid #bdeeff; background: #effbff; color: #10a8e8; }
+.tone-indigo { border: 1px solid #d9ddff; background: #f4f6ff; color: #5d6eff; }
+.tone-slate { border: 1px solid #dce5ef; background: #f7fbff; color: #5d7088; }
+.sum-card-title { font-size: 0.48rem; font-weight: 800; color: #253650; }
+.sum-card-items { margin-top: 4px; display: flex; flex-direction: column; gap: 2px; }
+.sum-card-item { font-size: 0.39rem; line-height: 0.62rem; color: #7b8aa0; }
+.sum-buttons { display: grid; margin-top: 10px; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sum-btn-primary {
+  border-radius: 0.68rem; background: #1f8fff; padding: 8px 0;
+  font-size: 0.43rem; font-weight: 800; color: #fff; border: none; font-family: inherit;
+}
+.sum-btn-secondary {
+  border-radius: 0.68rem; border: 1px solid #bfdfff; background: #fff; padding: 8px 0;
+  font-size: 0.43rem; font-weight: 800; color: #1f8fff; font-family: inherit;
+}
+
+/* ── Follow-up Phone Content ── */
+.followup-draft {
+  border-radius: 0.86rem; border: 1px solid #e4ecf6; background: #fff;
+  padding: 8px; box-shadow: 0 12px 28px -24px rgba(9,21,42,0.35);
+}
+.followup-draft-title { font-size: 0.56rem; font-weight: 800; color: #17243a; }
+.followup-draft-text { margin-top: 6px; font-size: 0.42rem; line-height: 0.68rem; color: #6f7f94; }
+
+.followup-section-title { font-size: 0.52rem; font-weight: 800; color: #17243a; }
+.followup-steps { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
+.followup-step {
+  display: flex; align-items: center; gap: 8px;
+  border-radius: 0.72rem; background: #f4f9ff; padding: 6px 8px;
+}
+.followup-step-dot {
+  display: flex; width: 12px; height: 12px; flex-shrink: 0;
+  align-items: center; justify-content: center;
+  border-radius: 999px; background: #1f8fff;
+}
+.followup-step-dot-inner { width: 6px; height: 6px; border-radius: 999px; background: #fff; }
+.followup-step-text { font-size: 0.42rem; font-weight: 700; line-height: 0.68rem; color: #53647a; }
+
+.followup-crm-title { font-size: 0.52rem; font-weight: 800; color: #17243a; }
+.followup-crm-records { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
+.followup-crm-record {
+  border-radius: 0.66rem; border: 1px solid #e5edf6; background: #fff;
+  padding: 6px 8px; font-size: 0.4rem; font-weight: 700; color: #617288;
+}
+.followup-buttons { display: grid; margin-top: 10px; grid-template-columns: 1fr 1fr; gap: 8px; }
+.followup-btn-primary {
+  border-radius: 0.68rem; background: #1f8fff; padding: 8px 0;
+  font-size: 0.4rem; font-weight: 800; color: #fff; border: none; font-family: inherit;
+}
+.followup-btn-secondary {
+  border-radius: 0.68rem; border: 1px solid #bfdfff; background: #fff; padding: 8px 0;
+  font-size: 0.4rem; font-weight: 800; color: #1f8fff; font-family: inherit;
+}
+
+/* ── Phone Scroll Animations (THE 3 KEY ANIMATIONS) ── */
+.inko-phone-scroll-recording,
+.inko-phone-scroll-summary,
+.inko-phone-scroll-followup {
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.inko-phone-scroll-recording { animation: inko-phone-scroll-recording 8.5s ease-in-out infinite; }
+.inko-phone-scroll-summary { animation: inko-phone-scroll-summary 9.5s ease-in-out infinite; }
+.inko-phone-scroll-followup { animation: inko-phone-scroll-followup 10s ease-in-out infinite; }
+
+@keyframes inko-phone-scroll-recording {
+  0%, 18% { transform: translateY(0); }
+  48%, 66% { transform: translateY(-1.15rem); }
+  90%, 100% { transform: translateY(0); }
+}
+@keyframes inko-phone-scroll-summary {
+  0%, 16% { transform: translateY(0); }
+  50%, 66% { transform: translateY(-4.4rem); }
+  90%, 100% { transform: translateY(0); }
+}
+@keyframes inko-phone-scroll-followup {
+  0%, 16% { transform: translateY(0); }
+  50%, 66% { transform: translateY(-3.7rem); }
+  90%, 100% { transform: translateY(0); }
+}
+
+/* ── Before / After Section ── */
+.realwork-section {
+  position: relative; margin-top: -0.5rem; padding: 0 1.25rem 1rem;
+  background: linear-gradient(180deg, transparent 0%, transparent 49%, #ffffff 50%, #ffffff 100%);
+}
+@media (min-width: 640px) { .realwork-section { padding: 0 2rem 1rem; } }
+.realwork-label {
+  margin-bottom: 0.75rem; text-align: center;
+  font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #167daf;
+}
+.realwork-grid {
+  max-width: 1210px; margin: 0 auto;
+  position: relative; display: grid; grid-template-columns: 1fr 1fr;
+  height: 560px; border-radius: 2rem; border: 1px solid #d6e6f2;
+  background: #f7fbff; overflow: hidden;
+  box-shadow: 0 28px 60px -26px rgba(9,21,42,0.38);
+}
+@media (max-width: 520px) { .realwork-grid { height: 720px; grid-template-columns: 1fr; } }
+
+.realwork-before {
+  position: relative; overflow: hidden; background: #eaf5fb;
+}
+.realwork-before-img {
+  position: absolute; inset: 0; background: url('/stitch-homepage/before-stress.jpg') center/cover;
+  opacity: 0.85;
+}
+.realwork-before-fade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(250,253,255,0.9), rgba(238,247,252,0.55));
+}
+.realwork-before-content { position: relative; z-index: 10; padding: 2.5rem; }
+.realwork-before-content h3 { font-size: 1.7rem; font-weight: 800; color: #07111f; }
+.realwork-before-content p { margin-top: 0.75rem; max-width: 14rem; font-size: 0.88rem; font-weight: 700; line-height: 1.25rem; color: #263142; }
+
+.before-card {
+  position: absolute; z-index: 20; border-radius: 0.7rem; background: #fff;
+  padding: 1rem 1.25rem; box-shadow: 0 14px 28px -18px rgba(9,21,42,0.35);
+}
+.before-card-title { font-size: 0.78rem; font-weight: 800; color: #07111f; }
+.before-card-sub { font-size: 0.68rem; font-weight: 700; color: #53647a; }
+.before-card-danger { font-size: 0.68rem; font-weight: 700; color: #ef5364; }
+
+.before-note {
+  position: absolute; z-index: 20; border-radius: 0.2rem;
+  background: #fff7b3; padding: 0.75rem 1rem;
+  font-size: 0.68rem; font-weight: 800; line-height: 1rem; color: #6b5b23;
+  box-shadow: 0 12px 24px -18px rgba(9,21,42,0.4); transform: rotate(-8deg);
+}
+
+.realwork-after {
+  position: relative; overflow: hidden; background: #dff3ff;
+}
+.realwork-after-img {
+  position: absolute; inset: 0; right: 0; width: 45%;
+  background: url('/stitch-homepage/after-phone.jpg') center/cover;
+}
+.realwork-after-fade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(223,243,255,0.98), rgba(223,243,255,0.66));
+}
+.realwork-after-content { position: relative; z-index: 10; padding: 2.5rem; }
+.realwork-after-content h3 { font-size: 1.7rem; font-weight: 800; color: #167daf; }
+.realwork-after-content p { margin-top: 0.75rem; max-width: 16rem; font-size: 0.88rem; font-weight: 700; line-height: 1.25rem; color: #263142; }
+
+.after-items { margin-top: 2rem; display: grid; max-width: 19rem; gap: 1rem; }
+.after-item {
+  display: flex; align-items: center; gap: 1rem;
+  border-radius: 0.72rem; background: #fff; padding: 1rem 1.25rem;
+  box-shadow: 0 14px 28px -20px rgba(9,21,42,0.35);
+}
+.after-item-icon {
+  display: flex; width: 32px; height: 32px; align-items: center; justify-content: center;
+  border-radius: 0.48rem; background: #eaf6ff;
+}
+.after-item-icon-inner { position: relative; height: 16px; width: 12px; border-radius: 0.18rem; border: 2px solid #1f8fff; }
+.after-item-icon-line { position: absolute; left: 4px; height: 2px; width: 6px; border-radius: 999px; background: #1f8fff; }
+.after-item-title { font-size: 0.82rem; font-weight: 800; color: #07111f; }
+.after-item-body { font-size: 0.66rem; font-weight: 700; color: #53647a; }
+
+.realwork-divider {
+  position: absolute; left: 50%; top: 50%; z-index: 30;
+  display: flex; width: 56px; height: 56px;
+  transform: translate(-50%, -50%); align-items: center; justify-content: center;
+  border-radius: 999px; background: #1f8fff;
+  font-size: 1.5rem; font-weight: 800; color: #fff;
+  box-shadow: 0 16px 30px -16px rgba(31,143,255,0.85);
+}
+@media (max-width: 520px) { .realwork-divider { display: none; } }
+
+/* ── Workflow Section ── */
+.workflow-section { background: #fff; padding: 1.75rem 1.25rem 0.25rem; }
+@media (min-width: 640px) { .workflow-section { padding-left: 2rem; padding-right: 2rem; } }
+.workflow-label {
+  text-align: center; font-size: 0.78rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em; color: #263142;
+}
+.workflow-h2 {
+  max-width: 45rem; margin: 0.5rem auto 0;
+  text-align: center; font-size: 2rem; font-weight: 800; line-height: 1.03;
+  letter-spacing: -0.02em; color: #07111f;
+}
+@media (min-width: 640px) { .workflow-h2 { font-size: 2.85rem; } }
+.workflow-grid {
+  position: relative; max-width: 1160px; margin: 1.25rem auto 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+}
+@media (max-width: 520px) { .workflow-grid { grid-template-columns: 1fr; } }
+
+.flow-arrow {
+  position: absolute; display: block; height: 96px; width: 224px;
+  border-top: 2px dashed #65b5df; pointer-events: none;
+}
+@media (max-width: 520px) { .flow-arrow { display: none; } }
+
+.workflow-step { position: relative; text-align: center; }
+.step-inner {
+  display: flex; max-width: 13.8rem; margin: 0 auto; align-items: flex-start; gap: 0.75rem; text-align: left;
+}
+.step-number {
+  display: flex; width: 28px; height: 28px; flex-shrink: 0;
+  align-items: center; justify-content: center;
+  border-radius: 999px; background: #1f8fff;
+  font-size: 0.78rem; font-weight: 800; color: #fff;
+  box-shadow: 0 12px 24px -14px rgba(31,143,255,0.8);
+}
+.step-title { font-size: 1.02rem; font-weight: 800; line-height: 1; color: #07111f; }
+.step-body { margin-top: 0.5rem; font-size: 0.74rem; font-weight: 600; line-height: 1.32; color: #111b2a; }
+
+/* ── Mini Phones ── */
+.mini-phone {
+  position: relative; width: 7.15rem; aspect-ratio: 9 / 18.5;
+  border-radius: 1.1rem; background: #000; padding: 4px;
+  box-shadow: 0 20px 34px -22px rgba(9,21,42,0.48);
+}
+.mini-phone-screen {
+  height: 100%; border-radius: 0.86rem; padding: 16px 8px 20px;
+  text-align: center; color: #fff; background: #05080c;
+}
+.mini-phone-screen.light { background: #fff; color: #17243a; }
+.mini-phone-notch { width: 36px; height: 8px; border-radius: 999px; background: #000; margin: 0 auto 12px; }
+.mini-phone-title { font-size: 0.52rem; font-weight: 800; }
+.mini-phone-subtitle { font-size: 0.34rem; color: rgba(255,255,255,0.54); margin-top: 4px; }
+.light .mini-phone-subtitle { color: #8ca0b5; }
+.mini-waveform { display: flex; height: 40px; align-items: center; justify-content: center; gap: 4px; margin-top: 36px; }
+.mini-waveform-bar { width: 4px; border-radius: 999px; background: rgba(255,255,255,0.34); }
+.mini-record-btn {
+  display: flex; width: 32px; height: 32px; margin: 36px auto 0;
+  align-items: center; justify-content: center;
+  border-radius: 999px; border: 1px solid rgba(255,255,255,0.7); background: #ef3030;
+}
+.mini-record-btn-inner { width: 20px; height: 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.8); }
+.mini-summary-cards { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.mini-summary-card { border-radius: 0.5rem; border: 1px solid #e4edf6; background: #f8fbff; padding: 6px; }
+.mini-summary-card-title { font-size: 0.42rem; font-weight: 800; }
+.mini-summary-card-line { height: 4px; border-radius: 999px; background: #d8e7f5; margin-top: 4px; }
+.mini-summary-card-line-accent { background: rgba(31,143,255,0.3); }
+.mini-phone-step { margin-top: 1.5rem; }
+
+/* ── Outcomes Section ── */
+.outcomes-section { background: #fff; padding: 1.5rem 1.25rem 1rem; }
+@media (min-width: 640px) { .outcomes-section { padding-left: 2rem; padding-right: 2rem; } }
+.outcomes-label {
+  text-align: center; font-size: 0.76rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em; color: #111927;
+}
+.outcomes-h2 {
+  max-width: 54rem; margin: 0.5rem auto 0;
+  text-align: center; font-size: 2rem; font-weight: 800; line-height: 1.04;
+  letter-spacing: -0.02em; color: #07111f;
+}
+@media (min-width: 640px) { .outcomes-h2 { font-size: 2.6rem; } }
+.outcomes-grid {
+  max-width: 1160px; margin: 1rem auto 0;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;
+}
+@media (max-width: 520px) { .outcomes-grid { grid-template-columns: 1fr; } }
+.outcome-card {
+  min-height: 13.7rem; border-radius: 0.82rem; border: 1px solid #dce7f1;
+  background: #fff; padding: 1rem;
+  box-shadow: 0 20px 34px -24px rgba(9,21,42,0.36);
+}
+.outcome-card-title { font-size: 0.78rem; font-weight: 800; line-height: 1.25; color: #1f8fff; }
+.outcome-card-body { margin-top: 0.5rem; min-height: 2rem; font-size: 0.62rem; font-weight: 600; line-height: 1.25; color: #263142; }
+.outcome-preview {
+  margin-top: 0.75rem; border-radius: 0.7rem; border: 1px solid #e5edf6;
+  background: #fff; padding: 8px; text-align: left;
+  box-shadow: 0 12px 24px -22px rgba(9,21,42,0.32);
+}
+.outcome-preview-title { font-size: 0.46rem; font-weight: 800; color: #17243a; }
+.outcome-preview-lines { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+.outcome-preview-line {
+  border-radius: 0.42rem; background: #f4f9ff; padding: 6px 8px;
+}
+.outcome-preview-line-title { font-size: 0.34rem; font-weight: 800; color: #17243a; }
+.outcome-preview-line-bar { height: 4px; margin-top: 4px; border-radius: 999px; background: #d8e7f5; }
+.outcome-preview-line-bar-accent { background: rgba(31,143,255,0.3); }
+
+.scenarios-label {
+  margin-top: 1.75rem; text-align: center;
+  font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #111927;
+}
+.scenarios-grid {
+  max-width: 1160px; margin: 1rem auto 0;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;
+}
+@media (max-width: 520px) { .scenarios-grid { grid-template-columns: repeat(2, 1fr); } }
+.scenario-chip {
+  display: flex; min-height: 3.5rem; align-items: center; gap: 0.75rem;
+  border-radius: 0.78rem; border: 1px solid #dce7f1; background: #fff;
+  padding: 0.75rem 1rem;
+  font-size: 0.68rem; font-weight: 800; line-height: 1.25; color: #07111f;
+  box-shadow: 0 16px 28px -22px rgba(9,21,42,0.35);
+}
+
+/* ── Final CTA Section ── */
+.final-cta-section { background: #fff; padding: 0.25rem 1.25rem 0.75rem; }
+@media (min-width: 640px) { .final-cta-section { padding-left: 2rem; padding-right: 2rem; } }
+.final-cta-box {
+  position: relative; max-width: 1160px; margin: 0 auto; height: 17rem;
+  border-radius: 1.1rem;
+  background: linear-gradient(135deg, #e8f8ff 0%, #caefff 100%);
+  padding: 1.25rem; overflow: hidden;
+  box-shadow: 0 24px 54px -32px rgba(31,143,255,0.38);
+}
+@media (max-width: 520px) { .final-cta-box { height: auto; padding-bottom: 2rem; } }
+@media (min-width: 640px) { .final-cta-box { padding: 1.25rem 2.5rem; } }
+.final-cta-content { position: relative; z-index: 10; max-width: 44rem; }
+.final-cta-h2 {
+  font-size: 2rem; font-weight: 800; line-height: 1.08;
+  letter-spacing: -0.02em; color: #07111f;
+}
+@media (min-width: 640px) { .final-cta-h2 { font-size: 2.5rem; } }
+.final-cta-sub {
+  margin-top: 0.75rem; max-width: 34rem;
+  font-size: 0.98rem; font-weight: 600; line-height: 1.5rem; color: #263142;
+}
+.final-cta-form { margin-top: 1.25rem; }
+
+.cta-phone {
+  position: absolute; right: -12px; top: -20px; display: block;
+  width: 18rem; transform: rotate(18deg);
+  border-radius: 2.1rem; border: 1px solid rgba(0,0,0,0.1);
+  background: #0d1420; padding: 8px;
+  box-shadow: 0 28px 60px -25px rgba(9,21,42,0.55);
+}
+@media (max-width: 520px) { .cta-phone { display: none; } }
+@media (min-width: 1024px) { .cta-phone { right: 2rem; width: 21rem; } }
+.cta-phone-screen {
+  aspect-ratio: 9 / 18.5; border-radius: 1.68rem;
+  background: linear-gradient(145deg, #85dcff 0%, #1f8fff 52%, #006ee8 100%);
+}
+.cta-phone-notch {
+  width: 80px; height: 28px; margin: 0 auto;
+  border-radius: 0 0 1rem 1rem; background: #0d1420;
+}
+.cta-phone-text {
+  display: flex; height: 78%; align-items: center; justify-content: center;
+  font-size: 3.2rem; font-weight: 800; color: rgba(255,255,255,0.92);
+}
+
+/* ── Footer ── */
+.footer { margin-top: 1.5rem; background: #fff; }
+.footer-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+  gap: 1.5rem; border-top: 1px solid #dde7f1; padding-top: 1.5rem;
+}
+@media (max-width: 520px) { .footer-inner { flex-direction: column; align-items: flex-start; } }
+.footer-brand { display: flex; align-items: center; gap: 1.25rem; }
+.footer-logo { font-size: 2rem; font-weight: 800; line-height: 1; color: #06121f; text-decoration: none; }
+.footer-tagline { font-size: 0.82rem; font-weight: 600; color: #263142; }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 1.75rem; }
+.footer-nav a { font-size: 0.78rem; font-weight: 700; color: #07111f; text-decoration: none; }
+.footer-nav a:hover { color: #1d8dff; }
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .inko-phone-scroll-recording,
+  .inko-phone-scroll-summary,
+  .inko-phone-scroll-followup { animation: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<div class="stitch-homepage-viewport">
+<div class="stitch-homepage-canvas">
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">
+          <span class="logo-mark-1"></span>
+          <span class="logo-mark-2"></span>
+        </span>
+        <span>inko</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#how-to-use">How to Use</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <form class="header-form" onsubmit="return false;">
+        <label class="sr-only" for="nav-work-email">Work email address</label>
+        <input id="nav-work-email" class="header-input" placeholder="Work email address" type="email">
+        <a class="header-cta" href="#early-access">Get Early Access</a>
+      </form>
+
+      <a class="mobile-cta" href="#early-access">Get Early Access</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ═══ HERO ═══ -->
+    <section class="hero-section">
+      <div style="position:relative;z-index:20;max-width:34rem;text-align:left;">
+        <div class="hero-badge">
+          <span class="hero-badge-icon">i</span>
+          Built for Insurance Advisors &amp; Consultative Sales
+        </div>
+
+        <h1 class="hero-h1">
+          Turn every client conversation into a clear <em>next step.</em>
+        </h1>
+
+        <p class="hero-sub">
+          Inko turns client meetings and calls into summaries, follow-up drafts, next steps, and client records — so every conversation keeps moving after it ends.
+        </p>
+
+        <div id="early-access" style="margin-top:1.5rem;">
+          <form class="early-access-form" id="hero-form">
+            <label class="sr-only" for="hero-email">Work email address</label>
+            <input id="hero-email" class="early-access-input" name="workEmail" placeholder="Work email address" required type="email">
+            <button class="early-access-btn" type="submit">Get Early Access</button>
+            <div id="hero-form-message" class="form-message" style="display:none;"></div>
+          </form>
+        </div>
+
+        <div class="advisor-proof">
+          <div class="advisor-avatars">
+            <span class="advisor-avatar" style="background-image:url('/avatars/advisor-1.jpg');z-index:3;" role="img" aria-label="Insurance advisor portrait"></span>
+            <span class="advisor-avatar" style="background-image:url('/avatars/advisor-2.jpg');z-index:2;" role="img" aria-label="Broker team advisor portrait"></span>
+            <span class="advisor-avatar" style="background-image:url('/avatars/advisor-3.jpg');z-index:1;" role="img" aria-label="Consultative insurance advisor portrait"></span>
+          </div>
+          <div class="advisor-proof-text">
+            <p><strong>140+ advisors</strong> joined the early access list.</p>
+            <p>Priority access for early software testing.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 3 PHONE MOCKUPS WITH ANIMATIONS ═══ -->
+      <div class="mockup-area">
+        <div class="mockup-blob-1"></div>
+        <div class="mockup-blob-2"></div>
+        <p class="mockup-caption">From conversation<br>to follow-up<br>in one mobile workflow.</p>
+
+        <div class="phones-container">
+          <!-- ── Recording Phone ── -->
+          <div class="phone-frame phone-recording">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-status-bar">
+                <span>9:41</span>
+                <span class="phone-status-icons">
+                  <span class="phone-status-battery"></span>
+                  <span class="phone-status-dot"></span>
+                </span>
+              </div>
+              <div class="phone-chrome">
+                <div class="chrome-header">
+                  <span class="chrome-back">&lt;</span>
+                  <span class="chrome-title">Recording</span>
+                  <span class="chrome-more">...</span>
+                </div>
+                <div class="chrome-body">
+                  <div class="inko-phone-scroll-recording">
+                    <div class="rec-header">
+                      <div>
+                        <p class="rec-name">Anna Johnson</p>
+                        <p class="rec-subtitle">Policy Review Meeting</p>
+                      </div>
+                      <span class="rec-badge">REC</span>
+                    </div>
+                    <div style="margin-top:20px;text-align:center;">
+                      <p style="font-size:1.48rem;font-weight:800;color:#17243a;">12:48</p>
+                      <div class="waveform">
+                        <span class="waveform-bar" style="height:16px;"></span>
+                        <span class="waveform-bar" style="height:26px;"></span>
+                        <span class="waveform-bar" style="height:38px;"></span>
+                        <span class="waveform-bar" style="height:24px;"></span>
+                        <span class="waveform-bar" style="height:46px;"></span>
+                        <span class="waveform-bar" style="height:32px;"></span>
+                        <span class="waveform-bar" style="height:52px;"></span>
+                        <span class="waveform-bar" style="height:30px;"></span>
+                        <span class="waveform-bar" style="height:42px;"></span>
+                        <span class="waveform-bar" style="height:24px;"></span>
+                        <span class="waveform-bar" style="height:36px;"></span>
+                        <span class="waveform-bar" style="height:18px;"></span>
+                      </div>
+                    </div>
+                    <div class="live-transcript" style="margin-top:20px;">
+                      <div class="live-transcript-header">
+                        <span class="live-dot"></span>
+                        Live Transcript
+                      </div>
+                      <p class="live-transcript-text">We want enough coverage for the kids, but the monthly payment needs to stay reasonable...</p>
+                    </div>
+                    <div class="signal-chips">
+                      <span class="signal-chip">Family</span>
+                      <span class="signal-chip">Life Insurance</span>
+                      <span class="signal-chip">Budget Focus</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Summary Phone ── -->
+          <div class="phone-frame phone-summary">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-status-bar">
+                <span>9:41</span>
+                <span class="phone-status-icons">
+                  <span class="phone-status-battery"></span>
+                  <span class="phone-status-dot"></span>
+                </span>
+              </div>
+              <div class="phone-chrome">
+                <div class="chrome-header">
+                  <span class="chrome-back">&lt;</span>
+                  <span class="chrome-title">Summary</span>
+                  <span class="chrome-more">...</span>
+                </div>
+                <div class="chrome-body">
+                  <div class="inko-phone-scroll-summary">
+                    <div class="sum-header">
+                      <div>
+                        <p class="sum-name">Anna Johnson</p>
+                        <p class="sum-subtitle">Family Protection Review</p>
+                      </div>
+                      <span class="sum-badge">Summary Ready</span>
+                    </div>
+                    <div class="sum-cards">
+                      <div class="sum-card">
+                        <div class="sum-card-inner">
+                          <span class="tone-icon tone-blue">.</span>
+                          <div>
+                            <h3 class="sum-card-title">Key Needs</h3>
+                            <ul class="sum-card-items">
+                              <li class="sum-card-item">- Family life coverage</li>
+                              <li class="sum-card-item">- Protect education fund</li>
+                              <li class="sum-card-item">- Keep monthly premium predictable</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sum-card">
+                        <div class="sum-card-inner">
+                          <span class="tone-icon tone-orange">!</span>
+                          <div>
+                            <h3 class="sum-card-title">Concerns</h3>
+                            <ul class="sum-card-items">
+                              <li class="sum-card-item">- Monthly budget sensitivity</li>
+                              <li class="sum-card-item">- Wants clear comparison</li>
+                              <li class="sum-card-item">- Before deciding</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sum-card">
+                        <div class="sum-card-inner">
+                          <span class="tone-icon tone-cyan">.</span>
+                          <div>
+                            <h3 class="sum-card-title">Decision Timeline</h3>
+                            <ul class="sum-card-items">
+                              <li class="sum-card-item">- Review in 2 weeks</li>
+                              <li class="sum-card-item">- Check spouse comfort</li>
+                              <li class="sum-card-item">- By Thursday</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sum-card">
+                        <div class="sum-card-inner">
+                          <span class="tone-icon tone-indigo">.</span>
+                          <div>
+                            <h3 class="sum-card-title">Client Signals</h3>
+                            <ul class="sum-card-items">
+                              <li class="sum-card-item">- Budget honest</li>
+                              <li class="sum-card-item">- Family priority</li>
+                              <li class="sum-card-item">- Needs simplicity</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sum-card">
+                        <div class="sum-card-inner">
+                          <span class="tone-icon tone-slate">&gt;</span>
+                          <div>
+                            <h3 class="sum-card-title">Next Best Action</h3>
+                            <ul class="sum-card-items">
+                              <li class="sum-card-item">- Send two quote options</li>
+                              <li class="sum-card-item">- Schedule policy review</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="sum-buttons">
+                      <button class="sum-btn-primary">Generate Follow-up</button>
+                      <button class="sum-btn-secondary">Ask Advisor</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Follow-up Phone ── -->
+          <div class="phone-frame phone-followup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-status-bar">
+                <span>9:41</span>
+                <span class="phone-status-icons">
+                  <span class="phone-status-battery"></span>
+                  <span class="phone-status-dot"></span>
+                </span>
+              </div>
+              <div class="phone-chrome">
+                <div class="chrome-header">
+                  <span class="chrome-back">&lt;</span>
+                  <span class="chrome-title">Follow-up Ready</span>
+                  <span class="chrome-more">...</span>
+                </div>
+                <div class="chrome-body">
+                  <div class="inko-phone-scroll-followup">
+                    <div class="followup-draft">
+                      <h3 class="followup-draft-title">Follow-up Draft</h3>
+                      <p class="followup-draft-text">Hi Anna, great speaking with you today. I'll send two options that balance family protection with your monthly budget goal.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                      <h3 class="followup-section-title">Next Steps</h3>
+                      <div class="followup-steps">
+                        <div class="followup-step">
+                          <span class="followup-step-dot"><span class="followup-step-dot-inner"></span></span>
+                          <span class="followup-step-text">Send quote comparison by Thursday</span>
+                        </div>
+                        <div class="followup-step">
+                          <span class="followup-step-dot"><span class="followup-step-dot-inner"></span></span>
+                          <span class="followup-step-text">Schedule policy review next week</span>
+                        </div>
+                        <div class="followup-step">
+                          <span class="followup-step-dot"><span class="followup-step-dot-inner"></span></span>
+                          <span class="followup-step-text">Confirm education fund priority</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                      <h3 class="followup-crm-title">CRM-ready Record</h3>
+                      <div class="followup-crm-records">
+                        <p class="followup-crm-record">Stage: Follow-up needed</p>
+                        <p class="followup-crm-record">Tags: Family, Budget Focus</p>
+                        <p class="followup-crm-record">Product Interest: 500k term target</p>
+                      </div>
+                    </div>
+
+                    <div class="followup-buttons">
+                      <button class="followup-btn-primary">Review &amp; Send</button>
+                      <button class="followup-btn-secondary">Copy to CRM</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ BEFORE / AFTER ═══ -->
+    <section id="features" class="realwork-section">
+      <div style="max-width:1210px;margin:0 auto;">
+        <p class="realwork-label">After the conversation, the real work begins</p>
+        <div class="realwork-grid">
+          <!-- Before -->
+          <div class="realwork-before">
+            <div class="realwork-before-img"></div>
+            <div class="realwork-before-fade"></div>
+            <div class="realwork-before-content">
+              <h3>Before Inko</h3>
+              <p>Notes scattered. Details forgotten. Follow-up delayed.</p>
+            </div>
+            <div class="before-card" style="left:7%;top:39%;">
+              <p class="before-card-title">3 voice memos</p>
+              <div style="display:flex;margin-top:8px;height:32px;align-items:center;gap:4px;">
+                <span style="width:4px;border-radius:999px;background:#1f8fff;height:8px;"></span>
+                <span style="width:4px;border-radius:999px;background:#1f8fff;height:18px;"></span>
+                <span style="width:4px;border-radius:999px;background:#1f8fff;height:13px;"></span>
+                <span style="width:4px;border-radius:999px;background:#1f8fff;height:24px;"></span>
+                <span style="width:4px;border-radius:999px;background:#1f8fff;height:16px;"></span>
+                <span style="width:4px;border-radius:999px;background:#1f8fff;height:20px;"></span>
+              </div>
+            </div>
+            <div class="before-card" style="left:9%;bottom:23%;">
+              <p class="before-card-title">Handwritten notes</p>
+              <div style="margin-top:8px;height:28px;width:96px;border-radius:4px;background:linear-gradient(180deg,#edf3f8,#fff);"></div>
+            </div>
+            <div class="before-note" style="bottom:5%;left:33%;">
+              Follow-up not<br>typed
+            </div>
+            <div class="before-card" style="right:22%;top:38%;">
+              <p class="before-card-title">Email draft</p>
+              <p class="before-card-sub">Not sent</p>
+            </div>
+            <div class="before-card" style="bottom:8%;right:23%;">
+              <p class="before-card-title">CRM update</p>
+              <p class="before-card-danger">Missing</p>
+            </div>
+          </div>
+
+          <!-- After -->
+          <div class="realwork-after">
+            <div class="realwork-after-img"></div>
+            <div class="realwork-after-fade"></div>
+            <div class="realwork-after-content">
+              <h3>After Inko</h3>
+              <p>Everything captured, organized, and ready to act.</p>
+              <div class="after-items">
+                <div class="after-item">
+                  <span class="after-item-icon">
+                    <span class="after-item-icon-inner">
+                      <span class="after-item-icon-line" style="top:4px;"></span>
+                      <span class="after-item-icon-line" style="top:8px;"></span>
+                    </span>
+                  </span>
+                  <div>
+                    <p class="after-item-title">Client Summary</p>
+                    <p class="after-item-body">What matters, cleanly captured</p>
+                  </div>
+                </div>
+                <div class="after-item">
+                  <span class="after-item-icon">
+                    <span class="after-item-icon-inner">
+                      <span class="after-item-icon-line" style="top:4px;"></span>
+                      <span class="after-item-icon-line" style="top:8px;"></span>
+                    </span>
+                  </span>
+                  <div>
+                    <p class="after-item-title">Follow-up Draft</p>
+                    <p class="after-item-body">Personalized and ready to review</p>
+                  </div>
+                </div>
+                <div class="after-item">
+                  <span class="after-item-icon">
+                    <span class="after-item-icon-inner">
+                      <span class="after-item-icon-line" style="top:4px;"></span>
+                      <span class="after-item-icon-line" style="top:8px;"></span>
+                    </span>
+                  </span>
+                  <div>
+                    <p class="after-item-title">Next Steps</p>
+                    <p class="after-item-body">Actionable and time-bound</p>
+                  </div>
+                </div>
+                <div class="after-item">
+                  <span class="after-item-icon">
+                    <span class="after-item-icon-inner">
+                      <span class="after-item-icon-line" style="top:4px;"></span>
+                      <span class="after-item-icon-line" style="top:8px;"></span>
+                    </span>
+                  </span>
+                  <div>
+                    <p class="after-item-title">Client Record</p>
+                    <p class="after-item-body">CRM-ready and complete</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="realwork-divider">-&gt;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HOW IT WORKS ═══ -->
+    <section id="how-to-use" class="workflow-section">
+      <div style="max-width:1160px;margin:0 auto;">
+        <p class="workflow-label">How Inko Works</p>
+        <h2 class="workflow-h2">One mobile workflow after every conversation.</h2>
+
+        <div class="workflow-grid">
+          <div class="flow-arrow" style="left:22%;top:5.9rem;transform:rotate(-8deg);"></div>
+          <div class="flow-arrow" style="left:49%;top:9.8rem;transform:rotate(9deg);"></div>
+
+          <!-- Step 1 -->
+          <article class="workflow-step">
+            <div class="step-inner">
+              <span class="step-number">1</span>
+              <div>
+                <h3 class="step-title">Capture</h3>
+                <p class="step-body">Record a meeting, call, or in-person consultation from your phone.</p>
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;display:flex;justify-content:center;">
+              <div class="mini-phone">
+                <div class="mini-phone-screen">
+                  <p class="mini-phone-title">Recording</p>
+                  <p class="mini-phone-subtitle">Consulting client call</p>
+                  <div class="mini-waveform">
+                    <span class="mini-waveform-bar" style="height:12px;"></span>
+                    <span class="mini-waveform-bar" style="height:22px;"></span>
+                    <span class="mini-waveform-bar" style="height:34px;"></span>
+                    <span class="mini-waveform-bar" style="height:18px;"></span>
+                    <span class="mini-waveform-bar" style="height:28px;"></span>
+                    <span class="mini-waveform-bar" style="height:38px;"></span>
+                    <span class="mini-waveform-bar" style="height:20px;"></span>
+                  </div>
+                  <div class="mini-record-btn"><div class="mini-record-btn-inner"></div></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 2 -->
+          <article class="workflow-step">
+            <div class="step-inner" style="padding-left:0.75rem;">
+              <span class="step-number">2</span>
+              <div>
+                <h3 class="step-title">Structure</h3>
+                <p class="step-body">Inko extracts what matters so you do not have to rebuild it from memory.</p>
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;display:flex;justify-content:center;">
+              <div class="mini-phone">
+                <div class="mini-phone-screen light">
+                  <div class="mini-phone-notch"></div>
+                  <p class="mini-phone-title" style="color:#17243a;">Anna Johnson</p>
+                  <p class="mini-phone-subtitle">Policy review</p>
+                  <div class="mini-summary-cards">
+                    <div class="mini-summary-card">
+                      <p style="font-size:0.42rem;font-weight:800;color:#17243a;">Key needs</p>
+                      <div class="mini-summary-card-line" style="width:48px;"></div>
+                      <div class="mini-summary-card-line" style="width:36px;"></div>
+                    </div>
+                    <div class="mini-summary-card">
+                      <p style="font-size:0.42rem;font-weight:800;color:#17243a;">Concerns</p>
+                      <div class="mini-summary-card-line" style="width:48px;"></div>
+                      <div class="mini-summary-card-line" style="width:36px;"></div>
+                    </div>
+                    <div class="mini-summary-card">
+                      <p style="font-size:0.42rem;font-weight:800;color:#17243a;">Next step</p>
+                      <div class="mini-summary-card-line" style="width:48px;"></div>
+                      <div class="mini-summary-card-line" style="width:36px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 3 -->
+          <article class="workflow-step">
+            <div class="step-inner">
+              <span class="step-number">3</span>
+              <div>
+                <h3 class="step-title">Act</h3>
+                <p class="step-body">Get follow-ups, next steps, updated records, and move the client forward.</p>
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;display:flex;justify-content:center;">
+              <div class="mini-phone">
+                <div class="mini-phone-screen light">
+                  <div class="mini-phone-notch"></div>
+                  <p class="mini-phone-title" style="color:#17243a;font-size:0.58rem;">Follow-up Ready</p>
+                  <div style="margin-top:8px;border-radius:0.56rem;border:1px solid #e5edf6;background:#f8fbff;padding:8px;">
+                    <div style="height:4px;width:64px;border-radius:999px;background:#c8dbea;"></div>
+                    <div style="height:4px;width:56px;border-radius:999px;background:#c8dbea;margin-top:4px;"></div>
+                    <div style="height:4px;width:48px;border-radius:999px;background:#c8dbea;margin-top:4px;"></div>
+                  </div>
+                  <p style="margin-top:12px;font-size:0.48rem;font-weight:800;color:#17243a;">Next Steps</p>
+                  <div style="margin-top:6px;display:flex;flex-direction:column;gap:6px;">
+                    <div style="height:16px;border-radius:6px;background:#eef6ff;"></div>
+                    <div style="height:16px;border-radius:6px;background:#eef6ff;"></div>
+                    <div style="height:16px;border-radius:6px;background:#eef6ff;"></div>
+                  </div>
+                  <button style="margin-top:16px;height:20px;width:100%;border-radius:7px;background:#1f8fff;border:none;font-size:0.34rem;font-weight:800;color:#fff;font-family:inherit;">Draft email</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ OUTCOMES ═══ -->
+    <section class="outcomes-section">
+      <div style="max-width:1160px;margin:0 auto;">
+        <p class="outcomes-label">What You Get</p>
+        <h2 class="outcomes-h2">The work that usually happens after the meeting — already prepared.</h2>
+
+        <div class="outcomes-grid">
+          <div class="outcome-card">
+            <h3 class="outcome-card-title">Conversation Summary</h3>
+            <p class="outcome-card-body">Understand what was said without replaying.</p>
+            <div class="outcome-preview">
+              <p class="outcome-preview-title">Summary</p>
+              <div class="outcome-preview-lines">
+                <div class="outcome-preview-line"><p class="outcome-preview-line-title">Key Needs</p><div class="outcome-preview-line-bar outcome-preview-line-bar-accent" style="width:48px;"></div></div>
+                <div class="outcome-preview-line"><p class="outcome-preview-line-title">Concerns</p><div class="outcome-preview-line-bar" style="width:36px;"></div></div>
+                <div class="outcome-preview-line"><p class="outcome-preview-line-title">Decision Timeline</p><div class="outcome-preview-line-bar" style="width:36px;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="outcome-card">
+            <h3 class="outcome-card-title">Follow-up Drafts</h3>
+            <p class="outcome-card-body">Create personalized follow-ups while it is still fresh.</p>
+            <div class="outcome-preview">
+              <p class="outcome-preview-title">Follow-up Draft</p>
+              <p style="margin-top:8px;font-size:0.38rem;line-height:0.62rem;color:#617288;">Hi John, great speaking with you today. Based on what we discussed...</p>
+              <button style="margin-top:8px;height:20px;width:100%;border-radius:6px;background:#1f8fff;border:none;font-size:0.34rem;font-weight:800;color:#fff;font-family:inherit;">Review &amp; Send</button>
+            </div>
+          </div>
+
+          <div class="outcome-card">
+            <h3 class="outcome-card-title">Client Memory</h3>
+            <p class="outcome-card-body">Keep every client's needs, concerns, and history.</p>
+            <div class="outcome-preview">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="width:20px;height:20px;border-radius:999px;background:url('/avatars/advisor-2.jpg') center/cover;"></span>
+                <div>
+                  <p style="font-size:0.42rem;font-weight:800;color:#17243a;">John Brown</p>
+                  <p style="font-size:0.32rem;color:#8ca0b5;">Client since 2024</p>
+                </div>
+              </div>
+              <div style="display:flex;margin-top:8px;gap:4px;">
+                <span style="border-radius:4px;background:#edf7ff;padding:2px 4px;font-size:0.28rem;font-weight:800;color:#1f8fff;">Health</span>
+                <span style="border-radius:4px;background:#edf7ff;padding:2px 4px;font-size:0.28rem;font-weight:800;color:#1f8fff;">Family</span>
+                <span style="border-radius:4px;background:#edf7ff;padding:2px 4px;font-size:0.28rem;font-weight:800;color:#1f8fff;">Budget</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="outcome-card">
+            <h3 class="outcome-card-title">Ask Advisor</h3>
+            <p class="outcome-card-body">Ask what to say next, or which product fits.</p>
+            <div class="outcome-preview">
+              <p class="outcome-preview-title">Ask Advisor</p>
+              <p style="margin-top:8px;border-radius:7px;background:#f3f8fc;padding:8px;font-size:0.36rem;line-height:0.56rem;color:#617288;">Some recommendations fit John's output and term needs.</p>
+              <p style="margin-top:8px;font-size:0.36rem;font-weight:800;color:#17243a;">Term Life + Critical Illness</p>
+            </div>
+          </div>
+
+          <div class="outcome-card">
+            <h3 class="outcome-card-title">CRM-ready Notes</h3>
+            <p class="outcome-card-body">Turn conversations into structured records.</p>
+            <div class="outcome-preview">
+              <p class="outcome-preview-title">CRM Record</p>
+              <p style="margin-top:8px;font-size:0.34rem;font-weight:800;color:#f06a3d;">Follow-up needed</p>
+              <div style="margin-top:4px;display:flex;flex-direction:column;gap:4px;">
+                <div style="height:8px;border-radius:999px;background:#edf3f8;"></div>
+                <div style="height:8px;border-radius:999px;background:#edf3f8;"></div>
+                <div style="height:8px;border-radius:999px;background:#edf3f8;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="scenarios-label">Built for Real Sales Conversations</p>
+        <div class="scenarios-grid">
+          <span class="scenario-chip"><span class="after-item-icon"><span class="after-item-icon-inner"><span class="after-item-icon-line" style="top:4px;"></span><span class="after-item-icon-line" style="top:8px;"></span></span></span> Insurance Consultations</span>
+          <span class="scenario-chip"><span class="after-item-icon"><span class="after-item-icon-inner"><span class="after-item-icon-line" style="top:4px;"></span><span class="after-item-icon-line" style="top:8px;"></span></span></span> Client Review Meetings</span>
+          <span class="scenario-chip"><span class="after-item-icon"><span class="after-item-icon-inner"><span class="after-item-icon-line" style="top:4px;"></span><span class="after-item-icon-line" style="top:8px;"></span></span></span> Follow-up Calls</span>
+          <span class="scenario-chip"><span class="after-item-icon"><span class="after-item-icon-inner"><span class="after-item-icon-line" style="top:4px;"></span><span class="after-item-icon-line" style="top:8px;"></span></span></span> Renewal Conversations</span>
+          <span class="scenario-chip"><span class="after-item-icon"><span class="after-item-icon-inner"><span class="after-item-icon-line" style="top:4px;"></span><span class="after-item-icon-line" style="top:8px;"></span></span></span> Long-cycle Consultative Sales</span>
+          <span class="scenario-chip"><span class="after-item-icon"><span class="after-item-icon-inner"><span class="after-item-icon-line" style="top:4px;"></span><span class="after-item-icon-line" style="top:8px;"></span></span></span> Broker Team Handoffs</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FINAL CTA ═══ -->
+    <section class="final-cta-section">
+      <div class="final-cta-box">
+        <div class="final-cta-content">
+          <h2 class="final-cta-h2">Don't let the value of a good conversation disappear.</h2>
+          <p class="final-cta-sub">Join early access and see how Inko turns client conversations into follow-ups, next steps, and client records.</p>
+          <div class="final-cta-form">
+            <form class="early-access-form" id="cta-form">
+              <label class="sr-only" for="cta-email">Work email address</label>
+              <input id="cta-email" class="early-access-input" name="workEmail" placeholder="Work email address" required type="email">
+              <button class="early-access-btn" type="submit">Get Early Access</button>
+              <div id="cta-form-message" class="form-message" style="display:none;"></div>
+            </form>
+          </div>
+          <div class="advisor-proof" style="margin-top:0.5rem;">
+            <div class="advisor-avatars">
+              <span class="advisor-avatar" style="background-image:url('/avatars/advisor-1.jpg');z-index:3;" role="img" aria-label="Insurance advisor portrait"></span>
+              <span class="advisor-avatar" style="background-image:url('/avatars/advisor-2.jpg');z-index:2;" role="img" aria-label="Broker team advisor portrait"></span>
+              <span class="advisor-avatar" style="background-image:url('/avatars/advisor-3.jpg');z-index:1;" role="img" aria-label="Consultative insurance advisor portrait"></span>
+            </div>
+            <div class="advisor-proof-text">
+              <p><strong>140+ advisors</strong> joined the early access list.</p>
+              <p>Priority access for early software testing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-phone">
+          <div class="cta-phone-screen">
+            <div class="cta-phone-notch"></div>
+            <div class="cta-phone-text">inko</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">inko</a>
+          <p class="footer-tagline">AI mobile post-conversation workspace for insurance advisors.</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="/privacy-policy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/contact">LinkedIn</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+    </footer>
+  </main>
+
+</div>
+</div>
+
+<script>
+// Early access form handling
+function setupForm(formId, messageId) {
+  const form = document.getElementById(formId);
+  const msgEl = document.getElementById(messageId);
+  if (!form || !msgEl) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const input = form.querySelector('input[type="email"]');
+    const email = input.value.trim();
+    if (!email) return;
+
+    btn.textContent = 'Joining...';
+    btn.disabled = true;
+    msgEl.style.display = 'none';
+
+    fetch('/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fullName: 'Early access visitor',
+        workEmail: email,
+        role: 'Insurance advisor or consultative sales professional',
+        interest: 'Interested in early access for mobile post-conversation workflow testing.'
+      })
+    })
+    .then(function(r) { return r.json().catch(function() { return null; }).then(function(d) { return { ok: r.ok, data: d }; }); })
+    .then(function(result) {
+      if (!result.ok) {
+        throw new Error((result.data && result.data.error) || 'Unable to submit your request right now.');
+      }
+      msgEl.textContent = (result.data && result.data.message) || 'You are on the early access list.';
+      msgEl.className = 'form-message success';
+      msgEl.style.display = 'block';
+      input.value = '';
+    })
+    .catch(function(err) {
+      msgEl.textContent = err.message || 'Unable to submit your request right now.';
+      msgEl.className = 'form-message error';
+      msgEl.style.display = 'block';
+    })
+    .finally(function() {
+      btn.textContent = 'Get Early Access';
+      btn.disabled = false;
+    });
+  });
+}
+
+setupForm('hero-form', 'hero-form-message');
+setupForm('cta-form', 'cta-form-message');
+</script>
+</body>
+</html>
