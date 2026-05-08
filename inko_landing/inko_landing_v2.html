@@ -67,60 +67,81 @@ body {
 }
 
 /* ── Header ── */
-.header { position: relative; z-index: 30; }
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: background-color 0.3s; }
+.header.scrolled { background-color: rgba(255,255,255,0.88); box-shadow: 0 1px 8px rgba(9,21,42,0.06); }
 .header-inner {
   max-width: 1160px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 1.25rem 1.25rem 1.25rem 2rem;
+  padding: 0.625rem 1.5rem;
 }
-@media (min-width: 640px) { .header-inner { padding: 1.25rem 2rem; } }
-@media (min-width: 1024px) { .header-inner { padding: 2rem 2rem; } }
 
-.logo { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.78rem; font-weight: 800; line-height: 1; color: #06121f; text-decoration: none; }
-.logo-mark { position: relative; display: flex; height: 24px; width: 16px; align-items: center; justify-content: center; }
-.logo-mark-1 { position: absolute; left: 4px; top: 0; height: 12px; width: 8px; border-radius: 999px; background: #1f8fff; transform: rotate(24deg); }
-.logo-mark-2 { position: absolute; bottom: 0; left: 0; height: 16px; width: 8px; border-radius: 999px; background: #64d8ff; transform: rotate(24deg); }
+.header-logo img { height: 1.25rem; width: auto; }
 
-.nav { display: flex; align-items: center; gap: 1rem; font-size: 0.82rem; font-weight: 700; color: #07111f; }
-@media (min-width: 1024px) { .nav { gap: 2.25rem; } }
-@media (max-width: 520px) { .nav { display: none; } }
-.nav a { text-decoration: none; color: inherit; transition: color 0.15s; }
-.nav a:hover { color: #1d8dff; }
+.header-desktop { display: none; align-items: center; gap: 2rem; }
+@media (min-width: 1024px) { .header-desktop { display: flex; } }
+.header-nav { display: flex; align-items: center; gap: 2rem; font-size: 0.82rem; font-weight: 700; color: #07111f; }
+.header-nav a { text-decoration: none; color: inherit; transition: color 0.15s; }
+.header-nav a:hover { color: #1d8dff; }
 
-.header-form { display: flex; align-items: center; gap: 0.5rem; }
-@media (max-width: 520px) { .header-form { display: none; } }
+.header-form { display: flex; align-items: center; gap: 0; border-radius: 0.5rem; background: rgba(0,0,0,0.04); padding: 0.25rem; }
 .header-input {
-  height: 48px; width: 154px; padding: 0 1rem;
-  border-radius: 0.72rem; border: 1px solid #dbe8f4; background: #fff;
-  font-size: 0.78rem; font-weight: 600; color: #17243a;
-  box-shadow: 0 12px 28px -22px rgba(9,21,42,0.28); outline: none;
+  height: 36px; width: 160px; padding: 0 0.75rem;
+  border: none; background: transparent;
+  font-size: 0.78rem; font-weight: 600; color: #17243a; outline: none;
 }
 @media (min-width: 1024px) { .header-input { width: 200px; } }
 .header-input::placeholder { color: #8b9aaa; }
-
-.header-cta, .mobile-cta {
+.header-cta-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 0.72rem; background: #1f8fff; color: #fff; text-decoration: none;
-  font-size: 0.78rem; font-weight: 800;
-  box-shadow: 0 18px 34px -18px rgba(25,127,255,0.9); transition: background 0.15s;
+  border-radius: 0.5rem; background: #1f8fff; color: #fff; border: none;
+  padding: 0.5rem 0.75rem; font-size: 0.78rem; font-weight: 800; cursor: pointer;
+  transition: background 0.15s; font-family: inherit;
 }
-.header-cta { height: 48px; padding: 0 1.5rem; }
-.header-cta:hover { background: #117dea; }
-.mobile-cta {
-  display: none; height: 40px; padding: 0 1rem;
-  font-size: 0.72rem;
+.header-cta-btn:hover { background: #117dea; }
+
+/* Mobile hamburger */
+.header-mobile-btn {
+  display: flex; width: 40px; height: 40px; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer; color: #07111f; border-radius: 0.5rem;
 }
-@media (max-width: 520px) { .mobile-cta { display: inline-flex; } }
+.header-mobile-btn:hover { color: #1d8dff; }
+@media (min-width: 1024px) { .header-mobile-btn { display: none; } }
+.header-mobile-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Mobile menu panel */
+.header-mobile-panel {
+  display: none; margin-top: 0.75rem; border-radius: 1rem; border: 1px solid rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.96); padding: 1rem; box-shadow: 0 18px 48px rgba(0,0,0,0.12);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+.header-mobile-panel.open { display: block; }
+.header-mobile-panel a { display: block; padding: 0.5rem 0; font-size: 0.88rem; font-weight: 700; color: #07111f; text-decoration: none; }
+.header-mobile-panel a:hover { color: #1d8dff; }
+.header-mobile-form { margin-top: 1rem; background: rgba(0,0,0,0.04); border-radius: 0.75rem; padding: 0.75rem; }
+.header-mobile-form input {
+  width: 100%; height: 36px; border: none; background: transparent; padding: 0 0.5rem;
+  font-size: 0.82rem; font-weight: 600; color: #17243a; outline: none; font-family: inherit;
+}
+.header-mobile-form input::placeholder { color: #8b9aaa; }
+.header-mobile-form button {
+  width: 100%; margin-top: 0.5rem; height: 36px; border-radius: 0.5rem; background: #1f8fff; border: none;
+  font-size: 0.82rem; font-weight: 800; color: #fff; cursor: pointer; font-family: inherit;
+}
+.header-mobile-form button:hover { background: #117dea; }
+
+/* Add top padding to body to offset fixed header */
+main { padding-top: 0; }
+@media (min-width: 1024px) { main { padding-top: 0; } }
 
 /* ── Hero Section ── */
 .hero-section {
   max-width: 1160px; margin: 0 auto;
   display: grid; grid-template-columns: 0.88fr 1.18fr;
   align-items: center; gap: 2rem;
-  padding: 1.75rem 2rem 3.5rem;
+  padding: 5rem 2rem 3.5rem;
 }
-@media (max-width: 520px) { .hero-section { grid-template-columns: 1fr; padding: 1.75rem 1.25rem; text-align: center; } }
-@media (min-width: 1024px) { .hero-section { padding-top: 3.5rem; padding-bottom: 5rem; } }
+@media (max-width: 520px) { .hero-section { grid-template-columns: 1fr; padding: 5rem 1.25rem; text-align: center; } }
+@media (min-width: 1024px) { .hero-section { padding-top: 6rem; padding-bottom: 5rem; } }
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: 0.5rem;
@@ -246,6 +267,8 @@ body {
 }
 @media (min-width: 640px) { .phone-notch { height: 9px; width: 60px; } }
 @media (min-width: 1024px) { .phone-notch { height: 10px; width: 67px; } }
+@media (min-width: 640px) { .phone-notch { height: 8px; width: 32px; top: 9px; } }
+@media (min-width: 1024px) { .phone-notch { height: 9px; width: 36px; top: 10px; } }
 
 .phone-screen {
   height: 100%; border-radius: 1.28rem; background: #fff; overflow: hidden;
@@ -306,8 +329,11 @@ body {
 }
 .rec-timer { margin-top: 20px; text-align: center; font-size: 1.48rem; font-weight: 800; color: #17243a; }
 
-.waveform { display: flex; height: 76px; align-items: center; justify-content: center; gap: 4px; }
-.waveform-bar { width: 4px; border-radius: 999px; background: #1f8fff; }
+.waveform { display: flex; height: 48px; align-items: center; justify-content: center; gap: 2px; }
+.waveform-bar {
+  width: 2px; border-radius: 999px; background: #1f8fff;
+  transition: height 0.14s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
 .live-transcript {
   border-radius: 0.86rem; border: 1px solid #e6edf5; background: #fff;
@@ -433,22 +459,27 @@ body {
 
 /* ── Before / After Section ── */
 .realwork-section {
-  position: relative; margin-top: -0.5rem; padding: 0 1.25rem 1rem;
+  position: relative; margin-top: 5rem; padding: 0 1.25rem 1rem;
   background: linear-gradient(180deg, transparent 0%, transparent 49%, #ffffff 50%, #ffffff 100%);
 }
 @media (min-width: 640px) { .realwork-section { padding: 0 2rem 1rem; } }
+@media (max-width: 520px) {
+  .realwork-img-desktop { display: none !important; }
+  .realwork-img-mobile { display: block !important; }
+}
 .realwork-label {
   margin-bottom: 0.75rem; text-align: center;
   font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #167daf;
 }
 .realwork-grid {
   max-width: 1210px; margin: 0 auto;
-  position: relative; display: grid; grid-template-columns: 1fr 1fr;
-  height: 560px; border-radius: 2rem; border: 1px solid #d6e6f2;
+  position: relative; display: block;
+  border-radius: 2rem; border: 1px solid #d6e6f2;
   background: #f7fbff; overflow: hidden;
   box-shadow: 0 28px 60px -26px rgba(9,21,42,0.38);
 }
-@media (max-width: 520px) { .realwork-grid { height: 720px; grid-template-columns: 1fr; } }
+.realwork-grid img { border-radius: 2rem; }
+@media (max-width: 520px) { .realwork-grid {  } }
 
 .realwork-before {
   position: relative; overflow: hidden; background: #eaf5fb;
@@ -521,8 +552,8 @@ body {
 @media (max-width: 520px) { .realwork-divider { display: none; } }
 
 /* ── Workflow Section ── */
-.workflow-section { background: #fff; padding: 1.75rem 1.25rem 0.25rem; }
-@media (min-width: 640px) { .workflow-section { padding-left: 2rem; padding-right: 2rem; } }
+.workflow-section { background: #fff; padding: 9rem 1.25rem 6rem; }
+@media (min-width: 640px) { .workflow-section { padding: 12rem 2rem 8rem; } }
 .workflow-label {
   text-align: center; font-size: 0.78rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.12em; color: #263142;
@@ -590,8 +621,8 @@ body {
 .mini-phone-step { margin-top: 1.5rem; }
 
 /* ── Outcomes Section ── */
-.outcomes-section { background: #fff; padding: 1.5rem 1.25rem 1rem; }
-@media (min-width: 640px) { .outcomes-section { padding-left: 2rem; padding-right: 2rem; } }
+.outcomes-section { background: #fff; padding: 6rem 1.25rem 5rem; }
+@media (min-width: 640px) { .outcomes-section { padding: 8rem 2rem 6rem; } }
 .outcomes-label {
   text-align: center; font-size: 0.76rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.12em; color: #111927;
@@ -629,7 +660,7 @@ body {
 .outcome-preview-line-bar-accent { background: rgba(31,143,255,0.3); }
 
 .scenarios-label {
-  margin-top: 1.75rem; text-align: center;
+  margin-top: 6rem; text-align: center;
   font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #111927;
 }
 .scenarios-grid {
@@ -646,8 +677,8 @@ body {
 }
 
 /* ── Final CTA Section ── */
-.final-cta-section { background: #fff; padding: 0.25rem 1.25rem 0.75rem; }
-@media (min-width: 640px) { .final-cta-section { padding-left: 2rem; padding-right: 2rem; } }
+.final-cta-section { background: #fff; padding: 5rem 1.25rem 1rem; }
+@media (min-width: 640px) { .final-cta-section { padding-left: 2rem; padding-right: 2rem; padding-top: 8rem; padding-bottom: 1rem; } }
 .final-cta-box {
   position: relative; max-width: 1160px; margin: 0 auto; height: 17rem;
   border-radius: 1.1rem;
@@ -670,7 +701,7 @@ body {
 .final-cta-form { margin-top: 1.25rem; }
 
 .cta-phone {
-  position: absolute; right: -12px; top: -20px; display: block;
+  position: absolute; right: -12px; top: -10rem; display: block;
   width: 18rem; transform: rotate(18deg);
   border-radius: 2.1rem; border: 1px solid rgba(0,0,0,0.1);
   background: #0d1420; padding: 8px;
@@ -692,7 +723,7 @@ body {
 }
 
 /* ── Footer ── */
-.footer { margin-top: 1.5rem; background: #fff; }
+.footer { padding-top: 1.5rem; padding-bottom: 3rem; background: #fff; }
 .footer-inner {
   max-width: 1160px; margin: 0 auto;
   display: flex; flex-direction: row; align-items: center; justify-content: space-between;
@@ -720,29 +751,39 @@ body {
 <div class="stitch-homepage-canvas">
 
   <!-- ═══ HEADER ═══ -->
-  <header class="header">
+  <header class="header" id="site-header">
     <div class="header-inner">
-      <a href="/" class="logo">
-        <span class="logo-mark">
-          <span class="logo-mark-1"></span>
-          <span class="logo-mark-2"></span>
-        </span>
-        <span>inko</span>
+      <a href="#hero" class="header-logo">
+        <img src="logo_lightmode.svg" alt="Inko" id="header-logo-img">
       </a>
 
-      <nav class="nav">
-        <a href="#features">Features</a>
-        <a href="#how-to-use">How to Use</a>
-        <a href="#faq">FAQ</a>
-      </nav>
+      <div class="header-desktop">
+        <nav class="header-nav">
+          <a href="#features">Features</a>
+          <a href="#how-to-use">How to Use</a>
+          <a href="#faq">FAQ</a>
+        </nav>
 
-      <form class="header-form" onsubmit="return false;">
-        <label class="sr-only" for="nav-work-email">Work email address</label>
-        <input id="nav-work-email" class="header-input" placeholder="Work email address" type="email">
-        <a class="header-cta" href="#early-access">Get Early Access</a>
-      </form>
+        <div class="header-form">
+          <label class="sr-only" for="nav-work-email">Work email address</label>
+          <input id="nav-work-email" class="header-input" placeholder="Enter Your Work Email" type="email">
+          <button class="header-cta-btn" type="button" id="nav-submit-btn">Get Early Access</button>
+        </div>
+      </div>
 
-      <a class="mobile-cta" href="#early-access">Get Early Access</a>
+      <button class="header-mobile-btn" id="mobile-menu-toggle" type="button" aria-label="Open navigation menu">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="header-mobile-panel" id="mobile-menu-panel">
+      <a href="#features">Features</a>
+      <a href="#how-to-use">How to Use</a>
+      <a href="#faq">FAQ</a>
+      <div class="header-mobile-form">
+        <input type="email" placeholder="Enter Your Work Email" id="mobile-email-input">
+        <button type="button" id="mobile-submit-btn">Get Early Access</button>
+      </div>
     </div>
   </header>
 
@@ -750,11 +791,6 @@ body {
     <!-- ═══ HERO ═══ -->
     <section class="hero-section">
       <div style="position:relative;z-index:20;max-width:34rem;text-align:left;">
-        <div class="hero-badge">
-          <span class="hero-badge-icon">i</span>
-          Built for Insurance Advisors &amp; Consultative Sales
-        </div>
-
         <h1 class="hero-h1">
           Turn every client conversation into a clear <em>next step.</em>
         </h1>
@@ -774,9 +810,10 @@ body {
 
         <div class="advisor-proof">
           <div class="advisor-avatars">
-            <span class="advisor-avatar" style="background-image:url('/avatars/advisor-1.jpg');z-index:3;" role="img" aria-label="Insurance advisor portrait"></span>
-            <span class="advisor-avatar" style="background-image:url('/avatars/advisor-2.jpg');z-index:2;" role="img" aria-label="Broker team advisor portrait"></span>
-            <span class="advisor-avatar" style="background-image:url('/avatars/advisor-3.jpg');z-index:1;" role="img" aria-label="Consultative insurance advisor portrait"></span>
+            <img src="../public/avatars/avatar-1.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:4;">
+            <img src="../public/avatars/avatar-2.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:3;">
+            <img src="../public/avatars/avatar-3.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:2;">
+            <img src="../public/avatars/avatar-4.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:1;">
           </div>
           <div class="advisor-proof-text">
             <p><strong>140+ advisors</strong> joined the early access list.</p>
@@ -789,7 +826,6 @@ body {
       <div class="mockup-area">
         <div class="mockup-blob-1"></div>
         <div class="mockup-blob-2"></div>
-        <p class="mockup-caption">From conversation<br>to follow-up<br>in one mobile workflow.</p>
 
         <div class="phones-container">
           <!-- ── Recording Phone ── -->
@@ -819,20 +855,24 @@ body {
                       <span class="rec-badge">REC</span>
                     </div>
                     <div style="margin-top:20px;text-align:center;">
-                      <p style="font-size:1.48rem;font-weight:800;color:#17243a;">12:48</p>
-                      <div class="waveform">
-                        <span class="waveform-bar" style="height:16px;"></span>
-                        <span class="waveform-bar" style="height:26px;"></span>
-                        <span class="waveform-bar" style="height:38px;"></span>
-                        <span class="waveform-bar" style="height:24px;"></span>
-                        <span class="waveform-bar" style="height:46px;"></span>
-                        <span class="waveform-bar" style="height:32px;"></span>
-                        <span class="waveform-bar" style="height:52px;"></span>
-                        <span class="waveform-bar" style="height:30px;"></span>
-                        <span class="waveform-bar" style="height:42px;"></span>
-                        <span class="waveform-bar" style="height:24px;"></span>
-                        <span class="waveform-bar" style="height:36px;"></span>
-                        <span class="waveform-bar" style="height:18px;"></span>
+                      <p id="rec-timer" style="font-size:1.48rem;font-weight:800;color:#17243a;font-variant-numeric:tabular-nums;">12:48</p>
+                      <div class="waveform" id="rec-waveform">
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
+                        <span class="waveform-bar" style="height:4px;"></span>
                       </div>
                     </div>
                     <div class="live-transcript" style="margin-top:20px;">
@@ -1023,104 +1063,9 @@ body {
     <section id="features" class="realwork-section">
       <div style="max-width:1210px;margin:0 auto;">
         <p class="realwork-label">After the conversation, the real work begins</p>
-        <div class="realwork-grid">
-          <!-- Before -->
-          <div class="realwork-before">
-            <div class="realwork-before-img"></div>
-            <div class="realwork-before-fade"></div>
-            <div class="realwork-before-content">
-              <h3>Before Inko</h3>
-              <p>Notes scattered. Details forgotten. Follow-up delayed.</p>
-            </div>
-            <div class="before-card" style="left:7%;top:39%;">
-              <p class="before-card-title">3 voice memos</p>
-              <div style="display:flex;margin-top:8px;height:32px;align-items:center;gap:4px;">
-                <span style="width:4px;border-radius:999px;background:#1f8fff;height:8px;"></span>
-                <span style="width:4px;border-radius:999px;background:#1f8fff;height:18px;"></span>
-                <span style="width:4px;border-radius:999px;background:#1f8fff;height:13px;"></span>
-                <span style="width:4px;border-radius:999px;background:#1f8fff;height:24px;"></span>
-                <span style="width:4px;border-radius:999px;background:#1f8fff;height:16px;"></span>
-                <span style="width:4px;border-radius:999px;background:#1f8fff;height:20px;"></span>
-              </div>
-            </div>
-            <div class="before-card" style="left:9%;bottom:23%;">
-              <p class="before-card-title">Handwritten notes</p>
-              <div style="margin-top:8px;height:28px;width:96px;border-radius:4px;background:linear-gradient(180deg,#edf3f8,#fff);"></div>
-            </div>
-            <div class="before-note" style="bottom:5%;left:33%;">
-              Follow-up not<br>typed
-            </div>
-            <div class="before-card" style="right:22%;top:38%;">
-              <p class="before-card-title">Email draft</p>
-              <p class="before-card-sub">Not sent</p>
-            </div>
-            <div class="before-card" style="bottom:8%;right:23%;">
-              <p class="before-card-title">CRM update</p>
-              <p class="before-card-danger">Missing</p>
-            </div>
-          </div>
-
-          <!-- After -->
-          <div class="realwork-after">
-            <div class="realwork-after-img"></div>
-            <div class="realwork-after-fade"></div>
-            <div class="realwork-after-content">
-              <h3>After Inko</h3>
-              <p>Everything captured, organized, and ready to act.</p>
-              <div class="after-items">
-                <div class="after-item">
-                  <span class="after-item-icon">
-                    <span class="after-item-icon-inner">
-                      <span class="after-item-icon-line" style="top:4px;"></span>
-                      <span class="after-item-icon-line" style="top:8px;"></span>
-                    </span>
-                  </span>
-                  <div>
-                    <p class="after-item-title">Client Summary</p>
-                    <p class="after-item-body">What matters, cleanly captured</p>
-                  </div>
-                </div>
-                <div class="after-item">
-                  <span class="after-item-icon">
-                    <span class="after-item-icon-inner">
-                      <span class="after-item-icon-line" style="top:4px;"></span>
-                      <span class="after-item-icon-line" style="top:8px;"></span>
-                    </span>
-                  </span>
-                  <div>
-                    <p class="after-item-title">Follow-up Draft</p>
-                    <p class="after-item-body">Personalized and ready to review</p>
-                  </div>
-                </div>
-                <div class="after-item">
-                  <span class="after-item-icon">
-                    <span class="after-item-icon-inner">
-                      <span class="after-item-icon-line" style="top:4px;"></span>
-                      <span class="after-item-icon-line" style="top:8px;"></span>
-                    </span>
-                  </span>
-                  <div>
-                    <p class="after-item-title">Next Steps</p>
-                    <p class="after-item-body">Actionable and time-bound</p>
-                  </div>
-                </div>
-                <div class="after-item">
-                  <span class="after-item-icon">
-                    <span class="after-item-icon-inner">
-                      <span class="after-item-icon-line" style="top:4px;"></span>
-                      <span class="after-item-icon-line" style="top:8px;"></span>
-                    </span>
-                  </span>
-                  <div>
-                    <p class="after-item-title">Client Record</p>
-                    <p class="after-item-body">CRM-ready and complete</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="realwork-divider">-&gt;</div>
+        <div class="realwork-grid" style="overflow:hidden;">
+          <img src="before-after-pc.jpg" alt="After the conversation, the real work begins" class="realwork-img-desktop" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="before-after-mobile.jpg" alt="After the conversation, the real work begins" class="realwork-img-mobile" style="width:100%;height:100%;object-fit:cover;display:none;">
         </div>
       </div>
     </section>
@@ -1132,9 +1077,6 @@ body {
         <h2 class="workflow-h2">One mobile workflow after every conversation.</h2>
 
         <div class="workflow-grid">
-          <div class="flow-arrow" style="left:22%;top:5.9rem;transform:rotate(-8deg);"></div>
-          <div class="flow-arrow" style="left:49%;top:9.8rem;transform:rotate(9deg);"></div>
-
           <!-- Step 1 -->
           <article class="workflow-step">
             <div class="step-inner">
@@ -1144,8 +1086,8 @@ body {
                 <p class="step-body">Record a meeting, call, or in-person consultation from your phone.</p>
               </div>
             </div>
-            <div style="margin-top:1.5rem;display:flex;justify-content:center;">
-              <div class="mini-phone">
+            <div style="margin-top:1.5rem;display:flex;align-items:center;padding-left:calc((100% - 13.8rem) / 2 + 2.5rem);">
+              <div class="mini-phone" style="flex-shrink:0;">
                 <div class="mini-phone-screen">
                   <p class="mini-phone-title">Recording</p>
                   <p class="mini-phone-subtitle">Consulting client call</p>
@@ -1161,6 +1103,7 @@ body {
                   <div class="mini-record-btn"><div class="mini-record-btn-inner"></div></div>
                 </div>
               </div>
+              <img src="pen-icon.png" alt="Pen" style="margin-left:0.2rem;height:16rem;flex-shrink:0;transform:rotate(-20deg);">
             </div>
           </article>
 
@@ -1337,9 +1280,10 @@ body {
           </div>
           <div class="advisor-proof" style="margin-top:0.5rem;">
             <div class="advisor-avatars">
-              <span class="advisor-avatar" style="background-image:url('/avatars/advisor-1.jpg');z-index:3;" role="img" aria-label="Insurance advisor portrait"></span>
-              <span class="advisor-avatar" style="background-image:url('/avatars/advisor-2.jpg');z-index:2;" role="img" aria-label="Broker team advisor portrait"></span>
-              <span class="advisor-avatar" style="background-image:url('/avatars/advisor-3.jpg');z-index:1;" role="img" aria-label="Consultative insurance advisor portrait"></span>
+              <img src="../public/avatars/avatar-1.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:4;">
+              <img src="../public/avatars/avatar-2.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:3;">
+              <img src="../public/avatars/avatar-3.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:2;">
+              <img src="../public/avatars/avatar-4.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:1;">
             </div>
             <div class="advisor-proof-text">
               <p><strong>140+ advisors</strong> joined the early access list.</p>
@@ -1378,6 +1322,48 @@ body {
 </div>
 
 <script>
+// ── Header scroll effect ──
+(function() {
+  var header = document.getElementById('site-header');
+  var logoImg = document.getElementById('header-logo-img');
+  if (!header || !logoImg) return;
+
+  function onScroll() {
+    if (window.scrollY > 60) {
+      header.classList.add('scrolled');
+      logoImg.src = 'logo_lightmode.svg';
+    } else {
+      header.classList.remove('scrolled');
+      logoImg.src = 'logo_lightmode.svg';
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+// ── Mobile menu toggle ──
+(function() {
+  var toggle = document.getElementById('mobile-menu-toggle');
+  var panel = document.getElementById('mobile-menu-panel');
+  if (!toggle || !panel) return;
+
+  toggle.addEventListener('click', function() {
+    var isOpen = panel.classList.toggle('open');
+    toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    toggle.innerHTML = isOpen
+      ? '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+      : '<svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  });
+
+  panel.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      panel.classList.remove('open');
+      toggle.innerHTML = '<svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+      toggle.setAttribute('aria-label', 'Open navigation menu');
+    });
+  });
+})();
+
 // Early access form handling
 function setupForm(formId, messageId) {
   const form = document.getElementById(formId);
@@ -1429,6 +1415,55 @@ function setupForm(formId, messageId) {
 
 setupForm('hero-form', 'hero-form-message');
 setupForm('cta-form', 'cta-form-message');
+
+// ── Recording phone: animated voice waveform + timer ──
+(function() {
+  var bars = document.querySelectorAll('#rec-waveform .waveform-bar');
+  var timerEl = document.getElementById('rec-timer');
+  if (!bars.length || !timerEl) return;
+
+  var BAR_COUNT = bars.length;
+  var MIN_H = 2;
+  var MAX_H = 32;
+
+  // Each bar gets a random phase and speed for organic movement
+  var phases = [];
+  var speeds = [];
+  for (var i = 0; i < BAR_COUNT; i++) {
+    phases.push(Math.random() * Math.PI * 2);
+    speeds.push(0.8 + Math.random() * 1.8);
+  }
+
+  function animateWaveform(time) {
+    var t = time * 0.001;
+    for (var i = 0; i < BAR_COUNT; i++) {
+      // Combine two sine waves at different frequencies for more natural voice look
+      var base = Math.sin(t * speeds[i] + phases[i]);
+      var detail = Math.sin(t * speeds[i] * 2.3 + phases[i] * 1.7) * 0.35;
+      var val = (base + detail) * 0.5 + 0.5; // normalize to 0-1
+      // Add occasional bursts (simulate speech pauses and emphasis)
+      var burst = Math.pow(Math.sin(t * 0.7 + i * 0.3), 4) * 0.2;
+      val = Math.min(1, val + burst);
+      var h = MIN_H + val * (MAX_H - MIN_H);
+      bars[i].style.height = h + 'px';
+    }
+    requestAnimationFrame(animateWaveform);
+  }
+  requestAnimationFrame(animateWaveform);
+
+  // Timer: 12:48:00 → 12:50:00 (120 seconds), then repeat
+  var totalDuration = 120; // 2 minutes in seconds
+  var timerStart = performance.now();
+
+  function updateTimer(time) {
+    var elapsed = Math.floor((time - timerStart) / 1000) % totalDuration;
+    var totalMinutes = 48 + Math.floor(elapsed / 60);
+    var seconds = elapsed % 60;
+    timerEl.textContent = '12:' + totalMinutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    requestAnimationFrame(updateTimer);
+  }
+  requestAnimationFrame(updateTimer);
+})();
 </script>
 </body>
 </html>
