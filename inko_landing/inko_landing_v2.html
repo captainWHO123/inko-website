@@ -138,10 +138,10 @@ main { padding-top: 0; }
   max-width: 1160px; margin: 0 auto;
   display: grid; grid-template-columns: 0.88fr 1.18fr;
   align-items: center; gap: 2rem;
-  padding: 5rem 2rem 3.5rem;
+  padding: 4rem 2rem 4rem;
 }
-@media (max-width: 520px) { .hero-section { grid-template-columns: 1fr; padding: 5rem 1.25rem; text-align: center; } }
-@media (min-width: 1024px) { .hero-section { padding-top: 6rem; padding-bottom: 5rem; } }
+@media (max-width: 520px) { .hero-section { grid-template-columns: 1fr; padding: 4rem 1.25rem; text-align: center; } }
+@media (min-width: 1024px) { .hero-section { padding-top: 6rem; padding-bottom: 6rem; } }
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: 0.5rem;
@@ -459,7 +459,7 @@ main { padding-top: 0; }
 
 /* ── Before / After Section ── */
 .realwork-section {
-  position: relative; margin-top: 5rem; padding: 0 1.25rem 1rem;
+  position: relative; margin-top: 0; padding: 0 1.25rem 1rem;
   background: linear-gradient(180deg, transparent 0%, transparent 49%, #ffffff 50%, #ffffff 100%);
   scroll-margin-top: 6rem;
 }
@@ -553,8 +553,8 @@ main { padding-top: 0; }
 @media (max-width: 520px) { .realwork-divider { display: none; } }
 
 /* ── Workflow Section ── */
-.workflow-section { background: #fff; padding: 9rem 1.25rem 6rem; }
-@media (min-width: 640px) { .workflow-section { padding: 12rem 2rem 8rem; } }
+.workflow-section { background: #fff; padding: 4rem 1.25rem 4rem; }
+@media (min-width: 640px) { .workflow-section { padding: 6rem 2rem 6rem; } }
 .workflow-label {
   text-align: center; font-size: 0.78rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.12em; color: #263142;
@@ -622,46 +622,166 @@ main { padding-top: 0; }
 .mini-phone-step { margin-top: 1.5rem; }
 
 /* ── Outcomes Section ── */
-.outcomes-section { background: #fff; padding: 6rem 1.25rem 5rem; }
-@media (min-width: 640px) { .outcomes-section { padding: 8rem 2rem 6rem; } }
+.outcomes-section { background: #fff; padding: 5.5rem 1.25rem 4rem; }
+@media (min-width: 640px) { .outcomes-section { padding: 7.25rem 2rem 6rem; background: linear-gradient(180deg, #f0f6fc 0%, #e8f1fb 30%, #f0f6fc 100%); } }
 .outcomes-label {
-  text-align: center; font-size: 0.76rem; font-weight: 800;
-  text-transform: uppercase; letter-spacing: 0.12em; color: #111927;
+  text-align: center; font-size: 0.8rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.04em; color: #07111f;
 }
 .outcomes-h2 {
-  max-width: 54rem; margin: 0.5rem auto 0;
-  text-align: center; font-size: 2rem; font-weight: 800; line-height: 1.04;
-  letter-spacing: -0.02em; color: #07111f;
+  max-width: 54rem; margin: 2.1rem auto 0;
+  text-align: center; font-size: 2.4rem; font-weight: 800; line-height: 1.04;
+  letter-spacing: -0.02em; color: #02060c;
 }
-@media (min-width: 640px) { .outcomes-h2 { font-size: 2.6rem; } }
+@media (min-width: 640px) { .outcomes-h2 { font-size: 3.1rem; } }
+.outcomes-subtitle {
+  max-width: 41rem; margin: 1.35rem auto 0;
+  text-align: center; font-size: 1.12rem; font-weight: 700; line-height: 1.32; color: #5a5d63;
+}
 .outcomes-grid {
-  max-width: 1160px; margin: 1rem auto 0;
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;
+  max-width: 1160px; margin: 2.85rem auto 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 0.62fr); gap: 1.1rem;
+  grid-template-areas:
+    "top draft"
+    "profile draft";
+  align-items: stretch;
+  min-width: 0;
 }
-@media (max-width: 520px) { .outcomes-grid { grid-template-columns: 1fr; } }
+.outcomes-left-top {
+  grid-area: top; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem;
+  min-width: 0;
+}
+.outcome-card-draft { grid-area: draft; }
+.outcome-card-profile { grid-area: profile; }
+@media (max-width: 900px) {
+  .outcomes-grid { grid-template-columns: 1fr; grid-template-areas: "top" "draft" "profile"; }
+}
+@media (max-width: 640px) {
+  .outcomes-left-top { grid-template-columns: 1fr; }
+}
 .outcome-card {
-  min-height: 13.7rem; border-radius: 0.82rem; border: 1px solid #dce7f1;
-  background: #fff; padding: 1rem;
-  box-shadow: 0 20px 34px -24px rgba(9,21,42,0.36);
+  border-radius: 1rem; border: none;
+  background: rgba(255,255,255,0.92); padding: 1.75rem;
+  box-shadow: 0 2px 4px rgba(85,114,156,0.08), 0 8px 24px rgba(85,114,156,0.1);
+  min-width: 0;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
-.outcome-card-title { font-size: 0.78rem; font-weight: 800; line-height: 1.25; color: #1f8fff; }
-.outcome-card-body { margin-top: 0.5rem; min-height: 2rem; font-size: 0.62rem; font-weight: 600; line-height: 1.25; color: #263142; }
-.outcome-preview {
-  margin-top: 0.75rem; border-radius: 0.7rem; border: 1px solid #e5edf6;
-  background: #fff; padding: 8px; text-align: left;
-  box-shadow: 0 12px 24px -22px rgba(9,21,42,0.32);
+.outcome-card-title {
+  font-family: "Space Grotesk", var(--font-inter); font-size: 1.52rem; font-weight: 700;
+  line-height: 1.1; letter-spacing: 0.03em; color: #2C4A6E;
 }
-.outcome-preview-title { font-size: 0.46rem; font-weight: 800; color: #17243a; }
-.outcome-preview-lines { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
-.outcome-preview-line {
-  border-radius: 0.42rem; background: #f4f9ff; padding: 6px 8px;
+.outcome-card-body { margin-top: 0.7rem; font-size: 0.85rem; font-weight: 600; line-height: 1.38; color: #5A7192; }
+
+/* Prompt Template items */
+.prompt-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.42rem; }
+.prompt-item {
+  display: flex; min-height: 2.25rem; align-items: center;
+  border-radius: 0.5rem; background: #F7FAFC; overflow: hidden;
+  min-width: 0;
 }
-.outcome-preview-line-title { font-size: 0.34rem; font-weight: 800; color: #17243a; }
-.outcome-preview-line-bar { height: 4px; margin-top: 4px; border-radius: 999px; background: #d8e7f5; }
-.outcome-preview-line-bar-accent { background: rgba(31,143,255,0.3); }
+.prompt-item-icon {
+  position: relative; width: 1.45rem; align-self: stretch; flex-shrink: 0; background: #E2E8F0;
+}
+.prompt-item-icon::before {
+  content: ""; position: absolute; left: 0.42rem; top: 0.48rem; width: 3px; height: 3px; border-radius: 999px;
+  background: #718096; box-shadow: 0 0.42rem 0 #718096, 0 0.84rem 0 #718096, 0.42rem 0 0 #718096, 0.42rem 0.42rem 0 #718096, 0.42rem 0.84rem 0 #718096;
+}
+.prompt-item-label { margin-left: 1rem; font-size: 0.72rem; font-weight: 700; color: #2D3748; min-width: 0; }
+.prompt-item-badge {
+  margin-left: 0.25rem; border-radius: 999px; background: #3B82F6; padding: 0.12rem 0.38rem;
+  font-size: 0.53rem; font-weight: 800; color: #fff;
+}
+.prompt-item-delete {
+  width: 2.1rem; height: 2.1rem; margin-left: auto; display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer; color: #718096;
+}
+.prompt-item-delete svg { width: 0.68rem; height: 0.68rem; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* CRM Update */
+.crm-panel { margin-top: 1.5rem; border-radius: 0.44rem; background: #fff; padding: 1.45rem 1rem; min-height: 5.8rem; }
+.crm-text { display: flex; align-items: center; gap: 0.34rem; font-size: 0.86rem; font-weight: 500; color: #1F2937; margin-bottom: 0.9rem; white-space: nowrap; }
+.crm-avatar {
+  display: inline-flex; width: 1.55rem; height: 1.55rem; align-items: center; justify-content: center;
+  border-radius: 999px; background: #E0E7FF; font-size: 0.64rem; font-weight: 800; color: #1E40AF;
+}
+.crm-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  border-radius: 0.2rem; background: #3B82F6; padding: 0.45rem 0.6rem;
+  font-size: 0.82rem; font-weight: 800; color: #fff; border: none; cursor: pointer;
+}
+.crm-cloud { position: relative; width: 1.05rem; height: 0.62rem; border-radius: 999px; background: #fff; }
+.crm-cloud::before, .crm-cloud::after { content: ""; position: absolute; border-radius: 999px; background: #fff; }
+.crm-cloud::before { left: 0.1rem; top: -0.25rem; width: 0.56rem; height: 0.56rem; }
+.crm-cloud::after { right: 0.06rem; top: -0.15rem; width: 0.45rem; height: 0.45rem; }
+.crm-dots { display: inline-block; margin-left: 0.28rem; color: #1F2937; font-size: 1rem; letter-spacing: 0.02em; }
+
+/* Draft card */
+.draft-panel { margin-top: 1.45rem; border-radius: 0.44rem; background: #fff; padding: 1.8rem 1.45rem 1.25rem; }
+.draft-row {
+  display: grid; grid-template-columns: 3rem 1fr; column-gap: 0.75rem; align-items: baseline;
+  font-size: 0.6rem; color: #1F2937; margin-bottom: 1.35rem;
+}
+.draft-row span { color: #6B7280; }
+.draft-body {
+  min-height: 18.4rem; border-radius: 0.55rem; border: 1px solid #E5E7EB; background: #fff; padding: 0.8rem;
+  font-size: 0.68rem; line-height: 1.22; color: #374151; margin-bottom: 1.35rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+}
+.draft-send {
+  width: 100%; border-radius: 0.38rem; background: #3B82F6; padding: 0.72rem 0;
+  font-size: 0.85rem; font-weight: 600; color: #fff; border: none; cursor: pointer;
+}
+
+/* Client Profile */
+.profile-card-inner {
+  margin-top: 2.6rem; border-radius: 0.65rem; border: 1px solid #E5E7EB; background: #fff;
+  padding: 1.35rem 1.5rem 1.3rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.profile-header { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1rem; }
+.profile-avatar {
+  width: 2.8rem; height: 2.8rem; border-radius: 999px; background: #E0E7FF;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem; font-weight: 700; color: #1E40AF; flex-shrink: 0;
+}
+.profile-name { font-size: 1rem; font-weight: 800; color: #1F2937; }
+.profile-meta { font-size: 0.72rem; color: #6B7280; margin-top: 2px; }
+.profile-edit {
+  margin-left: auto; align-self: flex-start; background: none; border: none; cursor: pointer; color: #1F2937; padding: 0.2rem;
+}
+.profile-edit svg { width: 1rem; height: 1rem; stroke: currentColor; fill: none; stroke-width: 2; }
+.profile-bio { font-size: 0.86rem; line-height: 1.55; color: #6B7280; margin-bottom: 0.78rem; }
+.profile-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.profile-tag {
+  border-radius: 999px; background: #EFF6FF; padding: 0.18rem 0.56rem;
+  font-size: 0.7rem; font-weight: 500; color: #3B82F6;
+}
+
+/* CTA button before cards */
+.outcomes-cta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  margin-top: 1.45rem; min-width: 21.6rem; justify-content: center;
+  border-radius: 0.65rem; background: #070b0c; color: #fff; text-decoration: none;
+  padding: 0.78rem 1.5rem; font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer;
+}
+.outcomes-spark {
+  position: relative; width: 0.95rem; height: 0.95rem; display: inline-block; flex-shrink: 0;
+}
+.outcomes-spark::before, .outcomes-spark::after {
+  content: ""; position: absolute; left: 50%; top: 50%; border-radius: 0.08rem; background: #fff; transform: translate(-50%, -50%) rotate(45deg);
+}
+.outcomes-spark::before { width: 0.76rem; height: 0.76rem; clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+.outcomes-spark::after { left: 92%; top: 5%; width: 0.34rem; height: 0.34rem; clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+@media (max-width: 520px) {
+  .outcomes-h2 { max-width: 20rem; font-size: 1.95rem; }
+  .outcomes-subtitle { font-size: 1rem; }
+  .outcome-card { padding: 1.35rem; }
+  .outcomes-cta { min-width: 0; width: 100%; max-width: 21.6rem; }
+  .draft-body { min-height: 15rem; }
+  .profile-card-inner { margin-top: 1.5rem; padding: 1.1rem; }
+}
 
 .scenarios-label {
-  margin-top: 6rem; text-align: center;
+  margin-top: 4rem; text-align: center;
   font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #111927;
 }
 .scenarios-grid {
@@ -678,8 +798,8 @@ main { padding-top: 0; }
 }
 
 /* ── Privacy Section ── */
-.privacy-section { background: #f7fbff; padding: 6rem 1.25rem; }
-@media (min-width: 640px) { .privacy-section { padding: 8rem 2rem; } }
+.privacy-section { background: #f7fbff; padding: 4rem 1.25rem; }
+@media (min-width: 640px) { .privacy-section { padding: 6rem 2rem; } }
 .privacy-inner { max-width: 1160px; margin: 0 auto; }
 .privacy-label {
   font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #1f8fff; text-align: center; margin-bottom: 0.75rem;
@@ -705,8 +825,8 @@ main { padding-top: 0; }
 .privacy-card-body { font-size: 0.88rem; font-weight: 500; line-height: 1.65; color: #53647a; }
 
 /* ── FAQ Section ── */
-.faq-section { background: #fff; padding: 6rem 1.25rem 3rem; max-width: 1160px; margin: 0 auto; }
-@media (min-width: 640px) { .faq-section { padding: 8rem 2rem 4rem; } }
+.faq-section { background: #fff; padding: 4rem 1.25rem 4rem; max-width: 1160px; margin: 0 auto; }
+@media (min-width: 640px) { .faq-section { padding: 6rem 2rem 6rem; } }
 .faq-grid {
   display: grid; grid-template-columns: 1fr; gap: 2rem;
 }
@@ -742,8 +862,8 @@ main { padding-top: 0; }
 @media (min-width: 640px) { .faq-a { font-size: 1rem; } }
 
 /* ── Final CTA Section ── */
-.final-cta-section { background: #fff; padding: 5rem 1.25rem 1rem; }
-@media (min-width: 640px) { .final-cta-section { padding-left: 2rem; padding-right: 2rem; padding-top: 8rem; padding-bottom: 1rem; } }
+.final-cta-section { background: #fff; padding: 4rem 1.25rem 1rem; }
+@media (min-width: 640px) { .final-cta-section { padding-left: 2rem; padding-right: 2rem; padding-top: 6rem; padding-bottom: 1rem; } }
 .final-cta-box {
   position: relative; max-width: 1160px; margin: 0 auto; height: auto; min-height: 17rem;
   border-radius: 1.1rem;
@@ -1250,70 +1370,97 @@ main { padding-top: 0; }
       <div style="max-width:1160px;margin:0 auto;">
         <p class="outcomes-label">What You Get</p>
         <h2 class="outcomes-h2">The Follow-up, A Tap Away.</h2>
+        <p class="outcomes-subtitle">The work you used to do after the talk? Now it's finished in a single tap. Inko transforms your records into summaries and next steps.</p>
+
+        <div style="text-align:center;">
+          <button class="outcomes-cta" type="button">
+            <span class="outcomes-spark" aria-hidden="true"></span>
+            Ready for Summary
+          </button>
+        </div>
 
         <div class="outcomes-grid">
-          <div class="outcome-card">
-            <h3 class="outcome-card-title">Conversation Summary</h3>
-            <p class="outcome-card-body">Understand what was said without replaying.</p>
-            <div class="outcome-preview">
-              <p class="outcome-preview-title">Summary</p>
-              <div class="outcome-preview-lines">
-                <div class="outcome-preview-line"><p class="outcome-preview-line-title">Key Needs</p><div class="outcome-preview-line-bar outcome-preview-line-bar-accent" style="width:48px;"></div></div>
-                <div class="outcome-preview-line"><p class="outcome-preview-line-title">Concerns</p><div class="outcome-preview-line-bar" style="width:36px;"></div></div>
-                <div class="outcome-preview-line"><p class="outcome-preview-line-title">Decision Timeline</p><div class="outcome-preview-line-bar" style="width:36px;"></div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="outcome-card">
-            <h3 class="outcome-card-title">Follow-up Drafts</h3>
-            <p class="outcome-card-body">Create personalized follow-ups while it is still fresh.</p>
-            <div class="outcome-preview">
-              <p class="outcome-preview-title">Follow-up Draft</p>
-              <p style="margin-top:8px;font-size:0.38rem;line-height:0.62rem;color:#617288;">Hi John, great speaking with you today. Based on what we discussed...</p>
-              <button style="margin-top:8px;height:20px;width:100%;border-radius:6px;background:#1f8fff;border:none;font-size:0.34rem;font-weight:800;color:#fff;font-family:inherit;">Review &amp; Send</button>
-            </div>
-          </div>
-
-          <div class="outcome-card">
-            <h3 class="outcome-card-title">Client Memory</h3>
-            <p class="outcome-card-body">Keep every client's needs, concerns, and history.</p>
-            <div class="outcome-preview">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <span style="width:20px;height:20px;border-radius:999px;background:url('/avatars/advisor-2.jpg') center/cover;"></span>
-                <div>
-                  <p style="font-size:0.42rem;font-weight:800;color:#17243a;">John Brown</p>
-                  <p style="font-size:0.32rem;color:#8ca0b5;">Client since 2024</p>
+          <div class="outcomes-left-top">
+            <!-- Prompt Template -->
+            <div class="outcome-card">
+              <h3 class="outcome-card-title">Prompt Template</h3>
+              <p class="outcome-card-body">Create reusable templates to capture key client insights.</p>
+              <div class="prompt-list">
+                <div class="prompt-item">
+                  <span class="prompt-item-icon" aria-hidden="true"></span>
+                  <span class="prompt-item-label">Demand</span>
+                  <span class="prompt-item-badge">Default</span>
+                  <button class="prompt-item-delete" aria-label="Delete Demand template"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                </div>
+                <div class="prompt-item">
+                  <span class="prompt-item-icon" aria-hidden="true"></span>
+                  <span class="prompt-item-label">Budget</span>
+                  <span class="prompt-item-badge">Default</span>
+                  <button class="prompt-item-delete" aria-label="Delete Budget template"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                </div>
+                <div class="prompt-item">
+                  <span class="prompt-item-icon" aria-hidden="true"></span>
+                  <span class="prompt-item-label">Emotion</span>
+                  <button class="prompt-item-delete" aria-label="Delete Emotion template"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                </div>
+                <div class="prompt-item">
+                  <span class="prompt-item-icon" aria-hidden="true"></span>
+                  <span class="prompt-item-label">Next Steps</span>
+                  <span class="prompt-item-badge">Default</span>
+                  <button class="prompt-item-delete" aria-label="Delete Next Steps template"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
                 </div>
               </div>
-              <div style="display:flex;margin-top:8px;gap:4px;">
-                <span style="border-radius:4px;background:#edf7ff;padding:2px 4px;font-size:0.28rem;font-weight:800;color:#1f8fff;">Health</span>
-                <span style="border-radius:4px;background:#edf7ff;padding:2px 4px;font-size:0.28rem;font-weight:800;color:#1f8fff;">Family</span>
-                <span style="border-radius:4px;background:#edf7ff;padding:2px 4px;font-size:0.28rem;font-weight:800;color:#1f8fff;">Budget</span>
+            </div>
+
+            <!-- CRM Update -->
+            <div class="outcome-card">
+              <h3 class="outcome-card-title">CRM update</h3>
+              <p class="outcome-card-body">Turn conversations into structured records.</p>
+              <div class="crm-panel">
+                <p class="crm-text">Updating <span class="crm-avatar">RJ</span> unsynchronized info to</p>
+                <button class="crm-btn" type="button">
+                  <span class="crm-cloud" aria-hidden="true"></span>
+                  Salesforce
+                </button>
+                <span class="crm-dots">...</span>
               </div>
             </div>
           </div>
 
-          <div class="outcome-card">
-            <h3 class="outcome-card-title">Ask Advisor</h3>
-            <p class="outcome-card-body">Ask what to say next, or which product fits.</p>
-            <div class="outcome-preview">
-              <p class="outcome-preview-title">Ask Advisor</p>
-              <p style="margin-top:8px;border-radius:7px;background:#f3f8fc;padding:8px;font-size:0.36rem;line-height:0.56rem;color:#617288;">Some recommendations fit John's output and term needs.</p>
-              <p style="margin-top:8px;font-size:0.36rem;font-weight:800;color:#17243a;">Term Life + Critical Illness</p>
+          <!-- Draft -->
+          <div class="outcome-card outcome-card-draft">
+            <h3 class="outcome-card-title">Draft</h3>
+            <p class="outcome-card-body">Create personalized follow-ups while the conversation is still fresh.</p>
+            <div class="draft-panel">
+              <div class="draft-row"><span>To:</span><p>robert.d@gmail.com, emily.d@gmail.com</p></div>
+              <div class="draft-row"><span>Subject:</span><p>Recap: Preserving Flexibility While Funding Sophie's Education</p></div>
+              <div class="draft-body">Hi Robert and Emily,<br><br>Thank you again for meeting me for coffee this morning. It was a pleasure discussing the options for Sophie's college fund.<br><br>I completely understand your concerns around liquidity. As we discussed, I've attached a comparison of the 529 plan and the whole life strategy we reviewed. Please pay special attention to page 3, which highlights how the cash value can be accessed in an emergency, such as the home repair example we talked about.<br><br>Let's reconnect next Tuesday to finalize the numbers.<br><br>Best regards,<br>Mark</div>
+              <button class="draft-send" type="button">Send</button>
             </div>
           </div>
 
-          <div class="outcome-card">
-            <h3 class="outcome-card-title">CRM-ready Notes</h3>
-            <p class="outcome-card-body">Turn conversations into structured records.</p>
-            <div class="outcome-preview">
-              <p class="outcome-preview-title">CRM Record</p>
-              <p style="margin-top:8px;font-size:0.34rem;font-weight:800;color:#f06a3d;">Follow-up needed</p>
-              <div style="margin-top:4px;display:flex;flex-direction:column;gap:4px;">
-                <div style="height:8px;border-radius:999px;background:#edf3f8;"></div>
-                <div style="height:8px;border-radius:999px;background:#edf3f8;"></div>
-                <div style="height:8px;border-radius:999px;background:#edf3f8;"></div>
+          <!-- Client Profile (full width) -->
+          <div class="outcome-card outcome-card-profile">
+            <h3 class="outcome-card-title">Client Profile</h3>
+            <p class="outcome-card-body">Keep track of your client's needs, concerns, and history.</p>
+            <div class="profile-card-inner">
+              <div class="profile-header">
+                <div class="profile-avatar">AJ</div>
+                <div>
+                  <p class="profile-name">Anna Johnson</p>
+                  <p class="profile-meta">Last contact: Jan 16</p>
+                </div>
+                <button class="profile-edit" aria-label="Edit client profile">
+                  <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                </button>
+              </div>
+              <p class="profile-bio">A Business Supervisor at a local clinic. Married with two children, she cares about family protection, education funding, and managing health-related financial risk. She is cautious and practical, and values clear options, affordable premiums, and flexible coverage.</p>
+              <div class="profile-tags">
+                <span class="profile-tag">Mortgage</span>
+                <span class="profile-tag">Family</span>
+                <span class="profile-tag">Education</span>
+                <span class="profile-tag">Monthly Budget Focus</span>
+                <span class="profile-tag">Transparency</span>
               </div>
             </div>
           </div>

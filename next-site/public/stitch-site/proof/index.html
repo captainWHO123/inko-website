@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inko | Proof (The Workspace)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600;1,6..72,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#ded9d1",
+                      "tertiary-fixed": "#ffddbb",
+                      "outline-variant": "#c0c8c9",
+                      "background": "#fef9f0",
+                      "tertiary": "#472b05",
+                      "surface": "#f5f0e7",
+                      "secondary-fixed": "#cee5ff",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#fef9f0",
+                      "inverse-surface": "#32302b",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#174e52",
+                      "on-primary-fixed": "#002022",
+                      "inverse-on-surface": "#f5f0e7",
+                      "secondary-fixed-dim": "#b0c9e5",
+                      "tertiary-container": "#61411a",
+                      "on-secondary-fixed": "#001d32",
+                      "on-surface-variant": "#404849",
+                      "surface-container-high": "#ece8df",
+                      "on-primary-container": "#8cbfc4",
+                      "surface-variant": "#e7e2d9",
+                      "tertiary-fixed-dim": "#edbe8c",
+                      "outline": "#707979",
+                      "surface-container-low": "#f8f3ea",
+                      "surface-tint": "#33666a",
+                      "primary": "#00383b",
+                      "on-background": "#1d1c16",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#f2ede4",
+                      "inverse-primary": "#9cd0d4",
+                      "on-tertiary-container": "#dcae7d",
+                      "primary-fixed-dim": "#9cd0d4",
+                      "on-secondary": "#ffffff",
+                      "secondary-container": "#c9e2ff",
+                      "on-tertiary-fixed": "#2b1700",
+                      "on-secondary-container": "#4c657d",
+                      "primary-fixed": "#b7ecf0",
+                      "primary-container": "#184f53",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#e7e2d9",
+                      "secondary": "#486179",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#304960",
+                      "on-tertiary-fixed-variant": "#604019",
+                      "on-surface": "#1d1c16",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Newsreader"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .inko-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .inko-active-mode {
+            background: linear-gradient(135deg, #184f53 0%, #304960 100%);
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(24, 79, 83, 0.3);
+        }
+        .inko-accent-gradient {
+            background: linear-gradient(135deg, #184f53 0%, #304960 100%);
+        }
+        .inko-glow-teal {
+            box-shadow: 0 0 20px rgba(156, 208, 212, 0.15);
+        }
+        .inko-wave-bar {
+            display: inline-flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 16px;
+        }
+        .inko-wave-bar span {
+            width: 2px;
+            background-color: #9cd0d4;
+            animation: wave 1.2s ease-in-out infinite;
+        }
+        @keyframes wave {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes inko-rise-in {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .inko-rise-in {
+            animation: inko-rise-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-primary">
+<!-- TopNavBar -->
+<header class="bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl docked full-width top-0 z-40 sticky border-b border-outline-variant/10">
+<nav class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="text-3xl font-serif italic text-[#184f53] dark:text-[#b7ecf0]">Inko</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-[#184f53] transition-colors text-sm font-medium" href="#">How it Works</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-[#184f53] transition-colors text-sm font-medium" href="#">Pricing</a>
+<a class="text-[#184f53] dark:text-[#b7ecf0] font-semibold border-b-2 border-[#184f53] pb-1 text-sm font-medium" href="#">Proof</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-[#184f53] transition-colors text-sm font-medium" href="#">FAQ</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-[#184f53] transition-colors text-sm font-medium" href="#">Book Demo</a>
+</div>
+<button class="bg-[#184f53] text-white px-6 py-2.5 rounded-full font-bold shadow-[0_4px_20px_rgba(24,79,83,0.25)] hover:shadow-[0_6px_24px_rgba(24,79,83,0.35)] hover:scale-[1.02] active:scale-95 transition-all text-sm">
+            Pre-order Inko Starter
+        </button>
+</nav>
+</header>
+<main>
+<!-- Proof Hero Section -->
+<section class="relative pt-24 pb-16 overflow-hidden">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,_#b7ecf0_0%,_transparent_50%)] opacity-15"></div>
+<div class="max-w-7xl mx-auto px-6 relative z-10 text-center mb-16">
+<h1 class="text-6xl md:text-7xl font-headline text-primary leading-tight mb-6">
+                Inspect the workspace at work.
+            </h1>
+<p class="text-xl text-on-surface-variant mb-12 max-w-2xl mx-auto">
+                See pen-sized capture turn into summary, follow-up, memory, and CRM-ready output.
+            </p>
+<div class="flex flex-wrap justify-center gap-x-12 gap-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-sm font-medium">Post-meeting review</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-sm font-medium">Send-ready follow-up</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-sm font-medium">Persistent client memory</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-sm font-medium">Structured CRM handoff</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Proof Workspace (Main Interface) -->
+<section class="pb-32 bg-surface">
+<div class="max-w-7xl mx-auto px-6">
+<div class="mb-8 text-center">
+<h2 class="text-headline-sm font-headline text-primary italic mb-2">Functional Proof</h2>
+<div class="h-1 w-16 bg-primary-container mx-auto rounded-full"></div>
+</div>
+<div class="flex flex-col lg:flex-row gap-0 rounded-2xl bg-zinc-950 shadow-2xl overflow-hidden min-h-[850px] border border-zinc-800">
+<!-- Left Rail: Mode Buttons -->
+<aside class="w-full lg:w-72 bg-zinc-900/50 border-r border-zinc-800 p-6 flex flex-col gap-6">
+<div class="mb-4">
+<div class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-6 px-2">Workspace Modes</div>
+<nav class="space-y-2" id="workspace-nav">
+<button class="workspace-btn w-full flex items-center gap-3 p-3.5 rounded-xl inko-active-mode text-white text-left transition-all group" data-tab="summary">
+<span class="material-symbols-outlined text-xl">description</span>
+<div class="flex flex-col">
+<span class="font-semibold text-sm">Meeting Summary</span>
+<span class="text-[10px] opacity-60">Post-meeting review</span>
+</div>
+</button>
+<button class="workspace-btn w-full flex items-center gap-3 p-3.5 rounded-xl hover:bg-zinc-800 text-zinc-400 text-left transition-all group" data-tab="followup">
+<span class="material-symbols-outlined text-xl">mail</span>
+<div class="flex flex-col">
+<span class="font-semibold text-sm">Follow-up Email</span>
+<span class="text-[10px] opacity-60">Send-ready composer</span>
+</div>
+</button>
+<button class="workspace-btn w-full flex items-center gap-3 p-3.5 rounded-xl hover:bg-zinc-800 text-zinc-400 text-left transition-all group" data-tab="profile">
+<span class="material-symbols-outlined text-xl">person_search</span>
+<div class="flex flex-col">
+<span class="font-semibold text-sm">Customer Profile</span>
+<span class="text-[10px] opacity-60">Relationship memory</span>
+</div>
+</button>
+<button class="workspace-btn w-full flex items-center gap-3 p-3.5 rounded-xl hover:bg-zinc-800 text-zinc-400 text-left transition-all group" data-tab="crm">
+<span class="material-symbols-outlined text-xl">sync_alt</span>
+<div class="flex flex-col">
+<span class="font-semibold text-sm">CRM Mapping</span>
+<span class="text-[10px] opacity-60">Structured handoff</span>
+</div>
+</button>
+</nav>
+</div>
+<div class="mt-auto pt-6 border-t border-zinc-800">
+<div class="flex items-center justify-between px-2 mb-4">
+<span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500">App Status</span>
+<div class="inko-wave-bar">
+<span style="animation-delay: 0.1s"></span>
+<span style="animation-delay: 0.3s"></span>
+<span style="animation-delay: 0.2s"></span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-primary-container/10 border border-primary-container/20">
+<div class="flex items-center gap-2 text-primary-fixed-dim text-xs font-semibold mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim animate-pulse"></span>
+                                Ready to Sync
+                            </div>
+<p class="text-[10px] text-zinc-500">3 New meeting captures pending review.</p>
+</div>
+</div>
+</aside>
+<!-- Right Content Area -->
+<div class="flex-1 flex flex-col bg-zinc-950 overflow-hidden">
+<!-- App Top Toolbar -->
+<div class="px-8 py-4 border-b border-white/5 flex justify-between items-center bg-zinc-900/20 backdrop-blur-md">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-zinc-400 text-xs">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                                Oct 24, 2024
+                            </div>
+<div class="flex items-center gap-2 text-zinc-400 text-xs">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                2:45 PM
+                            </div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-[8px] font-bold text-white">AR</div>
+<div class="w-6 h-6 rounded-full bg-[#184f53] border border-zinc-700 flex items-center justify-center text-[8px] font-bold text-white">IK</div>
+</div>
+<button class="text-zinc-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-8">
+<!-- 1. Meeting Summary Mode -->
+<div class="tab-content active inko-rise-in" id="summary-content">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-3xl font-headline italic text-white mb-1">Annual Policy Review</h3>
+<p class="text-zinc-500 text-xs tracking-wide uppercase font-medium">Session with Alex &amp; Sarah Richardson</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-lg inko-glass text-zinc-300 text-xs font-medium hover:bg-white/5 transition-all">Download PDF</button>
+<button class="px-4 py-2 rounded-lg bg-white text-zinc-950 text-xs font-bold shadow-lg hover:bg-zinc-200 transition-all">Generate Follow-up</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 space-y-6">
+<!-- Key Insights -->
+<div class="inko-glass rounded-2xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-3xl -mr-16 -mt-16"></div>
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary-fixed-dim">psychology</span>
+<h4 class="text-zinc-100 font-semibold text-sm uppercase tracking-wider">Key Insights</h4>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim mt-2"></span>
+<p class="text-zinc-300 text-sm leading-relaxed">Discussed increasing term life coverage from $500k to $1.2M following the birth of their second child.</p>
+</li>
+<li class="flex items-start gap-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim mt-2"></span>
+<p class="text-zinc-300 text-sm leading-relaxed">Concerns regarding legacy planning for the family business were raised; client expressed interest in a trust structure.</p>
+</li>
+<li class="flex items-start gap-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim mt-2"></span>
+<p class="text-zinc-300 text-sm leading-relaxed">Review of current portfolio indicates a 12% surplus in cash reserves, suggesting an opportunity for lump-sum pension contribution.</p>
+</li>
+</ul>
+</div>
+<!-- Action Items -->
+<div class="inko-glass rounded-2xl p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary-fixed-dim">task_alt</span>
+<h4 class="text-zinc-100 font-semibold text-sm uppercase tracking-wider">Action Items</h4>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5">
+<div class="w-5 h-5 rounded-md border-2 border-primary-fixed-dim/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed-dim text-sm font-bold">check</span>
+</div>
+<span class="text-zinc-300 text-sm">Send quote for $1.2M Term Life (Level 20)</span>
+<span class="ml-auto px-2 py-0.5 rounded-full bg-primary/20 text-primary-fixed-dim text-[10px] font-bold">High Priority</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent transition-colors">
+<div class="w-5 h-5 rounded-md border-2 border-zinc-700"></div>
+<span class="text-zinc-300 text-sm">Schedule intro call with Estate Planning Attorney</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent transition-colors">
+<div class="w-5 h-5 rounded-md border-2 border-zinc-700"></div>
+<span class="text-zinc-300 text-sm">Recalculate GIC yield projections for Q1</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Household Updates -->
+<div class="space-y-6">
+<div class="inko-glass rounded-2xl p-6 border-l-4 border-l-[#184f53]">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary-fixed-dim">family_restroom</span>
+<h4 class="text-zinc-100 font-semibold text-sm uppercase tracking-wider">Household</h4>
+</div>
+<div class="space-y-4">
+<div class="p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+<div class="text-[10px] text-zinc-500 font-bold uppercase mb-1">New Member</div>
+<div class="text-white text-sm font-medium">Leo Richardson (Age 0)</div>
+<div class="text-zinc-500 text-[10px]">Beneficiary status updated</div>
+</div>
+<div class="p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+<div class="text-[10px] text-zinc-500 font-bold uppercase mb-1">Employment</div>
+<div class="text-white text-sm font-medium">Sarah: Partner Promo</div>
+<div class="text-zinc-500 text-[10px]">HHI Increase: ~15%</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. Follow-up Email Mode -->
+<div class="tab-content inko-rise-in" id="followup-content">
+<div class="flex flex-col items-center">
+<div class="max-w-4xl w-full">
+<div class="flex items-center gap-3 mb-8">
+<span class="px-3 py-1 rounded-full bg-primary-fixed/20 text-primary-fixed-dim text-[10px] font-bold uppercase tracking-widest border border-primary-fixed/30">AI-Drafted Follow-up</span>
+<h3 class="text-zinc-100 text-lg font-headline italic">Interactive Email Preview</h3>
+</div>
+<div class="rounded-3xl overflow-hidden shadow-2xl bg-zinc-900/50 p-2 border border-white/5">
+<img alt="AI-Generated Follow-up Email Mockup" class="w-full h-auto rounded-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL9dHbK6UG1ypzDim1lXXwULklSfYpwR7f3psernER7Jz2tLB2cySlqwXboiT26ILQTgLOHG693tLP_gE-mOz5uzWi7IzSkkIghA_yjP1vxVUMv6rGDI8eP7tSrCQ_c0bfr0LtWwo_W0uuN4NhyMj_agaH-mwmn1GNhujcf2P3AMNnc1Iuwbw4_K61ZCE3gvLKxaxBKBc8PGbY6P_1uzGVdhu_uzyI1dxa6H5abgRS3Ym6Fx_iZatm33EcIlLa1k7-JjAI-H66IEU"/>
+</div>
+<div class="mt-6 flex justify-center">
+<button class="px-8 py-3 rounded-full inko-accent-gradient text-white text-sm font-bold shadow-lg flex items-center gap-2 hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-sm">send</span>
+                                            Sync to Salesforce
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Customer Profile Mode -->
+<div class="tab-content inko-rise-in" id="profile-content">
+<div class="flex flex-col items-center">
+<div class="w-full max-w-4xl">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 rounded-xl inko-accent-gradient flex items-center justify-center text-xl font-headline italic text-white shadow-xl">AR</div>
+<div>
+<h3 class="text-2xl font-headline text-white italic">Alex Richardson</h3>
+<p class="text-zinc-500 text-[10px] uppercase tracking-widest font-bold">Comprehensive Relationship Profile</p>
+</div>
+</div>
+<div class="rounded-3xl overflow-hidden shadow-2xl bg-zinc-900/50 p-2 border border-white/5">
+<img alt="Customer Profile UI Mockup" class="w-full h-auto rounded-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkJFUb1Ks3eaOAVf672LCaGu_3iREH268yMkBLKT925iYtukLU6F5JzHzJivKrfiIJrdWcB3EYvNXHnBnnnfp50PyMiz2JwLH6nf0QypVTFGAkfAOoTFmMFhyhWBBxC9lWsnWQWEyA_sIRNDc6wtvGjzfB8wGGwIupln5Rl8-slcYFwIvqyRYCTbPvvBr3YPiq2EG3hZfGfkiQgIhIG3Slt7NkvLiSR9mUKzf5fdErdWXPeMT_D2UBYFtl32ogONm07RqmOfYqLag"/>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. CRM Mapping Mode -->
+<div class="tab-content inko-rise-in" id="crm-content">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-12">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
+<span class="material-symbols-outlined text-sm">cloud_done</span>
+                                        Sync Successful
+                                    </div>
+<h3 class="text-4xl font-headline text-white italic">Salesforce Integration</h3>
+</div>
+<div class="grid grid-cols-5 items-center gap-4 relative">
+<!-- Source Side -->
+<div class="col-span-2 space-y-4">
+<div class="text-[10px] font-bold text-zinc-500 uppercase px-2">Inko Source Data</div>
+<div class="p-4 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-between">
+<span class="text-zinc-400 text-xs">Meeting Date</span>
+<span class="text-white text-xs font-medium">2024-10-24</span>
+</div>
+<div class="p-4 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-between">
+<span class="text-zinc-400 text-xs">Need Category</span>
+<span class="text-white text-xs font-medium">High-Priority Life</span>
+</div>
+<div class="p-4 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-between">
+<span class="text-zinc-400 text-xs">Urgency</span>
+<span class="text-white text-xs font-medium">Immediate</span>
+</div>
+</div>
+<!-- Connector Visual -->
+<div class="col-span-1 flex flex-col items-center justify-center space-y-12 py-10">
+<div class="h-px w-full bg-gradient-to-r from-primary-fixed-dim/50 to-emerald-500/50 relative">
+<div class="absolute inset-0 bg-primary-fixed-dim blur-sm opacity-30"></div>
+</div>
+<div class="h-px w-full bg-gradient-to-r from-primary-fixed-dim/50 to-emerald-500/50 relative">
+<div class="absolute inset-0 bg-primary-fixed-dim blur-sm opacity-30"></div>
+</div>
+<div class="h-px w-full bg-gradient-to-r from-primary-fixed-dim/50 to-emerald-500/50 relative">
+<div class="absolute inset-0 bg-primary-fixed-dim blur-sm opacity-30"></div>
+</div>
+</div>
+<!-- Destination Side -->
+<div class="col-span-2 space-y-4">
+<div class="text-[10px] font-bold text-zinc-500 uppercase px-2">CRM Destination Fields</div>
+<div class="p-4 rounded-xl bg-zinc-800/40 border border-emerald-500/30 flex items-center justify-between">
+<span class="text-zinc-400 text-xs">Activity Date</span>
+<span class="material-symbols-outlined text-emerald-400 text-sm">verified</span>
+</div>
+<div class="p-4 rounded-xl bg-zinc-800/40 border border-emerald-500/30 flex items-center justify-between">
+<span class="text-zinc-400 text-xs">Client Need Type</span>
+<span class="material-symbols-outlined text-emerald-400 text-sm">verified</span>
+</div>
+<div class="p-4 rounded-xl bg-zinc-800/40 border border-emerald-500/30 flex items-center justify-between">
+<span class="text-zinc-400 text-xs">Priority Level</span>
+<span class="material-symbols-outlined text-emerald-400 text-sm">verified</span>
+</div>
+</div>
+</div>
+<div class="mt-12 p-6 rounded-2xl bg-zinc-900 border border-white/5 flex items-center gap-6">
+<div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-emerald-400">description</span>
+</div>
+<div>
+<div class="text-white text-sm font-semibold">Activity Log Updated</div>
+<p class="text-zinc-500 text-xs">Comprehensive meeting transcript and AI summary attached to Alex Richardson's lead profile.</p>
+</div>
+<button class="ml-auto text-primary-fixed-dim text-xs font-bold hover:underline">View in Salesforce</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Workflow Fit + Support Reassurance -->
+<section class="py-24 bg-surface">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid lg:grid-cols-2 gap-24 items-center">
+<div class="order-2 lg:order-1">
+<div class="inline-block px-4 py-1 rounded-full bg-tertiary-fixed text-tertiary text-xs font-bold mb-6">Built for Compliance</div>
+<h2 class="text-headline-md font-headline text-primary mb-8">Naturally fits your existing workflow.</h2>
+<p class="text-lg text-on-surface-variant mb-12">
+                        Inko doesn't change how you advise; it just remembers how you did it. Your data is encrypted at the source and synced only to your secure environment.
+                    </p>
+<div class="space-y-8">
+<div class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<div>
+<h4 class="font-semibold text-primary mb-1">Bank-Level Security</h4>
+<p class="text-sm text-on-surface-variant">End-to-end encryption from pen to cloud.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">support_agent</span>
+</div>
+<div>
+<h4 class="font-semibold text-primary mb-1">24/7 Concierge Support</h4>
+<p class="text-sm text-on-surface-variant">White-glove onboarding and workflow consulting.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2 grid grid-cols-2 gap-4">
+<div class="bg-surface-container rounded-xl aspect-[4/5] p-8 flex flex-col justify-end">
+<span class="text-5xl font-headline italic text-primary">98%</span>
+<span class="text-[10px] uppercase tracking-widest mt-4 font-bold text-on-surface-variant leading-relaxed">Reduction in manual data entry</span>
+</div>
+<div class="space-y-4 pt-12">
+<div class="bg-primary rounded-xl aspect-square p-8 flex flex-col justify-end text-white shadow-xl">
+<span class="text-4xl font-headline italic">10k+</span>
+<span class="text-[10px] uppercase tracking-widest mt-4 font-bold opacity-80 leading-relaxed">Meetings summarized per month</span>
+</div>
+<div class="bg-surface-container-high rounded-xl aspect-square p-8 flex flex-col justify-end">
+<span class="material-symbols-outlined text-3xl text-primary mb-4">auto_awesome</span>
+<span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant leading-relaxed">AI powered reasoning</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-32 bg-primary">
+<div class="max-w-4xl mx-auto px-6 text-center">
+<h2 class="text-display-lg font-headline text-white mb-8">Ready to evolve your practice?</h2>
+<p class="text-xl text-primary-fixed opacity-80 mb-12">
+                Join the waitlist for the Inko Starter Kit. First batch shipping Spring 2026.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-primary-fixed transition-colors">
+                    Pre-order Inko Starter
+                </button>
+<button class="border border-primary-fixed text-primary-fixed px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-colors">
+                    Book a Live Demo
+                </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-zinc-950 full-width py-16">
+<div class="grid grid-cols-1 md:grid-cols-5 gap-12 px-8 max-w-7xl mx-auto">
+<div class="md:col-span-2">
+<div class="text-2xl font-serif text-white mb-4">Inko</div>
+<p class="text-zinc-400 text-sm leading-relaxed max-w-sm">
+                © Inko. Turn every client conversation into follow-up, notes, and CRM-ready output. hello@get-inko.com
+            </p>
+</div>
+<div>
+<h4 class="font-serif italic text-white mb-6">Product</h4>
+<ul class="space-y-3">
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">How it Works</a></li>
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">Hardware</a></li>
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">Enterprise</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-serif italic text-white mb-6">Support</h4>
+<ul class="space-y-3">
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">Help Center</a></li>
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">API Docs</a></li>
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">Status</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-serif italic text-white mb-6">Legal</h4>
+<ul class="space-y-3">
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">Terms of Service</a></li>
+<li><a class="text-zinc-400 hover:text-white transition-colors text-sm" href="#">Cookie Settings</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script>
+    document.querySelectorAll('.workspace-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+            
+            // Update buttons
+            document.querySelectorAll('.workspace-btn').forEach(btn => {
+                btn.classList.remove('inko-active-mode', 'text-white');
+                btn.classList.add('hover:bg-zinc-800', 'text-zinc-400');
+            });
+            button.classList.add('inko-active-mode', 'text-white');
+            button.classList.remove('hover:bg-zinc-800', 'text-zinc-400');
+            
+            // Update content with smooth transition
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const activeTab = document.getElementById(`${tabId}-content`);
+            activeTab.classList.add('active');
+        });
+    });
+</script>
+<script src="/stitch-site/site.js"></script>
+</body></html>

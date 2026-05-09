@@ -1,0 +1,140 @@
+Landing Page V2 — 上下间距速查表
+=====================================
+
+【模块顺序：从页面顶部到底部】
+
+─────────────────────────────────────
+1. Header（固定导航栏）
+─────────────────────────────────────
+  .header-inner          padding-top: 0.625rem    padding-bottom: 0.625rem
+  .header-mobile-panel   margin-top: 0.75rem      padding-top: 1rem         padding-bottom: 1rem
+  .header-mobile-form    margin-top: 1rem         padding-top: 0.75rem      padding-bottom: 0.75rem
+  .header-mobile-form button  margin-top: 0.5rem
+
+─────────────────────────────────────
+2. Hero Section
+─────────────────────────────────────
+  .hero-section (移动端)  padding-top: 5rem        padding-bottom: 3.5rem
+  .hero-section (≥1024px) padding-top: 6rem        padding-bottom: 5rem
+  .hero-section (≤520px)  padding-top: 5rem        padding-bottom: 5rem
+  .hero-sub               margin-top: 1.25rem
+  #early-access div       margin-top: 1.5rem
+  .early-access-form      margin-top: 1.5rem
+  .advisor-proof          margin-top: 0.25rem
+  .mockup-area (≤520px)   margin-top: 2rem
+
+─────────────────────────────────────
+3. Before/After Section
+─────────────────────────────────────
+  .realwork-section       margin-top: 5rem         padding-bottom: 1rem
+  .realwork-label         margin-bottom: 0.75rem
+
+
+
+─────────────────────────────────────
+4. How Inko Works
+─────────────────────────────────────
+  .workflow-section (移动端)  padding-top: 9rem     padding-bottom: 6rem
+  .workflow-section (≥640px)  padding-top: 12rem    padding-bottom: 8rem
+  .workflow-h2               margin-top: 0.5rem
+  .workflow-grid              margin-top: 1.25rem
+  Step mini-phone wrapper     margin-top: 1.5rem (inline)
+  .step-body                  margin-top: 0.5rem
+  .mini-waveform              margin-top: 36px
+  .mini-record-btn            margin-top: 36px
+  .mini-summary-cards         margin-top: 12px
+  .mini-phone-step            margin-top: 1.5rem
+
+─────────────────────────────────────
+5. What You Get (Outcomes)
+─────────────────────────────────────
+  .outcomes-section (移动端)  padding-top: 6rem     padding-bottom: 5rem
+  .outcomes-section (≥640px)  padding-top: 8rem     padding-bottom: 6rem
+  .outcomes-h2               margin-top: 0.5rem
+  .outcomes-grid              margin-top: 1rem
+  .outcome-card               padding-top: 1rem     padding-bottom: 1rem
+  .outcome-card-body          margin-top: 0.5rem
+  .outcome-preview            margin-top: 0.75rem
+  .outcome-preview-lines      margin-top: 8px
+
+─────────────────────────────────────
+6. Scenarios（属于 Outcomes 模块内）
+─────────────────────────────────────
+  .scenarios-label           margin-top: 6rem
+  .scenarios-grid             margin-top: 1rem
+
+─────────────────────────────────────
+7. Privacy / Security
+─────────────────────────────────────
+  .privacy-section (移动端)  padding-top: 6rem      padding-bottom: 6rem
+  .privacy-section (≥640px)  padding-top: 8rem      padding-bottom: 8rem
+  .privacy-label             margin-bottom: 0.75rem
+  .privacy-heading           margin-bottom: 1rem
+  .privacy-subtitle          margin-bottom: 3rem
+  .privacy-card               padding-top: 1.5rem   padding-bottom: 1.5rem
+  .privacy-card-title         margin-bottom: 0.5rem
+
+─────────────────────────────────────
+8. FAQ
+─────────────────────────────────────
+  .faq-section (移动端)      padding-top: 6rem      padding-bottom: 3rem
+  .faq-section (≥640px)      padding-top: 8rem      padding-bottom: 4rem
+  .faq-toggle                 padding-top: 1.25rem  padding-bottom: 1.25rem
+  .faq-a                      padding-bottom: 1.25rem
+
+─────────────────────────────────────
+9. Final CTA
+─────────────────────────────────────
+  .final-cta-section (移动端) padding-top: 5rem     padding-bottom: 1rem
+  .final-cta-section (≥640px) padding-top: 8rem     padding-bottom: 1rem
+  .final-cta-box               padding-top: 1.25rem padding-bottom: 1.25rem
+  .final-cta-sub               margin-top: 0.75rem
+  .final-cta-form              margin-top: 1.25rem
+  .cta-phone                   top: -10rem
+  .advisor-proof (inline)      margin-top: 0.5rem
+
+─────────────────────────────────────
+10. Footer
+─────────────────────────────────────
+  .footer                     padding-top: 1.5rem   padding-bottom: 3rem
+  .footer-inner               padding-top: 1.5rem
+
+─────────────────────────────────────
+11. Legal Pages（动态生成）
+─────────────────────────────────────
+  #legal-page 容器             padding-top: 6rem     padding-bottom: 6rem
+  Back link                   margin-bottom: 3rem
+  标题 h1                     margin-bottom: 1rem
+  日期                        margin-bottom: 3rem
+  各章节 h2                   margin-bottom: 0.75rem
+  各段落 p                    margin-bottom: 2rem
+  各列表 ul                   margin-bottom: 2rem
+  各列表项 li                 margin-bottom: 0.5rem
+  底部联系方式                 margin-top: 4rem      padding-top: 2rem
+
+─────────────────────────────────────
+12. Thank You Page（动态生成）
+─────────────────────────────────────
+  容器                         padding-top: 4rem     padding-bottom: 4rem
+  图标区域                     margin-bottom: 2rem
+  标题 h1                     margin-bottom: 1rem
+  副标题 p                    margin-bottom: 0.5rem
+  描述 p                      margin-bottom: 2.5rem
+  按钮                         padding-top: 1rem     padding-bottom: 1rem
+
+
+=====================================
+各模块 section 级上下间距汇总（桌面端 ≥640px）
+=====================================
+
+模块              | padding-top | padding-bottom
+----------------- | ----------- | --------------
+Hero              | 6rem        | 5rem
+Before/After      | margin-top: 5rem | padding-bottom: 1rem
+How Inko Works    | 12rem       | 8rem
+What You Get      | 8rem        | 6rem
+Scenarios         | margin-top: 6rem | (属于 Outcomes)
+Privacy           | 8rem        | 8rem
+FAQ               | 8rem        | 4rem
+Final CTA         | 8rem        | 1rem
+Footer            | 1.5rem      | 3rem
