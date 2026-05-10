@@ -84,43 +84,6 @@ const workflowSteps = [
   },
 ];
 
-const outcomeCards = [
-  {
-    variant: "summary",
-    title: "Conversation Summary",
-    body: "Understand what was said without replaying.",
-  },
-  {
-    variant: "draft",
-    title: "Follow-up Drafts",
-    body: "Create personalized follow-ups while it is still fresh.",
-  },
-  {
-    variant: "memory",
-    title: "Client Memory",
-    body: "Keep every client's needs, concerns, and history.",
-  },
-  {
-    variant: "advisor",
-    title: "Ask Advisor",
-    body: "Ask what to say next, or which product fits.",
-  },
-  {
-    variant: "crm",
-    title: "CRM-ready Notes",
-    body: "Turn conversations into structured records.",
-  },
-];
-
-const scenarioChips = [
-  "Insurance Consultations",
-  "Client Review Meetings",
-  "Follow-up Calls",
-  "Renewal Conversations",
-  "Long-cycle Consultative Sales",
-  "Broker Team Handoffs",
-];
-
 function LogoMark() {
   return (
     <span className="relative flex h-6 w-4 items-center justify-center" aria-hidden="true">
@@ -779,119 +742,533 @@ function WorkflowSection() {
   );
 }
 
-function OutcomePreview({ variant }: { variant: string }) {
-  if (variant === "draft") {
-    return (
-      <div className="mt-3 rounded-[0.7rem] border border-[#e5edf6] bg-white p-2 text-left shadow-[0_12px_24px_-22px_rgba(9,21,42,0.32)]">
-        <p className="text-[0.46rem] font-black text-[#17243a]">Follow-up Draft</p>
-        <p className="mt-2 text-[0.38rem] leading-[0.62rem] text-[#617288]">
-          Hi John, great speaking with you today. Based on what we discussed...
+const followCardTitleClass = "text-[1.52rem] font-bold leading-[1.1] tracking-[0.03em] text-[#1E3A5F]";
+const followBodyTextClass = "text-[0.85rem] font-semibold leading-[1.38]";
+const followCardBodyClass = "mt-3 text-[0.85rem] font-semibold leading-[1.38] text-[#4A5568]";
+const advisorColumnTitleClass = "text-[1.25rem] font-bold leading-tight text-[#2498ff]";
+const advisorColumnBodyClass = "mt-1 text-[0.85rem] font-semibold leading-[1.38] text-[#8e9299]";
+const advisorCardTitleClass = "text-[1rem] font-bold leading-tight text-[#111417]";
+const advisorCardBodyClass = "mt-1 text-[0.85rem] font-semibold leading-[1.38] text-[#4b4d52]";
+const followSmallTextClass = "text-[0.72rem] font-semibold leading-[1.4]";
+const followMicroTextClass = "text-[0.62rem] font-semibold leading-[1.35]";
+
+const advisorInputs = [
+  {
+    icon: "chat",
+    title: "Conversation History",
+    body: "All past calls, meeting, and notes.",
+    detail: (
+      <div className="mx-auto mt-4 max-w-[16.7rem] rounded-lg border border-[#e1e1e1] bg-white p-5 text-left">
+        <p className={`${followSmallTextClass} text-[#8e9299]`}>May 7 . 10:30 AM</p>
+        <p className={`mt-3 ${followBodyTextClass} text-[#111417]`}>
+          Discussed policy option for family of 4, focusing on education fund and long-term protection.
         </p>
-        <button className="mt-2 h-5 w-full rounded-[0.38rem] bg-[#1f8fff] text-[0.34rem] font-black text-white">
-          Review &amp; Send
-        </button>
       </div>
+    ),
+  },
+  {
+    icon: "person",
+    title: "Client Profile",
+    body: "Key details and relationships.",
+    detail: (
+      <div className="mt-4 flex items-center gap-3">
+        {[
+          ["AJ", "from-[#dff3ff] to-[#9ed6ff] text-[#1477c9]"],
+          ["DL", "from-[#e8f7ee] to-[#a8dec0] text-[#267247]"],
+          ["MR", "from-[#fff0df] to-[#ffc987] text-[#9a5a12]"],
+          ["SK", "from-[#f0e9ff] to-[#c9b7ff] text-[#5d45b8]"],
+        ].map(([initials, tone]) => (
+          <span
+            key={initials}
+            className={`flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br ${followMicroTextClass} shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8)] ${tone}`}
+            aria-label={`Client avatar ${initials}`}
+          >
+            {initials}
+          </span>
+        ))}
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#eaf6ff] text-[1rem] text-[#2498ff]">+</span>
+      </div>
+    ),
+  },
+  {
+    icon: "book",
+    title: "Knowledge Base",
+    body: "Your products, playbooks, and resources.",
+    detail: (
+      <div className="mt-4 flex flex-col items-start gap-2">
+        <span className={`${followSmallTextClass} rounded-lg bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>Product Guide</span>
+        <span className={`${followSmallTextClass} rounded-lg bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>Objection Handling</span>
+      </div>
+    ),
+  },
+  {
+    icon: "book",
+    title: "Files & Content",
+    body: "Your products, playbooks, and resources.",
+    detail: (
+      <div className={`mt-4 flex flex-wrap gap-2 ${followMicroTextClass} text-[#555]`}>
+        <span className="rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Plan.pdf</span>
+        <span className="rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Family Protection.pptx</span>
+        <span className="rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Plan Comparison.xlsx</span>
+      </div>
+    ),
+  },
+];
+
+const advisorOutputs = [
+  {
+    icon: "mail",
+    title: "Follow-up Email",
+    body: "Personalized and ready to send.",
+    detail: (
+      <div className={`mt-4 rounded-lg bg-white p-3 ${followMicroTextClass} text-[#333] shadow-[0_14px_30px_-24px_rgba(9,21,42,0.35)]`}>
+        <div className="grid grid-cols-[1.8rem_1fr] gap-x-2">
+          <span className="text-[#888]">To:</span>
+          <span>Anna.johnson@gmail.com, david.johnson@gmail.com</span>
+          <span className="mt-2 text-[#888]">Subject:</span>
+          <span className="mt-2">Recap: Preserving Flexibility While Funding Sophie&apos;s Education</span>
+        </div>
+        <div className="my-2 h-px bg-[#eeeeee]" />
+        <p>Hi Anna and David,</p>
+        <p className="mt-2">Thank you again for meeting me for coffee this morning. It was a pleasure discussing the options...</p>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <span className="rounded-lg bg-[#151515] py-1 text-center text-white">Copy</span>
+          <span className="rounded-lg bg-[#2fa0f6] py-1 text-center text-white">Send</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    icon: "file",
+    title: "Plan/ Solution Match",
+    body: "Best options for her goals.",
+    detail: (
+      <div className={`mt-4 rounded-lg border border-[#eeeeee] bg-white p-3 ${followMicroTextClass} text-[#17243a]`}>
+        <div className="grid grid-cols-4 gap-2 font-semibold">
+          <span>Recommended</span>
+          <span>Coverage</span>
+          <span>Monthly</span>
+          <span>Match</span>
+        </div>
+        <div className="mt-3 space-y-2 text-[#546172]">
+          <div className="h-1.5 rounded bg-[#eef3f8]" />
+          <div className="h-1.5 rounded bg-[#eef3f8]" />
+          <div className="h-1.5 rounded bg-[#eef3f8]" />
+        </div>
+      </div>
+    ),
+  },
+  {
+    icon: "screen",
+    title: "Presentation Slide",
+    body: "Custom slide for your client.",
+    detail: (
+      <div className="mt-4 flex gap-2 overflow-hidden rounded-lg">
+        <div className="aspect-[16/10] min-w-[4.6rem] flex-[1_0_calc((100%_-_1rem)/3)] rounded-lg bg-[#eef7ff] p-2">
+          <p className="h-1.5 w-10 rounded bg-[#2498ff]" />
+          <p className="mt-2 h-1 w-14 rounded bg-[#bdddf5]" />
+          <div className="mt-2 grid grid-cols-2 gap-1">
+            <span className="h-3 rounded bg-white" />
+            <span className="h-3 rounded bg-white" />
+          </div>
+        </div>
+        <div className="aspect-[16/10] min-w-[4.6rem] flex-[1_0_calc((100%_-_1rem)/3)] rounded-lg bg-[#f5faff] p-2">
+          <p className={`${followMicroTextClass} text-[#1E3A5F]`}>Plan Fit</p>
+          <div className="mt-2 flex h-6 items-end gap-1">
+            <span className="h-3 w-2 rounded-sm bg-[#b9dcff]" />
+            <span className="h-5 w-2 rounded-sm bg-[#2498ff]" />
+            <span className="h-4 w-2 rounded-sm bg-[#7ec8ff]" />
+          </div>
+        </div>
+        <div className="aspect-[16/10] min-w-[4.6rem] flex-[1_0_calc((100%_-_1rem)/3)] rounded-lg bg-[#fff8ef] p-2">
+          <p className={`${followMicroTextClass} text-[#1E3A5F]`}>Next Step</p>
+          <div className="mt-2 space-y-1">
+            <span className="block h-1.5 rounded bg-[#ffc987]" />
+            <span className="block h-1.5 w-4/5 rounded bg-[#ffe1b8]" />
+            <span className="block h-1.5 w-3/5 rounded bg-[#ffe1b8]" />
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    icon: "sliders",
+    title: "Anything You Need",
+    body: "And whatever comes next",
+    detail: (
+      <div className="mt-4 flex flex-wrap gap-2">
+        {["Objection Handling", "Renewal Strategy", "Coverage Gap Analysis", "..."].map((item) => (
+          <span key={item} className={`${followSmallTextClass} rounded-lg border border-[#bde0ff] bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>
+            {item}
+          </span>
+        ))}
+      </div>
+    ),
+  },
+];
+
+function AdvisorIcon({ kind }: { kind: string }) {
+  const common = "h-5 w-5";
+
+  if (kind === "chat") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M5 6h14v10H8l-3 3V6Z" />
+        <path d="M9 11h.01M12 11h.01M15 11h.01" />
+      </svg>
     );
   }
 
-  if (variant === "memory") {
+  if (kind === "person") {
     return (
-      <div className="mt-3 rounded-[0.7rem] border border-[#e5edf6] bg-white p-2 text-left shadow-[0_12px_24px_-22px_rgba(9,21,42,0.32)]">
-        <div className="flex items-center gap-2">
-          <span className="h-5 w-5 rounded-full bg-cover bg-center" style={{ backgroundImage: "url('/avatars/advisor-2.jpg')" }} />
-          <div>
-            <p className="text-[0.42rem] font-black text-[#17243a]">John Brown</p>
-            <p className="text-[0.32rem] text-[#8ca0b5]">Client since 2024</p>
-          </div>
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21c2-5 14-5 16 0" />
+      </svg>
+    );
+  }
+
+  if (kind === "mail") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M4 6h16v12H4V6Z" />
+        <path d="m4 7 8 7 8-7" />
+      </svg>
+    );
+  }
+
+  if (kind === "screen") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M4 5h16v11H4V5Z" />
+        <path d="M12 16v4M8 20h8" />
+      </svg>
+    );
+  }
+
+  if (kind === "sliders") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M4 8h16M4 16h16" />
+        <circle cx="9" cy="8" r="2" />
+        <circle cx="15" cy="16" r="2" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M6 4h9l3 3v13H6V4Z" />
+      <path d="M15 4v4h4" />
+    </svg>
+  );
+}
+
+function AdvisorInfoCard({
+  icon,
+  title,
+  body,
+  children,
+  compact = false,
+}: {
+  icon: string;
+  title: string;
+  body: string;
+  children?: ReactNode;
+  compact?: boolean;
+}) {
+  return (
+    <article
+      className={[
+        "relative min-w-0 rounded-[1.25rem] border border-[#dddddd] bg-white shadow-[0_18px_36px_-30px_rgba(9,21,42,0.42)]",
+        compact ? "p-5" : "p-6",
+      ].join(" ")}
+    >
+      <div className="flex items-start gap-5">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f4faff] text-[#2498ff]">
+          <AdvisorIcon kind={icon} />
+        </span>
+        <div className="min-w-0">
+          <h4 className={advisorCardTitleClass}>{title}</h4>
+          <p className={advisorCardBodyClass}>{body}</p>
+          {children}
         </div>
-        <div className="mt-2 flex gap-1">
-          {["Health", "Family", "Budget"].map((item) => (
-            <span key={item} className="rounded bg-[#edf7ff] px-1 py-0.5 text-[0.28rem] font-black text-[#1f8fff]">
+      </div>
+    </article>
+  );
+}
+
+function AdvisorPhone() {
+  return (
+    <div className="mx-auto w-full max-w-[22rem] rounded-[2rem] border border-[#dddddd] bg-white px-5 pb-7 pt-4 shadow-[0_16px_36px_-34px_rgba(9,21,42,0.4)]">
+      <div className="flex items-center justify-between text-[1rem] font-bold text-[#111417]">
+        <span>9:41</span>
+        <span className="flex items-center gap-3 text-[#111417]">
+          <AdvisorIcon kind="file" />
+          <span className="text-xl leading-none">...</span>
+        </span>
+      </div>
+      <div className="mt-6 flex items-center justify-between">
+        <span className="text-2xl leading-none">&lt;</span>
+        <h4 className="text-[1rem] font-bold leading-tight text-[#111417]">Ask Advisor</h4>
+        <span />
+      </div>
+      <div className={`ml-auto mt-4 max-w-[16.2rem] rounded-lg bg-[#2fa0f6] px-4 py-3 ${followBodyTextClass} text-white`}>
+        What are the best next steps for Anna Johnson?
+      </div>
+      <div className="relative mt-12 rounded-2xl border border-[#edf1f5] bg-white px-5 py-6 shadow-[0_18px_42px_-34px_rgba(9,21,42,0.35)]">
+        <span className="absolute -left-4 -top-5 flex h-11 w-11 items-center justify-center rounded-full bg-[#ddf2ff] text-[1rem] font-bold text-[#2498ff]">
+          AJ
+        </span>
+        <p className={`${followSmallTextClass} text-[#34415a]`}>
+          Based on your conversations and client context, here&apos;s what I recommend:
+        </p>
+        <div className={`mt-6 space-y-5 ${followSmallTextClass} text-[#34415a]`}>
+          {[
+            ["Send a personalized follow-up email highlighting protection + education fund.", "Follow-up Email"],
+            ["Share a plan comparison focused on her budget and goals.", "Plan / Solution Match"],
+            ["Schedule a follow-up call next week to address policy details.", "Call Plan"],
+          ].map(([text, chip], index) => (
+            <div key={chip} className="grid grid-cols-[1.4rem_1fr] gap-3">
+              <span className={`flex h-6 w-6 items-center justify-center rounded-full bg-[#ddecff] ${followSmallTextClass} text-[#2498ff]`}>
+                {index + 1}
+              </span>
+              <div>
+                <p>{text}</p>
+                <span className={`mt-2 inline-block rounded-lg bg-[#eef5ff] px-3 py-1 ${followMicroTextClass} text-[#5976a5]`}>{chip}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {["2 Past Conversations", "Client Profile", "Family Protection Plan", "Your Playbook", "Knowledge Base"].map((item) => (
+            <span key={item} className={`rounded-lg bg-[#e7f4ff] px-2 py-1 ${followMicroTextClass} text-[#2b89ff]`}>
               {item}
             </span>
           ))}
         </div>
       </div>
-    );
-  }
-
-  if (variant === "advisor") {
-    return (
-      <div className="mt-3 rounded-[0.7rem] border border-[#e5edf6] bg-white p-2 text-left shadow-[0_12px_24px_-22px_rgba(9,21,42,0.32)]">
-        <p className="text-[0.46rem] font-black text-[#17243a]">Ask Advisor</p>
-        <p className="mt-2 rounded-[0.42rem] bg-[#f3f8fc] p-2 text-[0.36rem] leading-[0.56rem] text-[#617288]">
-          Some recommendations fit John&apos;s output and term needs.
-        </p>
-        <p className="mt-2 text-[0.36rem] font-black text-[#17243a]">Term Life + Critical Illness</p>
-      </div>
-    );
-  }
-
-  if (variant === "crm") {
-    return (
-      <div className="mt-3 rounded-[0.7rem] border border-[#e5edf6] bg-white p-2 text-left shadow-[0_12px_24px_-22px_rgba(9,21,42,0.32)]">
-        <p className="text-[0.46rem] font-black text-[#17243a]">CRM Record</p>
-        <p className="mt-2 text-[0.34rem] font-black text-[#f06a3d]">Follow-up needed</p>
-        {["Family", "Budget Focus", "Life Insurance"].map((item) => (
-          <p key={item} className="mt-1 h-2 rounded bg-[#edf3f8]" />
-        ))}
-      </div>
-    );
-  }
-
-  return (
-    <div className="mt-3 rounded-[0.7rem] border border-[#e5edf6] bg-white p-2 text-left shadow-[0_12px_24px_-22px_rgba(9,21,42,0.32)]">
-      <p className="text-[0.46rem] font-black text-[#17243a]">Summary</p>
-      <div className="mt-2 space-y-1.5">
-        {["Key Needs", "Concerns", "Decision Timeline"].map((item, index) => (
-          <div key={item} className="rounded-[0.42rem] bg-[#f4f9ff] px-2 py-1.5">
-            <p className="text-[0.34rem] font-black text-[#17243a]">{item}</p>
-            <p className={index === 0 ? "mt-1 h-1 w-12 rounded bg-[#1f8fff]/30" : "mt-1 h-1 w-9 rounded bg-[#d8e7f5]"} />
-          </div>
-        ))}
+      <div className="mt-4 flex items-center gap-3">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#eef9ff] text-3xl leading-none text-[#2498ff]">+</span>
+        <div className={`flex h-12 flex-1 items-center justify-between rounded-full bg-[#f4fbff] px-5 ${followSmallTextClass} text-[#b9d8ef]`}>
+          <span>Ask anything...</span>
+          <span className="text-2xl text-[#2498ff]">&gt;</span>
+        </div>
       </div>
     </div>
   );
 }
 
-function OutcomesSection() {
+function AskAdvisorOverview() {
   return (
-    <section className="bg-white px-5 pb-4 pt-6 sm:px-8">
+    <section className="relative mt-6 w-full overflow-hidden rounded-[1.15rem] bg-white px-5 py-8 shadow-[0_4px_16px_rgba(0,0,0,0.1)] sm:px-7 lg:px-8">
+      <div className="absolute inset-x-0 bottom-0 h-12 bg-white" aria-hidden="true" />
+      <div className="relative z-10">
+        <h3 className={followCardTitleClass}>Ask Advisor</h3>
+        <p className={followCardBodyClass}>
+          Understands everything about your clients and business and how to take the right action every time.
+        </p>
+        <div className="relative mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.9fr)_minmax(0,1fr)]">
+          <div>
+            <h4 className={advisorColumnTitleClass}>Rich Inputs</h4>
+            <p className={advisorColumnBodyClass}>Everything your AI agent learns from</p>
+            <div className="mt-6 space-y-5">
+              {advisorInputs.map((item, index) => (
+                <AdvisorInfoCard key={item.title} icon={item.icon} title={item.title} body={item.body} compact={index !== 0}>
+                  {item.detail}
+                </AdvisorInfoCard>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-start lg:pt-[4.35rem]">
+            <AdvisorPhone />
+          </div>
+
+          <div>
+            <h4 className={advisorColumnTitleClass}>Smart Outputs</h4>
+            <p className={advisorColumnBodyClass}>Created exactly for what you need</p>
+            <div className="mt-6 space-y-5">
+              {advisorOutputs.map((item) => (
+                <AdvisorInfoCard key={item.title} icon={item.icon} title={item.title} body={item.body} compact>
+                  {item.detail}
+                </AdvisorInfoCard>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OutcomesSection() {
+  const promptItems = [
+    { label: "Demand", isDefault: true },
+    { label: "Budget", isDefault: true },
+    { label: "Emotion", isDefault: false },
+    { label: "Next Steps", isDefault: true },
+  ];
+
+  return (
+    <section className="bg-white px-5 pb-[4rem] pt-[5.5rem] sm:px-8 sm:pb-[6rem] sm:pt-[7.25rem]">
       <div className="mx-auto max-w-[1160px]">
         <SectionLabel>What You Get</SectionLabel>
-        <h2 className="mx-auto mt-2 max-w-[54rem] text-center text-[2rem] font-black leading-[1.04] tracking-[-0.02em] text-[#07111f] sm:text-[2.6rem]">
-          The work that usually happens after the meeting - already prepared.
+        <h2 className="mx-auto mt-[2.1rem] max-w-[54rem] text-center text-[2.4rem] font-extrabold leading-[1.04] tracking-[-0.02em] text-[#02060c] max-[520px]:max-w-[20rem] max-[520px]:text-[1.95rem] sm:text-[3.1rem]">
+          The Follow-up, A Tap Away.
         </h2>
+        <p className="mx-auto mt-[1.35rem] max-w-[41rem] text-center text-[1.12rem] font-bold leading-[1.32] text-[#5a5d63] max-[520px]:text-[1rem]">
+          The work you used to do after the talk? Now it&apos;s finished in a single tap. Inko transforms your records into
+          summaries and next steps.
+        </p>
 
-        <div className="mt-4 grid grid-cols-5 gap-4 max-[520px]:grid-cols-1">
-          {outcomeCards.map((card) => (
-            <article
-              key={card.title}
-              className="min-h-[13.7rem] rounded-[0.82rem] border border-[#dce7f1] bg-white p-4 shadow-[0_20px_34px_-24px_rgba(9,21,42,0.36)]"
-            >
-              <h3 className="text-[0.78rem] font-black leading-tight text-[#1f8fff]">{card.title}</h3>
-              <p className="mt-2 min-h-[2rem] text-[0.62rem] font-semibold leading-[1.25] text-[#263142]">
-                {card.body}
+        <div className="text-center">
+          <button
+            className="mt-[1.45rem] inline-flex min-w-[21.6rem] items-center justify-center gap-2 rounded-[0.65rem] bg-[#070b0c] px-6 py-[0.78rem] text-[0.88rem] font-semibold text-white max-[520px]:w-full max-[520px]:min-w-0 max-[520px]:max-w-[21.6rem]"
+            type="button"
+          >
+            <span className="relative h-[0.95rem] w-[0.95rem] shrink-0 before:absolute before:left-1/2 before:top-1/2 before:h-[0.76rem] before:w-[0.76rem] before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-45 before:rounded-[0.08rem] before:bg-white before:[clip-path:polygon(50%_0,62%_38%,100%_50%,62%_62%,50%_100%,38%_62%,0_50%,38%_38%)] after:absolute after:left-[92%] after:top-[5%] after:h-[0.34rem] after:w-[0.34rem] after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-45 after:rounded-[0.08rem] after:bg-white after:[clip-path:polygon(50%_0,62%_38%,100%_50%,62%_62%,50%_100%,38%_62%,0_50%,38%_38%)]" />
+            Ready for Summary
+          </button>
+        </div>
+
+        <div className="mt-[2.85rem] grid grid-cols-[minmax(0,1fr)_minmax(360px,0.62fr)] [grid-template-areas:'top_draft'_'profile_draft'] items-stretch gap-[1.1rem] max-[900px]:grid-cols-1 max-[900px]:[grid-template-areas:'top'_'draft'_'profile']">
+          <div className="grid grid-cols-2 gap-[1.1rem] [grid-area:top] max-[640px]:grid-cols-1">
+            <article className="min-w-0 rounded-2xl bg-white p-7 shadow-[0_4px_16px_rgba(0,0,0,0.1)] max-[520px]:p-[1.35rem]">
+              <h3 className={followCardTitleClass}>Prompt Template</h3>
+              <p className={followCardBodyClass}>
+                Create reusable templates to capture key client insights.
               </p>
-              <OutcomePreview variant={card.variant} />
+              <div className="mt-6 flex flex-col gap-[0.42rem]">
+                {promptItems.map((item) => (
+                  <div key={item.label} className="flex min-h-9 min-w-0 items-center overflow-hidden rounded-lg bg-[#F7FAFC]">
+                    <span className="relative self-stretch w-[1.45rem] shrink-0 bg-[#E2E8F0] before:absolute before:left-[0.42rem] before:top-[0.48rem] before:h-[3px] before:w-[3px] before:rounded-full before:bg-[#718096] before:shadow-[0_0.42rem_0_#718096,0_0.84rem_0_#718096,0.42rem_0_0_#718096,0.42rem_0.42rem_0_#718096,0.42rem_0.84rem_0_#718096]" />
+                    <span className={`ml-4 min-w-0 ${followSmallTextClass} text-[#2D3748]`}>{item.label}</span>
+                    {item.isDefault ? (
+                      <span className={`ml-1 rounded-full bg-[#3B82F6] px-1.5 py-0.5 ${followMicroTextClass} text-white`}>
+                        Default
+                      </span>
+                    ) : null}
+                    <button
+                      className="ml-auto flex h-[2.1rem] w-[2.1rem] items-center justify-center text-[#718096]"
+                      type="button"
+                      aria-label={`Delete ${item.label} template`}
+                    >
+                      <svg className="h-[0.68rem] w-[0.68rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
             </article>
-          ))}
+
+            <article className="min-w-0 rounded-2xl bg-white p-7 shadow-[0_4px_16px_rgba(0,0,0,0.1)] max-[520px]:p-[1.35rem]">
+              <h3 className={followCardTitleClass}>CRM update</h3>
+              <p className={followCardBodyClass}>
+                Turn conversations into structured records.
+              </p>
+              <div className="mt-6 flex min-h-[5.8rem] flex-col items-start justify-between rounded-[0.44rem] bg-[#F5FAFF] px-4 py-[1.45rem]">
+                <p className={`flex items-center gap-[0.34rem] whitespace-nowrap ${followBodyTextClass} text-[#1F2937] max-[520px]:flex-wrap max-[520px]:whitespace-normal`}>
+                  Updating
+                  <span className={`inline-flex h-[1.55rem] w-[1.55rem] items-center justify-center rounded-full bg-[#E0E7FF] ${followMicroTextClass} text-[#1E40AF]`}>
+                    RJ
+                  </span>
+                  unsynchronized info to
+                </p>
+                <div className="flex items-center">
+                  <button
+                    className={`inline-flex items-center gap-[0.4rem] rounded-[0.2rem] bg-[#3B82F6] px-[0.6rem] py-[0.45rem] ${followSmallTextClass} text-white`}
+                    type="button"
+                  >
+                    <span className="relative h-[0.62rem] w-[1.05rem] rounded-full bg-white before:absolute before:left-[0.1rem] before:top-[-0.25rem] before:h-[0.56rem] before:w-[0.56rem] before:rounded-full before:bg-white after:absolute after:right-[0.06rem] after:top-[-0.15rem] after:h-[0.45rem] after:w-[0.45rem] after:rounded-full after:bg-white" />
+                    Salesforce
+                  </button>
+                  <span className="ml-[0.28rem] inline-block text-[0.85rem] tracking-[0.02em] text-[#1F2937]">...</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <article className="min-w-0 rounded-2xl bg-white p-7 shadow-[0_4px_16px_rgba(0,0,0,0.1)] [grid-area:draft] max-[520px]:p-[1.35rem]">
+            <h3 className={followCardTitleClass}>Draft</h3>
+            <p className={followCardBodyClass}>
+              Create personalized follow-ups while the conversation is still fresh.
+            </p>
+            <div className="mt-[1.45rem] rounded-[0.44rem] bg-white px-[1.45rem] pb-5 pt-7">
+              <div className={`mb-[1.35rem] grid grid-cols-[3rem_1fr] items-baseline gap-x-3 ${followMicroTextClass} text-[#1F2937]`}>
+                <span className="text-[#6B7280]">To:</span>
+                <p>robert.d@gmail.com, emily.d@gmail.com</p>
+              </div>
+              <div className={`mb-[1.35rem] grid grid-cols-[3rem_1fr] items-baseline gap-x-3 ${followMicroTextClass} text-[#1F2937]`}>
+                <span className="text-[#6B7280]">Subject:</span>
+                <p>Recap: Preserving Flexibility While Funding Sophie&apos;s Education</p>
+              </div>
+              <div className={`mb-[1.35rem] min-h-[18.4rem] rounded-[0.55rem] border border-[#E5E7EB] bg-white p-3 ${followSmallTextClass} text-[#374151] shadow-[0_1px_0_rgba(0,0,0,0.02)] max-[520px]:min-h-[15rem]`}>
+                Hi Robert and Emily,
+                <br />
+                <br />
+                Thank you again for meeting me for coffee this morning. It was a pleasure discussing the options for Sophie&apos;s
+                college fund.
+                <br />
+                <br />
+                I completely understand your concerns around liquidity. As we discussed, I&apos;ve attached a comparison of the 529
+                plan and the whole life strategy we reviewed. Please pay special attention to page 3, which highlights how the
+                cash value can be accessed in an emergency, such as the home repair example we talked about.
+                <br />
+                <br />
+                Let&apos;s reconnect next Tuesday to finalize the numbers.
+                <br />
+                <br />
+                Best regards,
+                <br />
+                Mark
+              </div>
+              <button className="w-full rounded-[0.38rem] bg-[#3B82F6] py-[0.72rem] text-[0.85rem] font-semibold text-white" type="button">
+                Send
+              </button>
+            </div>
+          </article>
+
+          <article className="min-w-0 rounded-2xl bg-white p-7 shadow-[0_4px_16px_rgba(0,0,0,0.1)] [grid-area:profile] max-[520px]:p-[1.35rem]">
+            <h3 className={followCardTitleClass}>Client Profile</h3>
+            <p className={followCardBodyClass}>
+              Keep track of your client&apos;s needs, concerns, and history.
+            </p>
+            <div className="mt-[2.6rem] rounded-[0.65rem] border border-[#E5E7EB] bg-white px-6 py-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] max-[520px]:mt-6 max-[520px]:p-[1.1rem]">
+              <div className="mb-4 flex items-center gap-[0.85rem]">
+                <div className="flex h-[2.8rem] w-[2.8rem] shrink-0 items-center justify-center rounded-full bg-[#E0E7FF] text-[0.95rem] font-bold text-[#1E40AF]">
+                  AJ
+                </div>
+                <div>
+                  <p className={`${advisorCardTitleClass} text-[#1F2937]`}>Anna Johnson</p>
+                  <p className={`mt-0.5 ${followSmallTextClass} text-[#6B7280]`}>Last contact: Jan 16</p>
+                </div>
+                <button className="ml-auto self-start p-1 text-[#1F2937]" type="button" aria-label="Edit client profile">
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                  </svg>
+                </button>
+              </div>
+              <p className={`mb-3 ${followBodyTextClass} text-[#6B7280]`}>
+                A Business Supervisor at a local clinic. Married with two children, she cares about family protection, education
+                funding, and managing health-related financial risk. She is cautious and practical, and values clear options,
+                affordable premiums, and flexible coverage.
+              </p>
+              <div className="flex flex-wrap gap-[0.4rem]">
+                {["Mortgage", "Family", "Education", "Monthly Budget Focus", "Transparency"].map((tag) => (
+                  <span key={tag} className={`rounded-full bg-[#EFF6FF] px-[0.56rem] py-[0.18rem] ${followSmallTextClass} text-[#3B82F6]`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
         </div>
 
-        <div className="mt-7">
-          <SectionLabel>Built for Real Sales Conversations</SectionLabel>
-        </div>
-        <div className="mt-4 grid grid-cols-6 gap-3 max-[520px]:grid-cols-2">
-          {scenarioChips.map((chip, index) => (
-            <span
-              key={chip}
-              className="flex min-h-[3.5rem] items-center gap-3 rounded-[0.78rem] border border-[#dce7f1] bg-white px-4 py-3 text-[0.68rem] font-black leading-tight text-[#07111f] shadow-[0_16px_28px_-22px_rgba(9,21,42,0.35)]"
-            >
-              <IconBox kind={index === 2 ? "reply" : index === 3 ? "clock" : index === 4 ? "arrow" : index === 5 ? "groups" : "document"} />
-              {chip}
-            </span>
-          ))}
-        </div>
+        <AskAdvisorOverview />
       </div>
     </section>
   );
