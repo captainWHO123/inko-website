@@ -758,9 +758,9 @@ const advisorInputs = [
     title: "Conversation History",
     body: "All past calls, meeting, and notes.",
     detail: (
-      <div className="mx-auto mt-4 max-w-[16.7rem] rounded-lg border border-[#e1e1e1] bg-white p-5 text-left">
+      <div className="mx-auto mt-4 max-w-full overflow-hidden rounded-lg border border-[#e1e1e1] bg-white p-5 text-left">
         <p className={`${followSmallTextClass} text-[#8e9299]`}>May 7 . 10:30 AM</p>
-        <p className={`mt-3 ${followBodyTextClass} text-[#111417]`}>
+        <p className={`mt-3 ${followBodyTextClass} break-words text-[#111417]`}>
           Discussed policy option for family of 4, focusing on education fund and long-term protection.
         </p>
       </div>
@@ -771,7 +771,7 @@ const advisorInputs = [
     title: "Client Profile",
     body: "Key details and relationships.",
     detail: (
-      <div className="mt-4 flex items-center gap-3">
+      <div className="mt-4 flex max-w-full flex-wrap items-center gap-3 overflow-hidden">
         {[
           ["AJ", "from-[#dff3ff] to-[#9ed6ff] text-[#1477c9]"],
           ["DL", "from-[#e8f7ee] to-[#a8dec0] text-[#267247]"],
@@ -795,9 +795,9 @@ const advisorInputs = [
     title: "Knowledge Base",
     body: "Your products, playbooks, and resources.",
     detail: (
-      <div className="mt-4 flex flex-col items-start gap-2">
-        <span className={`${followSmallTextClass} rounded-lg bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>Product Guide</span>
-        <span className={`${followSmallTextClass} rounded-lg bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>Objection Handling</span>
+      <div className="mt-4 flex max-w-full flex-col items-start gap-2 overflow-hidden">
+        <span className={`${followSmallTextClass} max-w-full break-words rounded-lg bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>Product Guide</span>
+        <span className={`${followSmallTextClass} max-w-full break-words rounded-lg bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>Objection Handling</span>
       </div>
     ),
   },
@@ -806,10 +806,10 @@ const advisorInputs = [
     title: "Files & Content",
     body: "Your products, playbooks, and resources.",
     detail: (
-      <div className={`mt-4 flex flex-wrap gap-2 ${followMicroTextClass} text-[#555]`}>
-        <span className="rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Plan.pdf</span>
-        <span className="rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Family Protection.pptx</span>
-        <span className="rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Plan Comparison.xlsx</span>
+      <div className={`mt-4 flex max-w-full flex-wrap gap-2 overflow-hidden ${followMicroTextClass} text-[#555]`}>
+        <span className="max-w-full break-words rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Plan.pdf</span>
+        <span className="max-w-full break-words rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Family Protection.pptx</span>
+        <span className="max-w-full break-words rounded-lg border border-[#eeeeee] bg-white px-3 py-1">Plan Comparison.xlsx</span>
       </div>
     ),
   },
@@ -821,12 +821,12 @@ const advisorOutputs = [
     title: "Follow-up Email",
     body: "Personalized and ready to send.",
     detail: (
-      <div className={`mt-4 rounded-lg bg-white p-3 ${followMicroTextClass} text-[#333] shadow-[0_14px_30px_-24px_rgba(9,21,42,0.35)]`}>
-        <div className="grid grid-cols-[1.8rem_1fr] gap-x-2">
+      <div className={`mt-4 max-w-full overflow-hidden rounded-lg bg-white p-3 ${followMicroTextClass} text-[#333] shadow-[0_14px_30px_-24px_rgba(9,21,42,0.35)]`}>
+        <div className="grid min-w-0 grid-cols-[2rem_minmax(0,1fr)] gap-x-2">
           <span className="text-[#888]">To:</span>
-          <span>Anna.johnson@gmail.com, david.johnson@gmail.com</span>
+          <span className="min-w-0 break-words">Anna.johnson@gmail.com, david.johnson@gmail.com</span>
           <span className="mt-2 text-[#888]">Subject:</span>
-          <span className="mt-2">Recap: Preserving Flexibility While Funding Sophie&apos;s Education</span>
+          <span className="mt-2 min-w-0 break-words">Recap: Preserving Flexibility While Funding Sophie&apos;s Education</span>
         </div>
         <div className="my-2 h-px bg-[#eeeeee]" />
         <p>Hi Anna and David,</p>
@@ -843,12 +843,12 @@ const advisorOutputs = [
     title: "Plan/ Solution Match",
     body: "Best options for her goals.",
     detail: (
-      <div className={`mt-4 rounded-lg border border-[#eeeeee] bg-white p-3 ${followMicroTextClass} text-[#17243a]`}>
-        <div className="grid grid-cols-4 gap-2 font-semibold">
-          <span>Recommended</span>
-          <span>Coverage</span>
-          <span>Monthly</span>
-          <span>Match</span>
+      <div className={`mt-4 max-w-full overflow-hidden rounded-lg border border-[#eeeeee] bg-white p-3 ${followMicroTextClass} text-[#17243a]`}>
+        <div className="grid min-w-0 grid-cols-4 gap-1 font-semibold">
+          <span className="min-w-0 truncate">Recommended</span>
+          <span className="min-w-0 truncate">Coverage</span>
+          <span className="min-w-0 truncate">Monthly</span>
+          <span className="min-w-0 truncate">Match</span>
         </div>
         <div className="mt-3 space-y-2 text-[#546172]">
           <div className="h-1.5 rounded bg-[#eef3f8]" />
@@ -863,8 +863,8 @@ const advisorOutputs = [
     title: "Presentation Slide",
     body: "Custom slide for your client.",
     detail: (
-      <div className="mt-4 flex gap-2 overflow-hidden rounded-lg">
-        <div className="aspect-[16/10] min-w-[4.6rem] flex-[1_0_calc((100%_-_1rem)/3)] rounded-lg bg-[#eef7ff] p-2">
+      <div className="mt-4 flex max-w-full gap-2 overflow-hidden rounded-lg">
+        <div className="aspect-[16/10] min-w-0 flex-[1_1_0] rounded-lg bg-[#eef7ff] p-2">
           <p className="h-1.5 w-10 rounded bg-[#2498ff]" />
           <p className="mt-2 h-1 w-14 rounded bg-[#bdddf5]" />
           <div className="mt-2 grid grid-cols-2 gap-1">
@@ -872,7 +872,7 @@ const advisorOutputs = [
             <span className="h-3 rounded bg-white" />
           </div>
         </div>
-        <div className="aspect-[16/10] min-w-[4.6rem] flex-[1_0_calc((100%_-_1rem)/3)] rounded-lg bg-[#f5faff] p-2">
+        <div className="aspect-[16/10] min-w-0 flex-[1_1_0] rounded-lg bg-[#f5faff] p-2">
           <p className={`${followMicroTextClass} text-[#1E3A5F]`}>Plan Fit</p>
           <div className="mt-2 flex h-6 items-end gap-1">
             <span className="h-3 w-2 rounded-sm bg-[#b9dcff]" />
@@ -880,7 +880,7 @@ const advisorOutputs = [
             <span className="h-4 w-2 rounded-sm bg-[#7ec8ff]" />
           </div>
         </div>
-        <div className="aspect-[16/10] min-w-[4.6rem] flex-[1_0_calc((100%_-_1rem)/3)] rounded-lg bg-[#fff8ef] p-2">
+        <div className="aspect-[16/10] min-w-0 flex-[1_1_0] rounded-lg bg-[#fff8ef] p-2">
           <p className={`${followMicroTextClass} text-[#1E3A5F]`}>Next Step</p>
           <div className="mt-2 space-y-1">
             <span className="block h-1.5 rounded bg-[#ffc987]" />
@@ -896,9 +896,9 @@ const advisorOutputs = [
     title: "Anything You Need",
     body: "And whatever comes next",
     detail: (
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex max-w-full flex-wrap gap-2 overflow-hidden">
         {["Objection Handling", "Renewal Strategy", "Coverage Gap Analysis", "..."].map((item) => (
-          <span key={item} className={`${followSmallTextClass} rounded-lg border border-[#bde0ff] bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>
+          <span key={item} className={`${followSmallTextClass} max-w-full break-words rounded-lg border border-[#bde0ff] bg-[#dff1ff] px-3 py-1 text-[#2498ff]`}>
             {item}
           </span>
         ))}
@@ -988,7 +988,7 @@ function AdvisorInfoCard({
         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f4faff] text-[#2498ff]">
           <AdvisorIcon kind={icon} />
         </span>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <h4 className={advisorCardTitleClass}>{title}</h4>
           <p className={advisorCardBodyClass}>{body}</p>
           {children}
@@ -1059,6 +1059,42 @@ function AdvisorPhone() {
   );
 }
 
+function AdvisorConnectors({ side }: { side: "left" | "right" }) {
+  const connectorColor = "#B7DFFF";
+  const isLeft = side === "left";
+  const connectorYs = isLeft ? [215, 445, 625, 820] : [225, 497, 695, 895];
+  const joinY = 520;
+  const trunkX = isLeft ? 58 : 42;
+  const cardEdgeX = isLeft ? 0 : 100;
+  const phoneEdgeX = isLeft ? 100 : 0;
+  const markerId = `advisor-soft-arrow-${side}`;
+
+  return (
+    <svg
+      className="pointer-events-none hidden h-full min-h-[48rem] w-full overflow-visible lg:block"
+      viewBox="0 0 100 1000"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <marker id={markerId} markerWidth="5" markerHeight="5" refX="4.5" refY="2.5" orient="auto" markerUnits="strokeWidth">
+          <path d="M0 0 5 2.5 0 5Z" fill={connectorColor} />
+        </marker>
+      </defs>
+      <g fill="none" stroke={connectorColor} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" vectorEffect="non-scaling-stroke">
+        {connectorYs.map((y) => (
+          <path key={`${side}-${y}`} d={`M${cardEdgeX} ${y} H${trunkX}`} />
+        ))}
+        <path d={`M${trunkX} ${connectorYs[0]} V${connectorYs[connectorYs.length - 1]}`} />
+        <path d={`M${trunkX} ${joinY} H${phoneEdgeX}`} markerEnd={`url(#${markerId})`} />
+      </g>
+      <g fill={connectorColor}>
+        <circle cx={trunkX} cy={joinY} r="2" />
+      </g>
+    </svg>
+  );
+}
+
 function AskAdvisorOverview() {
   return (
     <section className="relative mt-6 w-full overflow-hidden rounded-[1.15rem] bg-white px-5 py-8 shadow-[0_4px_16px_rgba(0,0,0,0.1)] sm:px-7 lg:px-8">
@@ -1068,8 +1104,8 @@ function AskAdvisorOverview() {
         <p className={followCardBodyClass}>
           Understands everything about your clients and business and how to take the right action every time.
         </p>
-        <div className="relative mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.9fr)_minmax(0,1fr)]">
-          <div>
+        <div className="relative mt-8 grid gap-8 lg:grid-cols-[minmax(0,20rem)_minmax(3rem,1fr)_minmax(18rem,22rem)_minmax(3rem,1fr)_minmax(0,20rem)] lg:gap-0">
+          <div className="relative z-10 w-full lg:col-start-1 lg:row-start-1 lg:max-w-[20rem] lg:justify-self-start">
             <h4 className={advisorColumnTitleClass}>Rich Inputs</h4>
             <p className={advisorColumnBodyClass}>Everything your AI agent learns from</p>
             <div className="mt-6 space-y-5">
@@ -1081,11 +1117,19 @@ function AskAdvisorOverview() {
             </div>
           </div>
 
-          <div className="flex items-start lg:pt-[4.35rem]">
+          <div className="relative z-20 hidden lg:col-start-2 lg:row-start-1 lg:block">
+            <AdvisorConnectors side="left" />
+          </div>
+
+          <div className="relative z-10 flex items-start lg:col-start-3 lg:row-start-1 lg:pt-[4.35rem]">
             <AdvisorPhone />
           </div>
 
-          <div>
+          <div className="relative z-20 hidden lg:col-start-4 lg:row-start-1 lg:block">
+            <AdvisorConnectors side="right" />
+          </div>
+
+          <div className="relative z-10 w-full lg:col-start-5 lg:row-start-1 lg:max-w-[20rem] lg:justify-self-end">
             <h4 className={advisorColumnTitleClass}>Smart Outputs</h4>
             <p className={advisorColumnBodyClass}>Created exactly for what you need</p>
             <div className="mt-6 space-y-5">
