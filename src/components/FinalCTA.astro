@@ -1,0 +1,156 @@
+---
+---
+<section class="final-cta-section">
+  <div class="final-cta-box">
+    <div class="final-cta-content">
+      <h2 class="final-cta-h2">Every conversation has value. Keep yours.</h2>
+      <p class="final-cta-sub">Join early access and see how Inko turns client conversations into follow-ups, next steps, and client records.</p>
+      <div class="final-cta-form">
+        <form class="early-access-form" id="cta-form">
+          <label class="sr-only" for="cta-email">Work email address</label>
+          <input id="cta-email" class="early-access-input" name="workEmail" placeholder="Work email address" required type="email">
+          <button class="early-access-btn" type="submit">Get Early Access</button>
+          <div id="cta-form-message" class="form-message" style="display:none;"></div>
+        </form>
+      </div>
+      <div class="advisor-proof" style="margin-top:0.5rem;">
+        <div class="advisor-avatars">
+          <img src="/avatars/avatar-1.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:4;">
+          <img src="/avatars/avatar-2.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:3;">
+          <img src="/avatars/avatar-3.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:2;">
+          <img src="/avatars/avatar-4.jpg" alt="" class="advisor-avatar" style="object-fit:cover;z-index:1;">
+        </div>
+        <div class="advisor-proof-text">
+          <p><strong>140+ advisors</strong> joined the early access list.</p>
+          <p>Priority access for early software testing.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-phone">
+      <div class="cta-phone-screen">
+        <div class="cta-phone-notch"></div>
+        <div class="cta-phone-text">inko</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ── Kit Form Submission ──
+const KIT_FORM_URL = 'https://app.kit.com/forms/8899105/subscriptions';
+
+function submitEmail(email: string): Promise<void> {
+  return fetch(KIT_FORM_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ email_address: email }).toString(),
+  }).then(() => {
+    window.location.hash = '#/thank-you';
+  });
+}
+
+function setupForm(formId: string, messageId: string) {
+  const form = document.getElementById(formId) as HTMLFormElement | null;
+  const msg = document.getElementById(messageId);
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = form.querySelector('input[type="email"]') as HTMLInputElement | null;
+    if (!input || !input.value) return;
+    const email = input.value.trim();
+    if (!email) return;
+
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (btn) btn.disabled = true;
+
+    submitEmail(email).catch(() => {
+      if (msg) {
+        msg.textContent = 'Something went wrong. Please try again.';
+        msg.className = 'form-message error';
+        msg.style.display = 'block';
+      }
+      if (btn) btn.disabled = false;
+    });
+  });
+}
+
+setupForm('cta-form', 'cta-form-message');
+
+// ── Header nav submit button ──
+const navSubmitBtn = document.getElementById('nav-submit-btn');
+const navEmailInput = document.getElementById('nav-work-email') as HTMLInputElement | null;
+
+navSubmitBtn?.addEventListener('click', () => {
+  if (!navEmailInput) return;
+  const email = navEmailInput.value.trim();
+  if (!email) return;
+  (navSubmitBtn as HTMLButtonElement).disabled = true;
+  submitEmail(email).catch(() => {
+    (navSubmitBtn as HTMLButtonElement).disabled = false;
+  });
+});
+
+// ── Mobile submit button ──
+const mobileSubmitBtn = document.getElementById('mobile-submit-btn');
+const mobileEmailInput = document.getElementById('mobile-email-input') as HTMLInputElement | null;
+
+mobileSubmitBtn?.addEventListener('click', () => {
+  if (!mobileEmailInput) return;
+  const email = mobileEmailInput.value.trim();
+  if (!email) return;
+  (mobileSubmitBtn as HTMLButtonElement).disabled = true;
+  submitEmail(email).catch(() => {
+    (mobileSubmitBtn as HTMLButtonElement).disabled = false;
+  });
+});
+</script>
+
+<style is:global>
+/* -- Final CTA Section -- */
+.final-cta-section { background: #fff; padding: 4rem 1.25rem 1rem; }
+@media (min-width: 640px) { .final-cta-section { padding-left: 2rem; padding-right: 2rem; padding-top: 6rem; padding-bottom: 1rem; } }
+.final-cta-box {
+  position: relative; max-width: 1160px; margin: 0 auto; height: auto; min-height: 17rem;
+  border-radius: 1.1rem;
+  background: linear-gradient(135deg, #e8f8ff 0%, #caefff 100%);
+  padding: 1.25rem; overflow: hidden;
+  box-shadow: 0 24px 54px -32px rgba(31,143,255,0.38);
+}
+@media (max-width: 520px) { .final-cta-box { height: auto; padding-bottom: 2rem; } }
+@media (min-width: 640px) { .final-cta-box { padding: 1.25rem 2.5rem; } }
+.final-cta-content { position: relative; z-index: 10; max-width: 44rem; }
+.final-cta-h2 {
+  font-size: 2rem; font-weight: 800; line-height: 1.08;
+  letter-spacing: -0.02em; color: #07111f;
+}
+@media (min-width: 640px) { .final-cta-h2 { font-size: 2.5rem; } }
+.final-cta-sub {
+  margin-top: 0.75rem; max-width: 34rem;
+  font-size: 0.98rem; font-weight: 600; line-height: 1.5rem; color: #263142;
+}
+.final-cta-form { margin-top: 1.25rem; }
+
+.cta-phone {
+  position: absolute; right: -12px; top: -10rem; display: block;
+  width: 18rem; transform: rotate(18deg);
+  border-radius: 2.1rem; border: 1px solid rgba(0,0,0,0.1);
+  background: #0d1420; padding: 8px;
+  box-shadow: 0 28px 60px -25px rgba(9,21,42,0.55);
+}
+@media (max-width: 520px) { .cta-phone { display: none; } }
+@media (min-width: 1024px) { .cta-phone { right: 2rem; width: 21rem; } }
+.cta-phone-screen {
+  aspect-ratio: 9 / 18.5; border-radius: 1.68rem;
+  background: linear-gradient(145deg, #85dcff 0%, #1f8fff 52%, #006ee8 100%);
+}
+.cta-phone-notch {
+  width: 80px; height: 28px; margin: 0 auto;
+  border-radius: 0 0 1rem 1rem; background: #0d1420;
+}
+.cta-phone-text {
+  display: flex; height: 78%; align-items: center; justify-content: center;
+  font-size: 3.2rem; font-weight: 800; color: rgba(255,255,255,0.92);
+}
+</style>

@@ -1,0 +1,44 @@
+---
+---
+
+<section id="features" class="realwork-section">
+  <div style="max-width:1210px;margin:0 auto;">
+    <p class="realwork-label">After the conversation, the real work begins</p>
+    <div class="realwork-grid" style="overflow:hidden;">
+      <picture class="realwork-img-desktop" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <source srcset="/before-after-pc.webp" type="image/webp">
+        <img src="/before-after-pc.jpg" alt="After the conversation, the real work begins" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </picture>
+      <picture class="realwork-img-mobile" style="width:100%;height:100%;object-fit:cover;display:none;">
+        <source srcset="/before-after-mobile.webp" type="image/webp">
+        <img src="/before-after-mobile.jpg" alt="After the conversation, the real work begins" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+/* ── Before / After Section ── */
+.realwork-section {
+  position: relative; margin-top: 0; padding: 0 1.25rem 1rem;
+  background: linear-gradient(180deg, transparent 0%, transparent 49%, #ffffff 50%, #ffffff 100%);
+  scroll-margin-top: 6rem;
+}
+@media (min-width: 640px) { .realwork-section { padding: 0 2rem 1rem; } }
+@media (max-width: 520px) {
+  .realwork-img-desktop { display: none !important; }
+  .realwork-img-mobile { display: block !important; }
+}
+.realwork-label {
+  margin-bottom: 0.75rem; text-align: center;
+  font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #167daf;
+}
+.realwork-grid {
+  max-width: 1210px; margin: 0 auto;
+  position: relative; display: block;
+  border-radius: 2rem; border: 1px solid #d6e6f2;
+  background: #f7fbff; overflow: hidden;
+  box-shadow: 0 28px 60px -26px rgba(9,21,42,0.38);
+}
+.realwork-grid img { border-radius: 2rem; }
+</style>

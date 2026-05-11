@@ -1,0 +1,31 @@
+---
+---
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo">inko</a>
+      <p class="footer-tagline">AI mobile post-conversation workspace for insurance advisors.</p>
+    </div>
+    <nav class="footer-nav">
+      <a href="#/privacy">Privacy Policy</a>
+      <a href="#/terms">Terms of Use</a>
+    </nav>
+  </div>
+</footer>
+
+<style is:global>
+/* -- Footer -- */
+.footer { padding-top: 1.5rem; padding-bottom: 3rem; background: #fff; }
+.footer-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+  gap: 1.5rem; border-top: 1px solid #dde7f1; padding-top: 1.5rem;
+}
+@media (max-width: 520px) { .footer-inner { flex-direction: column; align-items: flex-start; } }
+.footer-brand { display: flex; align-items: center; gap: 1.25rem; }
+.footer-logo { font-size: 2rem; font-weight: 800; line-height: 1; color: #06121f; text-decoration: none; }
+.footer-tagline { font-size: 0.82rem; font-weight: 600; color: #263142; }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 1.75rem; }
+.footer-nav a { font-size: 0.78rem; font-weight: 700; color: #07111f; text-decoration: none; }
+.footer-nav a:hover { color: #1d8dff; }
+</style>
