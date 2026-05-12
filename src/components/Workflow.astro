@@ -17,8 +17,9 @@
           </div>
         </div>
         <div style="margin-top:1.5rem;display:flex;align-items:center;padding-left:calc((100% - 13.8rem) / 2 + 2.5rem);">
-          <div class="mini-phone" style="flex-shrink:0;">
-            <div class="mini-phone-screen">
+          <div class="mini-phone" style="flex-shrink:0;position:relative;background:transparent;padding:0;">
+            <img src="/phone-mockup.png" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;" />
+            <div class="mini-phone-screen" style="padding-top:28px;">
               <p class="mini-phone-title">Recording</p>
               <p class="mini-phone-subtitle">Consulting client call</p>
               <div class="mini-waveform">
@@ -47,9 +48,9 @@
           </div>
         </div>
         <div style="margin-top:1.5rem;display:flex;justify-content:center;">
-          <div class="mini-phone">
-            <div class="mini-phone-screen light">
-              <div class="mini-phone-notch"></div>
+          <div class="mini-phone" style="position:relative;">
+            <img src="/phone-mockup.png" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;" />
+            <div class="mini-phone-screen light" style="padding-top:28px;">
               <p class="mini-phone-title" style="color:#17243a;">Anna Johnson</p>
               <p class="mini-phone-subtitle">Policy review</p>
               <div class="mini-summary-cards">
@@ -84,9 +85,9 @@
           </div>
         </div>
         <div style="margin-top:1.5rem;display:flex;justify-content:center;">
-          <div class="mini-phone">
-            <div class="mini-phone-screen light">
-              <div class="mini-phone-notch"></div>
+          <div class="mini-phone" style="position:relative;">
+            <img src="/phone-mockup.png" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;" />
+            <div class="mini-phone-screen light" style="padding-top:28px;">
               <p class="mini-phone-title" style="color:#17243a;font-size:0.58rem;">Follow-up Ready</p>
               <div style="margin-top:8px;border-radius:0.56rem;border:1px solid #e5edf6;background:#f8fbff;padding:8px;">
                 <div style="height:4px;width:64px;border-radius:999px;background:#c8dbea;"></div>
@@ -150,13 +151,13 @@
 
 /* ── Mini Phones ── */
 .mini-phone {
-  position: relative; width: 7.15rem; aspect-ratio: 9 / 18.5;
-  border-radius: 1.1rem; background: #000; padding: 4px;
-  box-shadow: 0 20px 34px -22px rgba(9,21,42,0.48);
+  position: relative; width: 6.5rem; aspect-ratio: 9 / 19;
+  border-radius: 1.6rem; background: transparent; padding: 0;
+  box-shadow: 0 20px 34px -22px rgba(9,21,42,0.48); overflow: hidden;
 }
 .mini-phone-screen {
-  height: 100%; border-radius: 0.86rem; padding: 16px 8px 20px;
-  text-align: center; color: #fff; background: #05080c;
+  height: 100%; border-radius: 1.4rem; padding: 16px 8px 20px;
+  text-align: center; color: #fff; background: #05080c; overflow: hidden;
 }
 .mini-phone-screen.light { background: #fff; color: #17243a; }
 .mini-phone-notch { width: 36px; height: 8px; border-radius: 999px; background: #000; margin: 0 auto 12px; }
