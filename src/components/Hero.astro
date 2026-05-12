@@ -42,8 +42,7 @@
     <div class="phones-container">
       <!-- ── Recording Phone ── -->
       <div class="phone-frame phone-recording">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
+        <div class="phone-screen-content">
           <div class="phone-status-bar">
             <span>9:41</span>
             <span class="phone-status-icons">
@@ -103,12 +102,12 @@
             </div>
           </div>
         </div>
+        <img class="phone-frame-img" src="/phone-mockup.png" alt="">
       </div>
 
       <!-- ── Summary Phone ── -->
       <div class="phone-frame phone-summary">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
+        <div class="phone-screen-content">
           <div class="phone-status-bar">
             <span>9:41</span>
             <span class="phone-status-icons">
@@ -205,12 +204,12 @@
             </div>
           </div>
         </div>
+        <img class="phone-frame-img" src="/phone-mockup.png" alt="">
       </div>
 
       <!-- ── Follow-up Phone ── -->
       <div class="phone-frame phone-followup">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
+        <div class="phone-screen-content">
           <div class="phone-status-bar">
             <span>9:41</span>
             <span class="phone-status-icons">
@@ -266,6 +265,7 @@
             </div>
           </div>
         </div>
+        <img class="phone-frame-img" src="/phone-mockup.png" alt="">
       </div>
     </div>
   </div>
@@ -412,36 +412,29 @@
 
 /* ── Phone Frame ── */
 .phone-frame {
-  position: relative; aspect-ratio: 9 / 19.2;
-  border-radius: 1.55rem; border: 1px solid #c6ced8; background: #111827;
-  padding: 0.34rem;
-  box-shadow: 0 30px 48px -28px rgba(9,21,42,0.44), 0 10px 24px -18px rgba(9,21,42,0.5);
+  position: relative; aspect-ratio: 430 / 879;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
 }
-@media (min-width: 640px) { .phone-frame { border-radius: 1.8rem; } }
-@media (min-width: 1024px) { .phone-frame { border-radius: 2rem; padding: 0.4rem; } }
-
-.phone-notch {
-  position: absolute; left: 50%; top: 6px; z-index: 20;
-  height: 8px; width: 54px; transform: translateX(-50%);
-  border-radius: 999px; background: #000;
+.phone-frame-img {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 10; pointer-events: none;
 }
-@media (min-width: 640px) { .phone-notch { height: 8px; width: 32px; top: 9px; } }
-@media (min-width: 1024px) { .phone-notch { height: 9px; width: 36px; top: 10px; } }
-
-.phone-screen {
-  height: 100%; border-radius: 1.28rem; background: #fff; overflow: hidden;
+.phone-screen-content {
+  position: absolute;
+  top: 1.2%; left: 2.8%; right: 2.8%; bottom: 1.2%;
+  z-index: 5; overflow: hidden;
+  background: #fff;
+  border-radius: 2.5rem / 2.5rem;
   display: flex; flex-direction: column;
 }
-@media (min-width: 640px) { .phone-screen { border-radius: 1.45rem; } }
-@media (min-width: 1024px) { .phone-screen { border-radius: 1.62rem; } }
 
 .phone-status-bar {
   display: flex; height: 20px; flex-shrink: 0; align-items: center; justify-content: space-between;
-  padding: 6px 10px 0; font-size: 0.42rem; font-weight: 800; color: #17243a;
+  padding: 18px 16px 0; font-size: 0.42rem; font-weight: 800; color: #17243a;
+  background: #fff; position: relative; z-index: 15;
 }
 .phone-status-icons { display: flex; align-items: center; gap: 4px; }
 .phone-status-battery { height: 6px; width: 10px; border-radius: 3px; border: 1px solid #17243a; }
@@ -459,6 +452,7 @@
   display: flex; margin-bottom: 8px; flex-shrink: 0; align-items: center; justify-content: space-between;
   color: #16233a;
 }
+.phone-summary .chrome-header { margin-top: 8px; }
 .chrome-back { font-size: 0.65rem; font-weight: 800; }
 .chrome-title { font-size: 0.56rem; font-weight: 800; }
 .chrome-more { font-size: 0.62rem; color: #9badbf; }
@@ -467,7 +461,7 @@
 /* ── Phone Sizes ── */
 .phone-recording { width: 146px; transform: rotate(-4deg) translateZ(0); transform-origin: bottom left; }
 .phone-summary { width: 168px; z-index: 20; transform: scale(1.02) translateZ(0); transform-origin: bottom; }
-.phone-followup { width: 146px; transform: rotate(4deg) translateZ(0); transform-origin: bottom right; border-color: #8aa8cc; box-shadow: 0 30px 48px -28px rgba(74,94,141,0.38), 0 10px 24px -18px rgba(74,94,141,0.44), 0 0 40px -16px rgba(59,162,245,0.12); }
+.phone-followup { width: 146px; transform: rotate(4deg) translateZ(0); transform-origin: bottom right; }
 @media (min-width: 640px) {
   .phone-recording { width: 160px; }
   .phone-summary { width: 188px; }
