@@ -13,8 +13,8 @@
 
     <div id="early-access" class="hero-form-wrap">
       <form class="early-access-form" id="hero-form">
-        <label class="sr-only" for="hero-email">Work email address</label>
-        <input id="hero-email" class="early-access-input" name="workEmail" placeholder="Work email address" required type="email">
+        <label class="sr-only" for="hero-email">Email</label>
+        <input id="hero-email" class="early-access-input" name="workEmail" placeholder="Enter your email" required type="email">
         <button class="early-access-btn" type="submit">Get Early Access</button>
         <div id="hero-form-message" class="form-message" style="display:none;"></div>
       </form>
@@ -435,6 +435,7 @@
   display: flex; height: 20px; flex-shrink: 0; align-items: center; justify-content: space-between;
   padding: 18px 16px 0; font-size: 0.42rem; font-weight: 800; color: #17243a;
   background: #fff; position: relative; z-index: 15;
+  opacity: 0;
 }
 .phone-status-icons { display: flex; align-items: center; gap: 4px; }
 .phone-status-battery { height: 6px; width: 10px; border-radius: 3px; border: 1px solid #17243a; }
@@ -446,7 +447,7 @@
   padding: 4px 10px 0;
 }
 .phone-followup .phone-chrome {
-  background: linear-gradient(180deg, #f5f9fd 0%, #edf4fb 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
 }
 .chrome-header {
   display: flex; margin-bottom: 8px; flex-shrink: 0; align-items: center; justify-content: space-between;
@@ -550,46 +551,46 @@
 
 /* ── Follow-up Phone Content ── */
 .followup-draft {
-  border-radius: 0.86rem; border: none; background: #f0f7fd;
+  border-radius: 0.86rem; border: 1px solid #e6edf5; background: #fff;
   padding: 8px;
-  box-shadow: 0 2px 8px rgba(74,94,141,0.08), 0 8px 24px -12px rgba(74,94,141,0.18);
+  box-shadow: 0 2px 8px rgba(9,21,42,0.08), 0 8px 24px -12px rgba(9,21,42,0.18);
 }
-.followup-draft-title { font-size: 0.56rem; font-weight: 800; color: #2d4263; }
-.followup-draft-text { margin-top: 6px; font-size: 0.42rem; line-height: 0.68rem; color: #6883a8; }
+.followup-draft-title { font-size: 0.56rem; font-weight: 800; color: #253650; }
+.followup-draft-text { margin-top: 6px; font-size: 0.42rem; line-height: 0.68rem; color: #7b8aa0; }
 
-.followup-section-title { font-size: 0.52rem; font-weight: 800; color: #2d4263; }
+.followup-section-title { font-size: 0.52rem; font-weight: 800; color: #253650; }
 .followup-steps { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
 .followup-step {
   display: flex; align-items: center; gap: 8px;
-  border-radius: 0.72rem; background: #e8f1fb; padding: 6px 8px;
-  box-shadow: 0 1px 4px rgba(74,94,141,0.06);
+  border-radius: 0.72rem; background: #fff; padding: 6px 8px;
+  box-shadow: 0 1px 4px rgba(9,21,42,0.06);
 }
 .followup-step-dot {
   display: flex; width: 12px; height: 12px; flex-shrink: 0;
   align-items: center; justify-content: center;
-  border-radius: 999px; background: #3BA2F5;
-  box-shadow: 0 1px 4px rgba(59,162,245,0.35);
+  border-radius: 999px; background: #1f8fff;
+  box-shadow: 0 1px 4px rgba(31,143,255,0.35);
 }
 .followup-step-dot-inner { width: 6px; height: 6px; border-radius: 999px; background: #fff; }
-.followup-step-text { font-size: 0.42rem; font-weight: 700; line-height: 0.68rem; color: #4a6a8e; }
+.followup-step-text { font-size: 0.42rem; font-weight: 700; line-height: 0.68rem; color: #5d7088; }
 
-.followup-crm-title { font-size: 0.52rem; font-weight: 800; color: #2d4263; }
+.followup-crm-title { font-size: 0.52rem; font-weight: 800; color: #253650; }
 .followup-crm-records { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
 .followup-crm-record {
-  border-radius: 0.66rem; border: none; background: #e8f1fb;
-  padding: 6px 8px; font-size: 0.4rem; font-weight: 700; color: #4a6a8e;
-  box-shadow: 0 1px 3px rgba(74,94,141,0.06);
+  border-radius: 0.66rem; border: 1px solid #e6edf5; background: #fff;
+  padding: 6px 8px; font-size: 0.4rem; font-weight: 700; color: #5d7088;
+  box-shadow: 0 1px 3px rgba(9,21,42,0.06);
 }
 .followup-buttons { display: grid; margin-top: 10px; grid-template-columns: 1fr 1fr; gap: 8px; }
 .followup-btn-primary {
-  border-radius: 0.68rem; background: #3BA2F5; padding: 8px 0;
+  border-radius: 0.68rem; background: #1f8fff; padding: 8px 0;
   font-size: 0.4rem; font-weight: 800; color: #fff; border: none; font-family: inherit;
-  box-shadow: 0 2px 8px rgba(59,162,245,0.35);
+  box-shadow: 0 2px 8px rgba(31,143,255,0.35);
 }
 .followup-btn-secondary {
-  border-radius: 0.68rem; border: 1px solid #c4ddf5; background: #f0f7fd; padding: 8px 0;
-  font-size: 0.4rem; font-weight: 800; color: #3BA2F5; font-family: inherit;
-  box-shadow: 0 1px 4px rgba(74,94,141,0.06);
+  border-radius: 0.68rem; border: 1px solid #bfdfff; background: #fff; padding: 8px 0;
+  font-size: 0.4rem; font-weight: 800; color: #1f8fff; font-family: inherit;
+  box-shadow: 0 1px 4px rgba(31,143,255,0.06);
 }
 
 /* ── Phone Scroll Animations (THE 3 KEY ANIMATIONS) ── */
