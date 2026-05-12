@@ -15,10 +15,10 @@
               <span class="advisor-icon"><svg viewBox="0 0 24 24"><path d="M5 6h14v10H8l-3 3V6Z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></span>
               <div>
                 <h4 class="advisor-card-title">Conversation History</h4>
-                <p class="advisor-card-body">All past calls, meeting, and notes.</p>
+                <p class="advisor-card-body">All past calls and meeting.</p>
                 <div class="advisor-note">
                   <p class="advisor-note-date">May 7 . 10:30 AM</p>
-                  <p class="advisor-note-copy">Discussed policy option for family of 4, focusing on education fund and long-term protection.</p>
+                  <p class="advisor-note-copy">Discussed education fund and long-term protection.</p>
                 </div>
               </div>
             </div>
@@ -141,11 +141,13 @@
               <div>
                 <h4 class="advisor-card-title">Follow-up Email</h4>
                 <p class="advisor-card-body">Personalized and ready to send.</p>
-                <div class="advisor-output-preview">
-                  <div class="advisor-output-grid"><span>To:</span><span>Anna.johnson@gmail.com, david.johnson@gmail.com</span><span>Subject:</span><span>Recap: Preserving Flexibility While Funding Sophie's Education</span></div>
-                  <div class="advisor-output-rule"></div>
-                  <p>Hi Anna and David,</p><p style="margin-top:0.5rem;">Thank you again for meeting me for coffee this morning. It was a pleasure discussing the options...</p>
-                  <div class="advisor-output-actions"><span style="background:#151515;">Copy</span><span style="background:#2fa0f6;">Send</span></div>
+                <div class="advisor-email-icons">
+                  <span class="advisor-email-icon" title="Gmail">
+                    <img src="/gmail-icon.png" alt="Gmail" />
+                  </span>
+                  <span class="advisor-email-icon" title="Apple Mail">
+                    <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" fill="#1E88E5"/><path d="M2 7l10 6 10-6" stroke="#fff" stroke-width="1.5" fill="none"/><path d="M2 20l7-7" stroke="#1565C0" stroke-width=".8"/><path d="M22 20l-7-7" stroke="#1565C0" stroke-width=".8"/></svg>
+                  </span>
                 </div>
               </div>
             </div>
@@ -157,8 +159,7 @@
               <div>
                 <h4 class="advisor-card-title">Plan/ Solution Match</h4>
                 <p class="advisor-card-body">Best options for her goals.</p>
-                <div class="advisor-table-preview"><div class="advisor-table-head"><span>Recommended</span><span>Coverage</span><span>Monthly</span><span>Match</span></div><div class="advisor-table-lines"><span></span><span></span><span></span></div></div>
-              </div>
+                <div class="advisor-table-preview"><div class="advisor-table-head"><span>Recommended</span><span>Coverage</span><span>Monthly</span><span>Match</span></div><div class="advisor-table-lines"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>              </div>
             </div>
           </article>
 
@@ -269,6 +270,9 @@
 .advisor-icon svg { width: 1.25rem; height: 1.25rem; stroke: currentColor; fill: none; stroke-width: 2; }
 .advisor-card-title { font-size: 1rem; font-weight: 700; line-height: 1.15; color: #111417; }
 .advisor-card-body { margin-top: 0.25rem; font-size: 0.85rem; font-weight: 600; line-height: 1.38; color: #4b4d52; }
+.advisor-email-icons { margin-top: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+.advisor-email-icon { width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center; border-radius: 0.5rem; background: #f5f5f5; padding: 0.35rem; }
+.advisor-email-icon svg, .advisor-email-icon img { width: 100%; height: 100%; object-fit: contain; }
 .advisor-note {
   max-width: 16.7rem; margin: 1rem auto 0; border-radius: 0.5rem; border: 1px solid #e1e1e1;
   background: #fff; padding: 1.25rem; text-align: left;
@@ -333,7 +337,7 @@
 .advisor-table-lines span { height: 0.38rem; border-radius: 999px; background: #eef3f8; }
 .advisor-slide-preview { max-width: 100%; margin-top: 1rem; display: flex; gap: 0.5rem; overflow: hidden; border-radius: 0.5rem; }
 .advisor-slide-card {
-  aspect-ratio: 16 / 10; min-width: 0; flex: 1 1 0;
+  aspect-ratio: 16 / 14; min-width: 0; flex: 1 1 0;
   border-radius: 0.5rem; padding: 0.5rem; overflow: hidden;
 }
 .advisor-slide-card-blue { background: #eef7ff; }
