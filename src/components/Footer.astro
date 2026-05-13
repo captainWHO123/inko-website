@@ -3,7 +3,9 @@
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="/" class="footer-logo">inko</a>
+      <a href="/" class="footer-logo">
+        <img src="/logo_lightmode.svg" alt="Inko">
+      </a>
       <p class="footer-tagline">AI mobile post-conversation workspace for insurance advisors.</p>
     </div>
     <nav class="footer-nav">
@@ -23,7 +25,8 @@
 }
 @media (max-width: 520px) { .footer-inner { flex-direction: column; align-items: flex-start; } }
 .footer-brand { display: flex; align-items: center; gap: 1.25rem; }
-.footer-logo { font-size: 2rem; font-weight: 800; line-height: 1; color: #06121f; text-decoration: none; }
+.footer-logo { text-decoration: none; display: inline-flex; align-items: center; }
+.footer-logo img { height: 1.5rem; width: auto; }
 .footer-tagline { font-size: 0.82rem; font-weight: 600; color: #263142; }
 .footer-nav { display: flex; flex-wrap: wrap; gap: 1.75rem; }
 .footer-nav a { font-size: 0.78rem; font-weight: 700; color: #07111f; text-decoration: none; }
