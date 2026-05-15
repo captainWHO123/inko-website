@@ -1,6 +1,6 @@
 ---
 ---
-<section class="final-cta-section">
+<section id="final-cta" class="final-cta-section">
   <div class="final-cta-box">
     <div class="final-cta-content">
       <h2 class="final-cta-h2">Every conversation has value. Keep yours.</h2>
@@ -40,12 +40,15 @@
 // ── Kit Form Submission ──
 const KIT_FORM_URL = 'https://app.kit.com/forms/8899105/subscriptions';
 
-function submitEmail(email: string): Promise<void> {
+function submitEmail(email: string, formLocation: string): Promise<void> {
   return fetch(KIT_FORM_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({ email_address: email }).toString(),
   }).then(() => {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'waitlist_signup', { form_location: formLocation });
+    }
     window.location.hash = '#/thank-you';
   });
 }
@@ -65,7 +68,7 @@ function setupForm(formId: string, messageId: string) {
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
     if (btn) btn.disabled = true;
 
-    submitEmail(email).catch(() => {
+    submitEmail(email, 'final_cta').catch(() => {
       if (msg) {
         msg.textContent = 'Something went wrong. Please try again.';
         msg.className = 'form-message error';
@@ -87,7 +90,7 @@ navSubmitBtn?.addEventListener('click', () => {
   const email = navEmailInput.value.trim();
   if (!email) return;
   (navSubmitBtn as HTMLButtonElement).disabled = true;
-  submitEmail(email).catch(() => {
+  submitEmail(email, 'header_desktop').catch(() => {
     (navSubmitBtn as HTMLButtonElement).disabled = false;
   });
 });
@@ -101,7 +104,7 @@ mobileSubmitBtn?.addEventListener('click', () => {
   const email = mobileEmailInput.value.trim();
   if (!email) return;
   (mobileSubmitBtn as HTMLButtonElement).disabled = true;
-  submitEmail(email).catch(() => {
+  submitEmail(email, 'header_mobile').catch(() => {
     (mobileSubmitBtn as HTMLButtonElement).disabled = false;
   });
 });

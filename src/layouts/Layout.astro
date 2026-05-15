@@ -17,6 +17,14 @@ const { title = 'Inko | Mobile Post-Conversation Workspace' } = Astro.props;
   <meta property="og:image" content="/og-image.png">
   <meta property="og:url" content="https://get-inko.com">
   <meta name="twitter:card" content="summary_large_image">
+  <!-- Google Analytics 4 -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-W5LCPJKRWB"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W5LCPJKRWB');
+  </script>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="canonical" href="https://get-inko.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,6 +91,40 @@ const { title = 'Inko | Mobile Post-Conversation Workspace' } = Astro.props;
     </div>
   </div>
   <slot name="overlay" />
+  <script is:inline>
+  (function() {
+    function trackEvent(name, params) {
+      if (typeof gtag === 'function') gtag('event', name, params);
+    }
+
+    // ── Section Visibility Tracking ──
+    var sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var name = el.id || el.className.split(' ')[0].replace('-section', '');
+          trackEvent('section_view', { section_name: name });
+          sectionObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('section').forEach(function(s) { sectionObserver.observe(s); });
+
+    // ── Scroll Depth Tracking (25%, 50%, 75%, 90%) ──
+    var fired = {};
+    window.addEventListener('scroll', function() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      if (h <= 0) return;
+      var pct = Math.round((window.scrollY / h) * 100);
+      [25, 50, 75, 90].forEach(function(m) {
+        if (pct >= m && !fired[m]) {
+          fired[m] = true;
+          trackEvent('scroll_depth', { percent: String(m) });
+        }
+      });
+    }, { passive: true });
+  })();
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </body>
 </html>

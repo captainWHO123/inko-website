@@ -136,5 +136,25 @@ menuToggle?.addEventListener('click', () => {
   if (menuToggle) {
     menuToggle.innerHTML = menuPanel.classList.contains('open') ? closeSVG : hamburgerSVG;
   }
+  // GA4: Track mobile menu toggle
+  if (typeof (window as any).gtag === 'function') {
+    (window as any).gtag('event', menuPanel.classList.contains('open') ? 'mobile_menu_open' : 'mobile_menu_close');
+  }
+});
+
+// ── GA4: Nav link click tracking ──
+document.querySelectorAll('.header-nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'nav_link_click', { link_text: (link as HTMLElement).textContent?.trim() || '' });
+    }
+  });
+});
+document.querySelectorAll('.header-mobile-panel a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'nav_link_click', { link_text: (link as HTMLElement).textContent?.trim() || '', source: 'mobile_menu' });
+    }
+  });
 });
 </script>

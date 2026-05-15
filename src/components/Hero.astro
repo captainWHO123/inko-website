@@ -1,7 +1,7 @@
 ---
 ---
 
-<section class="hero-section">
+<section id="hero" class="hero-section">
   <div class="hero-content">
     <h1 class="hero-h1">
       Turn Client Talks into Action.
@@ -634,6 +634,9 @@ function submitEmail(email: string): Promise<void> {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({ email_address: email }).toString(),
   }).then(() => {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'waitlist_signup', { form_location: 'hero' });
+    }
     window.location.hash = '#/thank-you';
   });
 }

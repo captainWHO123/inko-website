@@ -113,6 +113,11 @@ document.querySelectorAll('.faq-item').forEach(item => {
     // Open clicked item (if it wasn't already open)
     if (!isOpen) {
       item.classList.add('open');
+      // GA4: Track FAQ expand
+      if (typeof (window as any).gtag === 'function') {
+        const question = item.querySelector('.faq-q')?.textContent?.trim() || '';
+        (window as any).gtag('event', 'faq_expand', { question });
+      }
     }
   });
 });
