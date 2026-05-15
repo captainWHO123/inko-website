@@ -25,6 +25,20 @@ const { title = 'Inko | Mobile Post-Conversation Workspace' } = Astro.props;
     gtag('js', new Date());
     gtag('config', 'G-W5LCPJKRWB');
   </script>
+  <!-- Meta Pixel Code -->
+  <script is:inline>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1300736491441550');
+  fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel Code -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="canonical" href="https://get-inko.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,6 +99,10 @@ const { title = 'Inko | Mobile Post-Conversation Workspace' } = Astro.props;
   <slot name="head" />
 </head>
 <body>
+  <!-- Meta Pixel noscript fallback -->
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1300736491441550&ev=PageView&noscript=1"
+  /></noscript>
   <div class="stitch-homepage-viewport">
     <div class="stitch-homepage-canvas">
       <slot />
@@ -95,6 +113,11 @@ const { title = 'Inko | Mobile Post-Conversation Workspace' } = Astro.props;
   (function() {
     function trackEvent(name, params) {
       if (typeof gtag === 'function') gtag('event', name, params);
+      if (typeof fbq === 'function') {
+        var fbqMap = { section_view: 'ViewContent' };
+        var fbEvent = fbqMap[name];
+        if (fbEvent) fbq('track', fbEvent, params);
+      }
     }
 
     // ── Section Visibility Tracking ──

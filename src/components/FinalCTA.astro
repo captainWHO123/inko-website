@@ -49,6 +49,9 @@ function submitEmail(email: string, formLocation: string): Promise<void> {
     if (typeof (window as any).gtag === 'function') {
       (window as any).gtag('event', 'waitlist_signup', { form_location: formLocation });
     }
+    if (typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'Lead', { form_location: formLocation });
+    }
     window.location.hash = '#/thank-you';
   });
 }
