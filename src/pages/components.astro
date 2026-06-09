@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/component-gallery.css';
+
+import Header from '../components/dtc/Header.astro';
+import Footer from '../components/dtc/Footer.astro';
+import CTA from '../components/dtc/CTA.astro';
+import BrandMark from '../components/dtc/BrandMark.astro';
+import Badge from '../components/dtc/Badge.astro';
+import DotsIcon from '../components/dtc/DotsIcon.astro';
+import WaitlistForm from '../components/dtc/WaitlistForm.astro';
+import Card from '../components/dtc/Cards.astro';
+
+const roleCard = {
+  title: 'Insurance Consultant',
+  body: 'Understand family context, protection needs, budget range, objections, and more lead signals.',
+  icon: '/assets/dtc/icon-insurance.svg',
+};
+
+const problemCard = {
+  title: 'Details get scattered',
+  body: 'Notes, messages, CRM tabs, and reminders do not stay connected.',
+  image: '/assets/dtc/question-details.png',
+};
+
+const workCard = {
+  title: 'Capture',
+  body: 'Record real client conversations with the Inko device.',
+  image: '/assets/dtc/how-inko-works-capture.png',
+};
+
+const securityCard = {
+  title: 'Consent-First',
+  body: 'Ask first. Inko encourages users to ask for permission before recording, explain what will be captured, and start only after consent is given.',
+};
+
+const signals = [
+  ['need', '/assets/dtc/icon-need.svg'],
+  ['concern', '/assets/dtc/icon-concern.svg'],
+  ['objection', '/assets/dtc/icon-objection.svg'],
+  ['buying signal', '/assets/dtc/icon-star.svg'],
+];
+
+const workflowCards = [
+  ['Client', 'Michael Carter', '/assets/dtc/icon-client.svg'],
+  ['Scenario', 'Life insurance consultation', '/assets/dtc/icon-scenario.svg'],
+  ['Status', 'Follow-up ready', '/assets/dtc/icon-status.svg'],
+  ['Summary', 'family protection', '/assets/dtc/icon-variant12.svg'],
+];
+---
+
+<Layout title="Inko DTC Components | Local QA" description="Local visual component gallery for Inko DTC website QA.">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <main class="dtc-gallery">
+    <section class="dtc-gallery__hero">
+      <div class="dtc-container">
+        <h1>DTC Component Gallery</h1>
+        <p>Use this local page for component-level visual review. Annotate one sample and mention “global component update” when the same change should apply everywhere.</p>
+        <nav class="dtc-gallery__nav" aria-label="Component gallery sections">
+          <a href="#foundations">Foundations</a>
+          <a href="#atoms">Atoms</a>
+          <a href="#forms">Forms</a>
+          <a href="#cards">Cards</a>
+          <a href="#workflow">Workflow Dashboard</a>
+          <a href="#sections">Sections</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="dtc-gallery__section" id="foundations" data-component-name="Foundations">
+      <div class="dtc-container">
+        <h2>Foundations</h2>
+        <div class="dtc-gallery__swatches">
+          <div class="dtc-gallery__swatch" style="--swatch: var(--dtc-orange)">Primary / Orange<br />#FF981A</div>
+          <div class="dtc-gallery__swatch" style="--swatch: var(--dtc-ink); --label-color: #fff">Black<br />#090C0D</div>
+          <div class="dtc-gallery__swatch" style="--swatch: var(--dtc-secondary); --label-color: #fff">Text / Secondary<br />#555555</div>
+          <div class="dtc-gallery__swatch" style="--swatch: var(--dtc-line)">Border / Stroke<br />#D3D3D3</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-gallery__section" id="atoms" data-component-name="Atoms">
+      <div class="dtc-container">
+        <h2>Atoms</h2>
+        <div class="dtc-gallery__grid">
+          <article class="dtc-gallery__sample" data-component-name="BrandMark">
+            <p class="dtc-gallery__label">BrandMark</p>
+            <div class="dtc-gallery__component-row">
+              <BrandMark />
+              <BrandMark label />
+              <BrandMark size="lg" />
+              <BrandMark size="lg" label />
+            </div>
+          </article>
+
+          <article class="dtc-gallery__sample" data-component-name="DotsIcon">
+            <p class="dtc-gallery__label">DotsIcon</p>
+            <div class="dtc-gallery__component-row">
+              <DotsIcon />
+              <DotsIcon size="lg" />
+            </div>
+          </article>
+
+          <article class="dtc-gallery__sample" data-component-name="Badge=64">
+            <p class="dtc-gallery__label">Badge=64</p>
+            <div class="dtc-gallery__component-row">
+              <Badge icon="/assets/dtc/icon-client.svg" size="64" />
+              <Badge icon="/assets/dtc/icon-scenario.svg" size="64" />
+              <Badge icon="/assets/dtc/icon-plane.svg" size="64" tone="blue" />
+            </div>
+          </article>
+
+          <article class="dtc-gallery__sample" data-component-name="Badge=56+text">
+            <p class="dtc-gallery__label">Badge=56+text</p>
+            <div class="dtc-signal-row">
+              {signals.map(([label, icon]) => <Badge icon={icon} label={label} size="56" />)}
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-gallery__section" id="forms" data-component-name="Forms">
+      <div class="dtc-container">
+        <h2>Forms & Buttons</h2>
+        <div class="dtc-gallery__grid">
+          <article class="dtc-gallery__sample" data-component-name="WaitlistForm=inline">
+            <p class="dtc-gallery__label">WaitlistForm / Inline</p>
+            <WaitlistForm id="gallery-inline" location="component_gallery_inline" layout="inline" placeholder="Enter Your Work Email" buttonLabel="Get Early Access" />
+          </article>
+          <article class="dtc-gallery__sample" data-component-name="WaitlistForm=stacked">
+            <p class="dtc-gallery__label">WaitlistForm / Stacked</p>
+            <WaitlistForm id="gallery-stacked" location="component_gallery_stacked" layout="stacked" placeholder="Enter Your Work Email" buttonLabel="Join Waitlist" />
+          </article>
+          <article class="dtc-gallery__sample" data-component-name="Button=main">
+            <p class="dtc-gallery__label">Button / Main</p>
+            <a class="dtc-arrow-button" href="#forms">Explore Workflow <span>→</span></a>
+          </article>
+          <article class="dtc-gallery__sample" data-component-name="Button=wide">
+            <p class="dtc-gallery__label">Button / Wide</p>
+            <a class="dtc-wide-button" href="#forms">Explore Solutions <span>→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-gallery__section" id="cards" data-component-name="Cards">
+      <div class="dtc-container">
+        <h2>Cards</h2>
+        <div class="dtc-gallery__grid dtc-gallery__grid--three">
+          <div data-component-name="RoleCard"><Card variant="role" {...roleCard} /></div>
+          <div data-component-name="ProblemCard"><Card variant="problem" {...problemCard} /></div>
+          <div data-component-name="WorkStepCard"><Card variant="work" {...workCard} /></div>
+        </div>
+        <div class="dtc-gallery__grid" style="margin-top: 16px;">
+          <div data-component-name="SecurityCard"><Card variant="security" {...securityCard} /></div>
+          <div data-component-name="SolutionRoleCard"><Card variant="solutionRole" {...roleCard} href="/solution" buttonLabel="Explore" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-gallery__section" id="workflow" data-component-name="WorkflowDashboard">
+      <div class="dtc-container">
+        <h2>Workflow Dashboard</h2>
+        <div class="dtc-workspace-preview">
+          <div class="dtc-workspace-preview__left" data-component-name="WorkflowDashboard=Profile Cards">
+            {workflowCards.map(([label, value, icon]) => (
+              <article>
+                <Badge icon={icon} size="64" />
+                <div>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div class="dtc-workspace-preview__right">
+            <article class="dtc-workspace-panel dtc-workspace-panel--signals" data-component-name="WorkflowDashboard=Badges + Quick Action">
+              <section class="dtc-dashboard-badges" aria-label="Signals" data-component-name="WorkflowDashboard=Badges">
+                <span>Signals</span>
+                <div class="dtc-signal-row">
+                  {signals.map(([label, icon]) => <Badge icon={icon} label={label} size="56" />)}
+                </div>
+              </section>
+              <section class="dtc-dashboard-action" aria-label="Draft" data-component-name="WorkflowDashboard=Quick Action">
+                <span>Draft</span>
+                <Badge icon="/assets/dtc/icon-plane.svg" size="56" tone="blue" />
+                <p>Two plan options we have discussed about, here are...</p>
+                <em>Today, 20:30</em>
+              </section>
+            </article>
+            <article class="dtc-workspace-panel dtc-workspace-panel--tasks" data-component-name="WorkflowDashboard=Tasks List">
+              <span>Tasks</span>
+              {['add premium concern to record', 'prepare comparison', 'book review call'].map((task) => (
+                <label><i></i>{task}<em>05/13</em></label>
+              ))}
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-gallery__section" id="sections" data-component-name="Sections">
+      <div class="dtc-container">
+        <h2>Sections</h2>
+        <article class="dtc-gallery__sample dtc-gallery__sample--flush" data-component-name="Header">
+          <Header active="home" />
+        </article>
+      </div>
+      <div style="margin-top: 16px;" data-component-name="CTA">
+        <CTA id="gallery-cta" location="component_gallery_cta" />
+      </div>
+      <div class="dtc-container" style="margin-top: 16px;">
+        <article class="dtc-gallery__sample dtc-gallery__sample--flush" data-component-name="Footer">
+          <Footer />
+        </article>
+      </div>
+    </section>
+  </main>
+</Layout>

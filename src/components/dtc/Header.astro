@@ -1,0 +1,49 @@
+---
+import BrandMark from './BrandMark.astro';
+import WaitlistForm from './WaitlistForm.astro';
+
+interface Props {
+  active?: 'home' | 'workflow' | 'solution';
+}
+
+const { active = 'home' } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/workflow', label: 'Workflow', key: 'workflow' },
+  { href: '/solution', label: 'Solutions', key: 'solution' },
+] as const;
+---
+
+<header class="dtc-header" id="site-header">
+  <div class="dtc-header__inner">
+    <a class="dtc-header__brand" href="/" aria-label="Inko home">
+      <BrandMark label />
+    </a>
+
+    <nav class="dtc-header__nav" aria-label="Main navigation">
+      {links.map((link) => (
+        <a href={link.href} aria-current={active === link.key ? 'page' : undefined}>{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="dtc-header__form">
+      <WaitlistForm id={`header-${active}`} location={`header_desktop_${active}`} layout="inline" placeholder="Enter Your Work Email" buttonLabel="Get Early Access" />
+    </div>
+
+    <button class="dtc-header__menu" type="button" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="dtc-header__mobile" id="mobile-menu">
+    <nav aria-label="Mobile navigation">
+      {links.map((link) => (
+        <a href={link.href} aria-current={active === link.key ? 'page' : undefined}>{link.label}</a>
+      ))}
+    </nav>
+    <WaitlistForm id={`mobile-${active}`} location={`header_mobile_${active}`} layout="stacked" placeholder="Enter Your Work Email" buttonLabel="Get Early Access" />
+  </div>
+</header>

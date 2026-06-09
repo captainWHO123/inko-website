@@ -1,23 +1,36 @@
 ---
+import '../styles/dtc.css';
+
 interface Props {
   title?: string;
+  description?: string;
 }
-const { title = 'Inko | Mobile Post-Conversation Workspace' } = Astro.props;
+
+const {
+  title = 'Inko | AI assistant for client conversations',
+  description = 'Turn each conversation into structured follow-ups, client memory, and CRM-ready next steps.',
+} = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
-  <meta name="description" content="Inko turns insurance advisor meetings and calls into summaries, follow-up drafts, next steps, and client records.">
+  <meta name="description" content={description}>
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Inko | Mobile Post-Conversation Workspace">
-  <meta property="og:description" content="Turn every client conversation into a clear next step.">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
   <meta property="og:image" content="/og-image.png">
   <meta property="og:url" content="https://get-inko.com">
   <meta name="twitter:card" content="summary_large_image">
-  <!-- Google Analytics 4 -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="canonical" href="https://get-inko.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-W5LCPJKRWB"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
@@ -25,7 +38,6 @@ const { title = 'Inko | Mobile Post-Conversation Workspace' } = Astro.props;
     gtag('js', new Date());
     gtag('config', 'G-W5LCPJKRWB');
   </script>
-  <!-- Meta Pixel Code -->
   <script is:inline>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -38,116 +50,127 @@ const { title = 'Inko | Mobile Post-Conversation Workspace' } = Astro.props;
   fbq('init', '1763844984602039');
   fbq('track', 'PageView');
   </script>
-  <!-- End Meta Pixel Code -->
   <!-- Warmly Visitor Identification -->
   <script id="warmly-script-loader" src="https://opps-widget.getwarmly.com/warmly.js?clientId=638147618d1cb640c62b8afd76dff394" defer></script>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="canonical" href="https://get-inko.com">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <style is:global>
-    /* ── Reset ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --font-inter: 'Manrope', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font-newsreader: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-      --color-primary: #1f8fff;
-      --color-primary-dark: #117dea;
-      --color-primary-light: #ccecff;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      min-height: 100vh;
-      font-family: var(--font-inter);
-      letter-spacing: -0.01em;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    ::selection { background: rgba(159, 211, 201, 0.5); }
-    .sr-only {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0,0,0,0); border: 0;
-    }
-
-    /* ── Layout ── */
-    .stitch-homepage-viewport { background: #ffffff; }
-    .stitch-homepage-canvas {
-      font-family: var(--font-inter);
-      background:
-        radial-gradient(circle at 18% 10%, rgba(219,244,255,0.92), transparent 27%),
-        radial-gradient(circle at 88% 16%, rgba(202,235,255,0.7), transparent 26%),
-        linear-gradient(180deg, #fbfdff 0%, #f5fbff 35%, #ffffff 58%, #ffffff 100%);
-      color: #0a1733;
-      overflow: hidden;
-    }
-    @media (max-width: 900px) {
-      .stitch-homepage-canvas { width: 900px; transform: none; zoom: calc(100vw / 900px); }
-    }
-    @media (max-width: 520px) {
-      .stitch-homepage-canvas { width: 100%; zoom: 1; }
-    }
-    main { padding-top: 0; }
-
-    /* ── Reduced Motion ── */
-    @media (prefers-reduced-motion: reduce) {
-      .inko-phone-scroll-recording,
-      .inko-phone-scroll-summary,
-      .inko-phone-scroll-followup { animation: none; }
-      html { scroll-behavior: auto; }
-    }
-  </style>
   <slot name="head" />
 </head>
 <body>
-  <!-- Meta Pixel noscript fallback -->
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1763844984602039&ev=PageView&noscript=1"
-  /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1763844984602039&ev=PageView&noscript=1" alt="" /></noscript>
   <div class="stitch-homepage-viewport">
     <div class="stitch-homepage-canvas">
       <slot />
     </div>
   </div>
   <slot name="overlay" />
+
   <script is:inline>
   (function() {
     function trackEvent(name, params) {
-      if (typeof gtag === 'function') gtag('event', name, params);
-      if (typeof fbq === 'function') {
-        var fbqMap = { section_view: 'ViewContent' };
-        var fbEvent = fbqMap[name];
-        if (fbEvent) fbq('track', fbEvent, params);
+      if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
+      if (typeof window.fbq === 'function' && name === 'waitlist_signup') {
+        window.fbq('track', 'Lead', params || {});
       }
     }
 
-    // ── Section Visibility Tracking ──
-    var sectionObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          var el = entry.target;
-          var name = el.id || el.className.split(' ')[0].replace('-section', '');
-          trackEvent('section_view', { section_name: name });
-          sectionObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.2 });
-    document.querySelectorAll('section').forEach(function(s) { sectionObserver.observe(s); });
+    function setMessage(form, text, status) {
+      var message = form.querySelector('.dtc-form-message');
+      if (!message) return;
+      message.textContent = text || '';
+      message.classList.remove('is-error', 'is-success');
+      if (status) message.classList.add(status === 'error' ? 'is-error' : 'is-success');
+    }
 
-    // ── Scroll Depth Tracking (25%, 50%, 75%, 90%) ──
-    var fired = {};
-    window.addEventListener('scroll', function() {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      if (h <= 0) return;
-      var pct = Math.round((window.scrollY / h) * 100);
-      [25, 50, 75, 90].forEach(function(m) {
-        if (pct >= m && !fired[m]) {
-          fired[m] = true;
-          trackEvent('scroll_depth', { percent: String(m) });
-        }
+    document.addEventListener('submit', function(event) {
+      var form = event.target;
+      if (!(form instanceof HTMLFormElement) || !form.classList.contains('js-waitlist-form')) return;
+      event.preventDefault();
+
+      var input = form.querySelector('input[type="email"]');
+      var button = form.querySelector('button[type="submit"]');
+      var email = input ? input.value.trim() : '';
+      var location = form.getAttribute('data-location') || 'unknown';
+
+      if (!email) {
+        setMessage(form, 'Please enter your work email.', 'error');
+        input && input.focus();
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setMessage(form, 'Please enter a valid email address.', 'error');
+        input && input.focus();
+        return;
+      }
+
+      if (button) button.disabled = true;
+      setMessage(form, 'Joining waitlist...', null);
+
+      fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email }),
+      })
+        .then(function(response) {
+          return response.json().catch(function() { return {}; }).then(function(payload) {
+            if (!response.ok) throw new Error(payload.error || 'Something went wrong. Please try again.');
+            return payload;
+          });
+        })
+        .then(function(payload) {
+          setMessage(form, payload.message || 'You are on the waitlist.', 'success');
+          form.reset();
+          trackEvent('waitlist_signup', { form_location: location });
+          setTimeout(function() {
+            window.location.href = '/thank-you';
+          }, 150);
+        })
+        .catch(function(error) {
+          setMessage(form, error.message || 'Something went wrong. Please try again.', 'error');
+        })
+        .finally(function() {
+          if (button) button.disabled = false;
+        });
+    });
+
+    var menuButton = document.querySelector('.dtc-header__menu');
+    var mobileMenu = document.getElementById('mobile-menu');
+    if (menuButton && mobileMenu) {
+      menuButton.addEventListener('click', function() {
+        var isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!isOpen));
+        mobileMenu.classList.toggle('is-open', !isOpen);
+        trackEvent(!isOpen ? 'mobile_menu_open' : 'mobile_menu_close');
       });
-    }, { passive: true });
+      mobileMenu.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          menuButton.setAttribute('aria-expanded', 'false');
+          mobileMenu.classList.remove('is-open');
+        });
+      });
+    }
+
+    document.querySelectorAll('.dtc-header__nav a, #mobile-menu nav a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        trackEvent('nav_link_click', {
+          link_text: link.textContent ? link.textContent.trim() : '',
+          href: link.getAttribute('href') || '',
+          source: link.closest('#mobile-menu') ? 'mobile_menu' : 'desktop_nav',
+          page_path: window.location.pathname,
+        });
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var name = entry.target.id || entry.target.className || 'section';
+          trackEvent('section_view', { section_name: String(name).split(' ')[0] });
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.2 });
+      document.querySelectorAll('section').forEach(function(section) { observer.observe(section); });
+    }
   })();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>

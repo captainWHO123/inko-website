@@ -1,30 +1,467 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Features from '../components/Features.astro';
-import Workflow from '../components/Workflow.astro';
-import Outcomes from '../components/Outcomes.astro';
-import Security from '../components/Security.astro';
-import FAQ from '../components/FAQ.astro';
-import FinalCTA from '../components/FinalCTA.astro';
-import Footer from '../components/Footer.astro';
+import Header from '../components/dtc/Header.astro';
+import Footer from '../components/dtc/Footer.astro';
+import CTA from '../components/dtc/CTA.astro';
+import WaitlistForm from '../components/dtc/WaitlistForm.astro';
+import ProductPanels from '../components/dtc/ProductPanels.astro';
+import BrandMark from '../components/dtc/BrandMark.astro';
+import Card from '../components/dtc/Cards.astro';
 import LegalPages from '../components/LegalPages.astro';
+
+const roles = [
+  {
+    title: 'Insurance Consultant',
+    body: 'Understand family context, protection needs, budget range, objections, and more lead signals.',
+    icon: '/assets/dtc/icon-insurance.svg',
+  },
+  {
+    title: 'Real Estate Agent',
+    body: 'Remember buyer preferences, showing feedback, timeline, and next listings to send.',
+    icon: '/assets/dtc/icon-real-estate.svg',
+  },
+  {
+    title: 'B2B Sales Team',
+    body: 'Transform pain points, decision makers, deal blockers, and next steps into clear notes.',
+    icon: '/assets/dtc/icon-b2b.svg',
+  },
+];
+
+const problems = [
+  {
+    title: 'Details get scattered',
+    body: 'Notes, messages, CRM tabs, and reminders do not stay connected.',
+    image: '/assets/dtc/question-details.png',
+  },
+  {
+    title: 'Follow-ups get delayed',
+    body: 'The next message waits until your day slows down.',
+    image: '/assets/dtc/question-follow-ups.png',
+  },
+  {
+    title: 'Context fades',
+    body: 'Needs, objections, preferences, and promises disappear before they become action.',
+    image: '/assets/dtc/question-context.png',
+  },
+];
+
+const steps = [
+  {
+    title: 'Capture',
+    body: 'Record real client conversations with the Inko device.',
+    image: '/assets/dtc/how-inko-works-capture.png',
+  },
+  {
+    title: 'Understand',
+    body: 'AI identifies needs, concerns, objections, commitments, and whatever you preset.',
+    image: '/assets/dtc/how-inko-works-understand.png',
+  },
+  {
+    title: 'Advance',
+    body: 'Transform into analysis doc, email drafts, tasks, client memory, and CRM-ready records.',
+    image: '/assets/dtc/how-inko-works-advance.png',
+  },
+];
+
+const security = [
+  {
+    title: 'Consent-First',
+    body: 'Ask first. Inko encourages users to ask for permission before recording, explain what will be captured, and start only after consent is given.',
+  },
+  {
+    title: 'Data Privacy',
+    body: 'Your records belong to you. Inko does not train foundation models on your transcripts, notes, or client records by default. Audio is used only to create the record.',
+  },
+  {
+    title: 'Under your control',
+    body: 'Review, edit, then use. After Inko generates the record, users can review, refine, and remove anything unnecessary.',
+  },
+];
+
+const heroTabs = [
+  {
+    id: 'advise',
+    label: 'Advise',
+    helper: 'Supporting client/file mention, context, streaming reply.',
+  },
+  {
+    id: 'summary',
+    label: 'Summary',
+    helper: 'Summarize key details you want.',
+  },
+  {
+    id: 'crm',
+    label: 'CRM Lite',
+    helper: 'Connect the audio with context.',
+  },
+];
 ---
 
-<Layout>
-  <Header />
+<Layout title="Inko | AI assistant for the full client journey" description="Inko captures the critical details of your in-person conversations and generates ready-to-send follow-ups, CRM updates, and next steps in seconds.">
+  <Header active="home" />
 
   <main>
-    <Hero />
-    <Features />
-    <Workflow />
-    <Outcomes />
-    <Security />
-    <FAQ />
-    <FinalCTA />
+    <section class="dtc-hero dtc-hero--home" data-home-hero data-state="summary" data-direction="forward">
+      <div class="dtc-container dtc-hero__center">
+        <div class="dtc-hero-tabs" role="tablist" aria-label="Inko workspace modes" data-hero-tablist>
+          {heroTabs.map((tab) => (
+            <button
+              id={`home-hero-tab-${tab.id}`}
+              class="dtc-hero-tab"
+              type="button"
+              role="tab"
+              data-mode={tab.id}
+              aria-selected={tab.id === 'summary' ? 'true' : 'false'}
+              aria-controls={`home-hero-panel-${tab.id}`}
+              tabindex={tab.id === 'summary' ? '0' : '-1'}
+              aria-label={tab.label}
+            >
+              {tab.id === 'crm' ? (
+                <>
+                  <span>CRM</span>
+                  <em>Lite</em>
+                </>
+              ) : (
+                <span>{tab.label}</span>
+              )}
+            </button>
+          ))}
+        </div>
+        <h1 class="dtc-hero-helper" data-hero-helper>Summarize key details you want.</h1>
+        <div class="dtc-hero-panel-stage" data-hero-panel-stage>
+          <div
+            id="home-hero-panel-summary"
+            class="dtc-hero-panel is-active"
+            role="tabpanel"
+            data-panel="summary"
+            aria-labelledby="home-hero-tab-summary"
+            aria-hidden="false"
+          >
+            <ProductPanels variant="summary" class="dtc-product-panel--hero" />
+          </div>
+          <div
+            id="home-hero-panel-crm"
+            class="dtc-hero-panel"
+            role="tabpanel"
+            data-panel="crm"
+            aria-labelledby="home-hero-tab-crm"
+            aria-hidden="true"
+            inert
+          >
+            <ProductPanels variant="crm" class="dtc-product-panel--hero" />
+          </div>
+          <div
+            id="home-hero-panel-advise"
+            class="dtc-hero-panel"
+            role="tabpanel"
+            data-panel="advise"
+            aria-labelledby="home-hero-tab-advise"
+            aria-hidden="true"
+            inert
+          >
+            <ProductPanels variant="advise" class="dtc-product-panel--hero" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-summary-band">
+      <div class="dtc-container dtc-summary-band__inner">
+        <h2>AI assistant for full client journey</h2>
+        <div class="dtc-summary-band__copy">
+          <p class="dtc-eyebrow">Let’s make the follow-up count.</p>
+          <p>Inko captures the critical details of your in-person conversations and generates ready-to-send follow-ups, CRM updates, and next steps in seconds. Focus on the person, not the paperwork.</p>
+        </div>
+        <WaitlistForm id="home-summary-waitlist" location="home_summary" layout="inline" placeholder="enter your work email." />
+      </div>
+    </section>
+
+    <section class="dtc-section dtc-section--roles">
+      <div class="dtc-container">
+        <div class="dtc-section-head dtc-section-head--center">
+          <p class="dtc-eyebrow dtc-eyebrow--muted">Built for</p>
+          <h2>high-trust consultant</h2>
+          <p>The more complex the sale, the more important client understanding becomes. Inko is designed for sales professionals who manage long decision cycles, sensitive conversations, and relationship-based follow-up.</p>
+        </div>
+
+        <div class="dtc-role-grid">
+          {roles.map((role) => <Card variant="role" {...role} />)}
+        </div>
+
+        <div class="dtc-role-more">
+          <div>
+            <p>Education Consultants</p>
+            <p>Aesthetic & Wellness Consultants</p>
+            <p>High-Ticket Service Sales</p>
+          </div>
+          <a class="dtc-arrow-button dtc-arrow-button--small" href="/solution">Explore by Roles <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-section">
+      <div class="dtc-container">
+        <div class="dtc-split-head">
+          <h2>Good conversation still lose follow-up</h2>
+          <p>What happens after the conversation often decides what happens next.</p>
+        </div>
+
+        <div class="dtc-card-grid dtc-card-grid--three">
+          {problems.map((problem) => <Card variant="problem" {...problem} />)}
+        </div>
+
+        <a class="dtc-wide-button" href="/solution">Explore Solutions <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="dtc-section">
+      <div class="dtc-container">
+        <div class="dtc-split-head">
+          <h2>How Inko Works</h2>
+          <p>Record the conversation. Understand the client. Move the deal forward.</p>
+        </div>
+
+        <div class="dtc-card-grid dtc-card-grid--three">
+          {steps.map((step) => <Card variant="work" {...step} />)}
+        </div>
+
+        <a class="dtc-wide-button" href="/workflow">Explore Workflow <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="dtc-section dtc-security">
+      <div class="dtc-container dtc-security__inner">
+        <div class="dtc-section-head">
+          <p class="dtc-eyebrow dtc-eyebrow--muted">Security</p>
+          <h2>Your client conversations belong to you.</h2>
+          <p>Inko is built to help protect the conversations, records, and client details your work depends on. You stay in control of what gets saved, what gets removed.</p>
+        </div>
+
+        <div class="dtc-card-grid dtc-card-grid--security">
+          {security.map((item) => <Card variant="security" {...item} />)}
+        </div>
+      </div>
+    </section>
+
+    <CTA />
     <Footer />
   </main>
 
   <LegalPages slot="overlay" />
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector('[data-home-hero]');
+
+      if (!root) return;
+
+      const tabs = Array.from(root.querySelectorAll('[role="tab"][data-mode]'));
+      const helper = root.querySelector('[data-hero-helper]');
+      const panels = Array.from(root.querySelectorAll('[role="tabpanel"][data-panel]'));
+      const stage = root.querySelector('[data-hero-panel-stage]');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const helpers = {
+        summary: 'Summarize key details you want.',
+        crm: 'Connect the audio with context.',
+        advise: 'Supporting client/file mention, context, streaming reply.',
+      };
+      const visualOrder = {
+        summary: ['advise', 'summary', 'crm'],
+        crm: ['summary', 'crm', 'advise'],
+        advise: ['crm', 'advise', 'summary'],
+      };
+      let current = root.dataset.state || 'summary';
+      let isSwitching = false;
+
+      const getPanel = (mode) => panels.find((panel) => panel.dataset.panel === mode);
+      const getTab = (mode) => tabs.find((tab) => tab.dataset.mode === mode);
+
+      const setStageHeight = () => {
+        const activePanel = getPanel(current);
+        const activePanelContent = activePanel?.firstElementChild;
+
+        if (!stage || !activePanelContent) return;
+        stage.style.height = `${activePanelContent.offsetHeight}px`;
+      };
+
+      const setPanelState = (mode) => {
+        panels.forEach((panel) => {
+          const isActive = panel.dataset.panel === mode;
+
+          panel.classList.toggle('is-active', isActive);
+          panel.setAttribute('aria-hidden', String(!isActive));
+
+          if (isActive) {
+            panel.removeAttribute('inert');
+          } else {
+            panel.setAttribute('inert', '');
+          }
+        });
+      };
+
+      const setTabState = (mode) => {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.mode === mode;
+
+          tab.classList.toggle('is-active', isActive);
+          tab.setAttribute('aria-selected', String(isActive));
+          tab.tabIndex = isActive ? 0 : -1;
+        });
+      };
+
+      const animateTabs = (nextMode) => {
+        const before = new Map(tabs.map((tab) => [tab.dataset.mode, tab.getBoundingClientRect()]));
+
+        root.dataset.state = nextMode;
+        setTabState(nextMode);
+
+        if (reducedMotion.matches) return;
+
+        tabs.forEach((tab) => {
+          const previousBox = before.get(tab.dataset.mode);
+          const nextBox = tab.getBoundingClientRect();
+          const deltaX = previousBox ? previousBox.left - nextBox.left : 0;
+
+          if (Math.abs(deltaX) < 1) return;
+
+          tab.animate(
+            [
+              { transform: `translateX(${deltaX}px)` },
+              { transform: 'translateX(0)' },
+            ],
+            {
+              duration: 300,
+              easing: 'ease-in',
+            },
+          );
+        });
+      };
+
+      const animateHelper = (nextMode, direction) => {
+        if (!helper) return;
+
+        const nextText = helpers[nextMode];
+
+        if (reducedMotion.matches) {
+          helper.textContent = nextText;
+          return;
+        }
+
+        const exitClass = direction === 'forward' ? 'is-leaving-left' : 'is-leaving-right';
+        const enterClass = direction === 'forward' ? 'is-entering-right' : 'is-entering-left';
+
+        helper.classList.add(exitClass);
+
+        window.setTimeout(() => {
+          helper.textContent = nextText;
+          helper.classList.remove(exitClass);
+          helper.classList.add(enterClass);
+
+          window.requestAnimationFrame(() => {
+            helper.classList.remove(enterClass);
+          });
+        }, 100);
+      };
+
+      const switchPanel = (nextMode) => {
+        const nextPanel = getPanel(nextMode);
+
+        if (!nextPanel) return;
+
+        const previousPanel = getPanel(current);
+
+        if (previousPanel && previousPanel !== nextPanel && !reducedMotion.matches) {
+          previousPanel.classList.add('is-exiting');
+          window.setTimeout(() => {
+            previousPanel.classList.remove('is-exiting');
+          }, 360);
+        }
+
+        setPanelState(nextMode);
+      };
+
+      const getDirection = (nextMode) => {
+        const order = visualOrder[current] || visualOrder.summary;
+
+        return order.indexOf(nextMode) > order.indexOf(current) ? 'forward' : 'backward';
+      };
+
+      const activate = (nextMode, options = {}) => {
+        if (!helpers[nextMode]) return;
+
+        const targetTab = getTab(nextMode);
+
+        if (nextMode === current) {
+          if (options.focus && targetTab) targetTab.focus();
+          return;
+        }
+
+        if (isSwitching) return;
+
+        const previousMode = current;
+        const direction = getDirection(nextMode);
+
+        isSwitching = true;
+        root.dataset.direction = direction;
+
+        animateTabs(nextMode);
+        animateHelper(nextMode, direction);
+        switchPanel(nextMode);
+
+        current = nextMode;
+        window.requestAnimationFrame(setStageHeight);
+        window.setTimeout(setStageHeight, reducedMotion.matches ? 0 : 120);
+
+        if (options.focus && targetTab) targetTab.focus();
+
+        window.setTimeout(() => {
+          isSwitching = false;
+          getPanel(previousMode)?.classList.remove('is-exiting');
+        }, reducedMotion.matches ? 0 : 380);
+      };
+
+      const activateVisualSibling = (direction) => {
+        const order = visualOrder[current] || visualOrder.summary;
+        const targetMode = direction === 'left' ? order[0] : order[2];
+
+        activate(targetMode, { focus: true });
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          activate(tab.dataset.mode);
+        });
+
+        tab.addEventListener('keydown', (event) => {
+          if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            activateVisualSibling('left');
+          }
+
+          if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            activateVisualSibling('right');
+          }
+
+          if (event.key === 'Home') {
+            event.preventDefault();
+            activate((visualOrder[current] || visualOrder.summary)[0], { focus: true });
+          }
+
+          if (event.key === 'End') {
+            event.preventDefault();
+            activate((visualOrder[current] || visualOrder.summary)[2], { focus: true });
+          }
+        });
+      });
+
+      setPanelState(current);
+      setTabState(current);
+      setStageHeight();
+      root.classList.add('is-ready');
+
+      window.addEventListener('resize', setStageHeight);
+      window.addEventListener('dtc:hero-panel-resize', setStageHeight);
+    })();
+  </script>
 </Layout>

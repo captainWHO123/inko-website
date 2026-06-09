@@ -1,0 +1,15 @@
+---
+interface Props {
+  label?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  tone?: 'default' | 'light';
+}
+
+const { label = false, size = 'md', tone = 'default' } = Astro.props;
+const src = label ? '/assets/dtc/logo-with-text.svg' : '/assets/dtc/logo-default.svg';
+const alt = label ? 'Inko' : '';
+---
+
+<span class:list={['dtc-brand', `dtc-brand--${size}`, tone === 'light' && 'dtc-brand--light']}>
+  <img src={src} alt={alt} loading="eager" decoding="async" />
+</span>

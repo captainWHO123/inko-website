@@ -1,0 +1,25 @@
+---
+interface Props {
+  icon: string;
+  label?: string;
+  size?: '56' | '64';
+  tone?: 'warm' | 'blue';
+}
+
+const {
+  icon,
+  label,
+  size = '56',
+  tone = 'warm',
+} = Astro.props;
+---
+
+<span
+  class:list={['dtc-badge', `dtc-badge--${size}`, `dtc-badge--${tone}`, label && 'dtc-badge--with-text']}
+  style={`--dtc-badge-icon-url: url("${icon}")`}
+>
+  <span class="dtc-badge__circle" aria-hidden="true">
+    <span class="dtc-badge__glyph"></span>
+  </span>
+  {label && <span class="dtc-badge__label">{label}</span>}
+</span>

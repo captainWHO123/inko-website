@@ -1,0 +1,214 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/dtc/Header.astro';
+import Footer from '../components/dtc/Footer.astro';
+import CTA from '../components/dtc/CTA.astro';
+import ProductPanels from '../components/dtc/ProductPanels.astro';
+import BrandMark from '../components/dtc/BrandMark.astro';
+import Badge from '../components/dtc/Badge.astro';
+import LegalPages from '../components/LegalPages.astro';
+
+const workflowCards = [
+  ['Client', 'Michael Carter', '/assets/dtc/icon-client.svg'],
+  ['Scenario', 'Life insurance consultation', '/assets/dtc/icon-scenario.svg'],
+  ['Status', 'Follow-up ready', '/assets/dtc/icon-status.svg'],
+  ['Summary', 'family protection', '/assets/dtc/icon-variant12.svg'],
+];
+
+const signals = [
+  ['need', '/assets/dtc/icon-need.svg'],
+  ['concern', '/assets/dtc/icon-concern.svg'],
+  ['objection', '/assets/dtc/icon-objection.svg'],
+  ['buying signal', '/assets/dtc/icon-star.svg'],
+];
+
+const workflowSteps = [
+  {
+    title: 'Review and Summary',
+    body: 'Review the transcript and AI summary without replaying it.',
+    image: '/assets/dtc/workflow-review-summary.png',
+  },
+  {
+    title: 'Understand Signals',
+    body: 'Spot the details that shape the follow-up.',
+    image: '/assets/dtc/workflow-understand-signals.png',
+  },
+  {
+    title: 'Send the Follow-up',
+    body: 'Start a follow-up draft while the conversation is still fresh.',
+    image: '/assets/dtc/workflow-send-follow-up.png',
+  },
+  {
+    title: 'Create Next Actions',
+    body: 'Turn promises into suggested next steps.',
+    image: '/assets/dtc/workflow-create-actions.png',
+  },
+  {
+    title: 'Build Client Memo',
+    body: 'Build lead across every conversation.',
+    image: '/assets/dtc/workflow-build-memo.png',
+  },
+  {
+    title: 'CRM-sync',
+    body: 'Prepare cleaner records for your CRM workflow.',
+    image: '/assets/dtc/workflow-crm-sync.png',
+  },
+];
+---
+
+<Layout title="Inko Workflow | From conversation to follow-up" description="See how Inko turns client conversations into structured follow-ups, tasks, client records, and CRM-ready context.">
+  <Header active="workflow" />
+
+  <main>
+    <section class="dtc-hero dtc-hero--split dtc-hero--workflow">
+      <div class="dtc-container dtc-hero__split">
+        <div class="dtc-hero__copy">
+          <h1>One workspace for every customer relationship.</h1>
+          <p>Meetings, insights, follow-ups, and next steps come together in one place&mdash;turning conversations into work that moves forward.</p>
+          <a class="dtc-arrow-button" href="#workflow-detail">See what Inko can prepare <span>→</span></a>
+        </div>
+        <ProductPanels variant="media" image="/assets/dtc/hero-workflow.png" class="dtc-product-media--hero" />
+      </div>
+    </section>
+
+    <section class="dtc-mark-divider" aria-hidden="true">
+      <BrandMark size="lg" />
+    </section>
+
+    <section class="dtc-section dtc-section--workflow-overview">
+      <div class="dtc-container">
+        <div class="dtc-section-head dtc-section-head--center">
+          <h2>From conversation to follow-ups in minutes, not days</h2>
+        </div>
+
+        <div class="dtc-workspace-preview">
+          <div class="dtc-workspace-preview__left">
+            {workflowCards.map(([label, value, icon]) => (
+              <article>
+                <Badge icon={icon} size="64" />
+                <div>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div class="dtc-workspace-preview__right">
+            <article class="dtc-workspace-panel dtc-workspace-panel--signals">
+              <section class="dtc-dashboard-badges" aria-label="Signals">
+                <span>Signals</span>
+                <div class="dtc-signal-row">
+                  {signals.map(([label, icon]) => (
+                    <Badge icon={icon} label={label} size="56" />
+                  ))}
+                </div>
+              </section>
+              <section class="dtc-dashboard-action" aria-label="Draft">
+                <span>Draft</span>
+                <Badge icon="/assets/dtc/icon-plane.svg" size="56" tone="blue" />
+                <p>Two plan options we have discussed about, here are...</p>
+                <em>Today, 20:30</em>
+              </section>
+            </article>
+            <article class="dtc-workspace-panel dtc-workspace-panel--tasks">
+              <span>Tasks</span>
+              {['add premium concern to record', 'prepare comparison', 'book review call'].map((task) => (
+                <label><i></i>{task}<em>05/13</em></label>
+              ))}
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-workflow-detail" id="workflow-detail">
+      <div class="dtc-container">
+        {workflowSteps.map((step, index) => (
+          <article
+            class="dtc-workflow-row"
+            style={`--workflow-row-index: ${index}; --workflow-row-z: ${20 + index}; --workflow-row-y: ${index * 471}px;`}
+          >
+            <div>
+              <h2>{step.title}</h2>
+              <p>{step.body}</p>
+            </div>
+            <figure class="dtc-workflow-row__media">
+              <img src={step.image} alt="" loading="lazy" />
+            </figure>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <CTA id="workflow-cta" location="workflow_cta" />
+    <Footer />
+  </main>
+
+  <LegalPages slot="overlay" />
+
+  <script>
+    const setupWorkflowStack = () => {
+      const section = document.querySelector('#workflow-detail');
+      if (!section) return;
+
+      const rows = Array.from(section.querySelectorAll('.dtc-workflow-row'));
+      const desktopQuery = window.matchMedia('(min-width: 961px)');
+      const stackOffset = 72;
+      let rowHeight = 471;
+      let travel = 0;
+      let rafId = 0;
+
+      const clearInlineStack = () => {
+        section.style.removeProperty('--workflow-row-height');
+        section.style.removeProperty('--workflow-stack-height');
+        section.style.removeProperty('--workflow-travel');
+        rows.forEach((row) => row.style.removeProperty('--workflow-row-y'));
+      };
+
+      const updateRows = () => {
+        rafId = 0;
+        if (!desktopQuery.matches) return;
+
+        const stickyTop = Number.parseFloat(getComputedStyle(section).getPropertyValue('--workflow-sticky-top')) || 66;
+        const progress = Math.min(Math.max(stickyTop - section.getBoundingClientRect().top, 0), travel);
+
+        rows.forEach((row, index) => {
+          const restingY = index * stackOffset;
+          const movingY = index * rowHeight - progress;
+          row.style.setProperty('--workflow-row-y', `${Math.max(restingY, movingY)}px`);
+        });
+      };
+
+      const requestUpdate = () => {
+        if (!rafId) rafId = window.requestAnimationFrame(updateRows);
+      };
+
+      const measureStack = () => {
+        if (!desktopQuery.matches) {
+          clearInlineStack();
+          return;
+        }
+
+        rowHeight = Math.max(...rows.map((row) => row.offsetHeight), rowHeight);
+        const stackHeight = rowHeight + (rows.length - 1) * stackOffset;
+        travel = (rows.length - 1) * (rowHeight - stackOffset);
+
+        section.style.setProperty('--workflow-row-height', `${rowHeight}px`);
+        section.style.setProperty('--workflow-stack-height', `${stackHeight}px`);
+        section.style.setProperty('--workflow-travel', `${travel}px`);
+        requestUpdate();
+      };
+
+      measureStack();
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', measureStack);
+      desktopQuery.addEventListener('change', measureStack);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupWorkflowStack, { once: true });
+    } else {
+      setupWorkflowStack();
+    }
+  </script>
+</Layout>

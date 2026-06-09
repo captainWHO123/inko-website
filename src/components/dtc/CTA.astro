@@ -1,0 +1,20 @@
+---
+import BrandMark from './BrandMark.astro';
+import WaitlistForm from './WaitlistForm.astro';
+
+interface Props {
+  id?: string;
+  location?: string;
+}
+
+const { id = 'final-cta', location = 'final_cta' } = Astro.props;
+---
+
+<section class="dtc-cta" id={id}>
+  <div class="dtc-cta__glow" aria-hidden="true"></div>
+  <div class="dtc-container dtc-cta__inner">
+    <BrandMark size="lg" />
+    <h2>Let's make the follow up count.</h2>
+    <WaitlistForm id={`${id}-form`} location={location} layout="stacked" dark placeholder="Enter Your Work Email" buttonLabel="Join Waitlist" />
+  </div>
+</section>

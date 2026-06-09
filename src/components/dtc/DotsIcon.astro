@@ -1,0 +1,15 @@
+---
+interface Props {
+  tone?: 'default' | 'light';
+  size?: 'md' | 'lg';
+}
+
+const { tone = 'default', size = 'md' } = Astro.props;
+---
+
+<span class:list={['dtc-dots-icon', `dtc-dots-icon--${tone}`, `dtc-dots-icon--${size}`]} aria-hidden="true">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</span>

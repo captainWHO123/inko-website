@@ -1,0 +1,602 @@
+---
+interface Props {
+  variant?: 'summary' | 'crm' | 'advise' | 'media';
+  image?: string;
+  alt?: string;
+  class?: string;
+}
+
+const {
+  variant = 'summary',
+  image,
+  alt = '',
+  class: className,
+} = Astro.props;
+---
+
+{variant === 'summary' && (
+  <div class:list={['dtc-summary-panel', className]} data-dtc-summary-panel data-summary-state="default" aria-label="Preset template preview">
+    <div class="dtc-summary-panel__state dtc-summary-panel__state--default" data-summary-default>
+      <div class="dtc-summary-panel__top" data-stagger-item style="--stagger-index: 0">Preset Template</div>
+      <div class="dtc-template-list">
+        {['Budget', 'Authority', 'Permission', 'Payment Cap Model'].map((item, index) => (
+          <div class="dtc-template-row" data-stagger-item style={`--stagger-index: ${index + 1}`}>
+            <span class="dtc-drag" aria-hidden="true"></span>
+            <span>{item}</span>
+            {(index === 1 || index === 3) && <em>Edit</em>}
+          </div>
+        ))}
+        <div class="dtc-template-row dtc-template-row--muted" data-stagger-item style="--stagger-index: 5">
+          <span>+</span>
+          <span>Create Dimensions</span>
+        </div>
+      </div>
+      <button class="dtc-product-button" type="button" data-summary-generate data-stagger-item style="--stagger-index: 6">
+        <span>Save Template and Start Summary</span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <div class="dtc-summary-panel__state dtc-summary-panel__state--analysis" data-summary-analysis hidden aria-label="Generated summary analysis">
+      <button class="dtc-summary-analysis__back" type="button" data-summary-back>
+        Back
+      </button>
+      <div class="dtc-summary-analysis__scroll" tabindex="0" aria-label="Generated summary text">
+        <article class="dtc-summary-analysis__copy">
+          <h2>Needs</h2>
+          <p><strong>Summary:</strong></p>
+          <p>Anna is focused on ensuring that her family can maintain their lifestyle, education plans, and financial security in the event of a serious health issue or unexpected life event.</p>
+
+          <p><strong>Key Factors:</strong></p>
+          <ul>
+            <li>Family income protection</li>
+            <li>Children's future education funding</li>
+            <li>Managing medical and health-related financial risks</li>
+            <li>Avoiding financial strain on her spouse and children</li>
+            <li>Maintaining household stability during unforeseen circumstances</li>
+          </ul>
+
+          <p><strong>Analysis:</strong></p>
+          <p>Working in a healthcare clinic likely increases Anna's awareness of how quickly health-related situations can impact a family's finances.</p>
+          <p>Her concerns appear practical rather than emotional. She is not looking for the largest possible coverage; she is looking for a solution that creates confidence and predictability for her family.</p>
+
+          <p><strong>Conversation Evidence:</strong></p>
+          <ul>
+            <li>Expressed strong interest in family protection planning.</li>
+            <li>Prioritized children's future education and household stability.</li>
+            <li>Demonstrated preference for practical and sustainable financial solutions.</li>
+          </ul>
+
+          <p><strong>Risk / Opportunity:</strong></p>
+          <p>Opportunity is high because her protection needs are tied directly to family responsibilities and long-term goals.</p>
+
+          <p><strong>Recommended Strategy:</strong></p>
+          <p>Frame recommendations around protecting the family's future rather than maximizing coverage amounts.</p>
+
+          <p><strong>Next Steps:</strong></p>
+          <ul>
+            <li>Quantify education funding goals.</li>
+            <li>Assess income replacement requirements.</li>
+            <li>Identify major healthcare-related financial risks.</li>
+            <li>Present protection scenarios aligned with family priorities.</li>
+          </ul>
+
+          <hr />
+
+          <h2>Anxiety</h2>
+          <p><strong>Summary:</strong></p>
+          <p>Anna demonstrates moderate financial anxiety driven by family responsibilities, inflation concerns, and uncertainty around long-term financial security.</p>
+
+          <p><strong>Key Factors:</strong></p>
+          <ul>
+            <li>Children's education costs</li>
+            <li>Rising living expenses</li>
+            <li>Inflation reducing purchasing power</li>
+            <li>Maintaining adequate family protection</li>
+            <li>Balancing protection and affordability</li>
+          </ul>
+
+          <p><strong>Analysis:</strong></p>
+          <p>Anna's concerns are not driven by panic or immediate financial pressure.</p>
+          <p>She values stability, flexibility, and transparency when making financial decisions.</p>
+
+          <p><strong>Conversation Evidence:</strong></p>
+          <blockquote>"I always feel like I've worked hard my whole life, but I don't even know where the money went."</blockquote>
+          <blockquote>"I just don't feel secure."</blockquote>
+          <blockquote>"I don't want to spend too much on insurance every month since we still need to save for retirement and the kids' education."</blockquote>
+
+          <p><strong>Risk / Opportunity:</strong></p>
+          <p>Risk: Complex plans may reduce trust.</p>
+          <p>Opportunity: Her concerns naturally align with protection planning.</p>
+
+          <p><strong>Recommended Strategy:</strong></p>
+          <p>Maintain a consultative approach focused on affordability and transparency.</p>
+
+          <p><strong>Next Steps:</strong></p>
+          <ul>
+            <li>Conduct financial stress-testing scenarios.</li>
+            <li>Demonstrate affordability across multiple plan options.</li>
+            <li>Review inflation and education funding impacts.</li>
+          </ul>
+
+          <hr />
+
+          <h2>Permissions</h2>
+          <p><strong>Summary:</strong></p>
+          <p>Anna is the primary contact and planning initiator, but final decisions will likely be made jointly with her husband.</p>
+
+          <p><strong>Key Factors:</strong></p>
+          <ul>
+            <li>Married household</li>
+            <li>Two dependent children</li>
+            <li>Joint financial decision-making</li>
+            <li>Family protection is a shared priority</li>
+          </ul>
+
+          <p><strong>Analysis:</strong></p>
+          <p>Long-term financial commitments will require alignment from both spouses.</p>
+
+          <p><strong>Household Composition:</strong></p>
+          <ul>
+            <li>Anna (Business Supervisor at a local clinic)</li>
+            <li>Husband</li>
+            <li>8-year-old child</li>
+            <li>5-year-old child</li>
+          </ul>
+
+          <p><strong>Decision-Making Roles:</strong></p>
+          <ul>
+            <li><strong>Apparent Decision-Maker:</strong> Anna</li>
+            <li><strong>Actual Decision-Makers:</strong> Anna and her husband</li>
+            <li><strong>Influencers:</strong> Husband and children</li>
+            <li><strong>Beneficiaries:</strong> Husband and children</li>
+          </ul>
+
+          <p><strong>Role Attitude and Weight:</strong></p>
+          <table>
+            <thead>
+              <tr>
+                <th>Stakeholder</th>
+                <th>Attitude</th>
+                <th>Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Anna</td>
+                <td>Supportive</td>
+                <td>High</td>
+              </tr>
+              <tr>
+                <td>Husband</td>
+                <td>Unknown</td>
+                <td>Medium-High</td>
+              </tr>
+              <tr>
+                <td>Children</td>
+                <td>Beneficiaries</td>
+                <td>High</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p><strong>Risk / Opportunity:</strong></p>
+          <p>Risk: Husband may raise additional concerns if not involved early.</p>
+          <p>Opportunity: Family protection is already a shared priority.</p>
+
+          <p><strong>Recommended Strategy:</strong></p>
+          <p>Encourage Anna to review the proposal with her husband before the next meeting.</p>
+
+          <p><strong>Next Steps:</strong></p>
+          <ul>
+            <li>Schedule a joint review session.</li>
+            <li>Present side-by-side coverage comparisons.</li>
+            <li>Prepare a Family Responsibility Visualization Chart.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === 'summary' && (
+  <script is:inline>
+    (() => {
+      const initializeSummaryPanels = () => {
+        document.querySelectorAll('[data-dtc-summary-panel]:not([data-summary-ready])').forEach((panel) => {
+          const button = panel.querySelector('[data-summary-generate]');
+          const backButton = panel.querySelector('[data-summary-back]');
+          const defaultState = panel.querySelector('[data-summary-default]');
+          const analysisState = panel.querySelector('[data-summary-analysis]');
+
+          panel.setAttribute('data-summary-ready', 'true');
+
+          button?.addEventListener('click', () => {
+            if (panel.getAttribute('data-summary-state') === 'analysis' || !defaultState || !analysisState) return;
+
+            panel.setAttribute('data-summary-state', 'analysis');
+            panel.setAttribute('aria-label', 'Generated summary analysis preview');
+            defaultState.hidden = true;
+            analysisState.hidden = false;
+            analysisState.classList.remove('is-entering');
+            void analysisState.offsetWidth;
+            analysisState.classList.add('is-entering');
+            window.dispatchEvent(new CustomEvent('dtc:hero-panel-resize'));
+            window.setTimeout(() => window.dispatchEvent(new CustomEvent('dtc:hero-panel-resize')), 220);
+          });
+
+          backButton?.addEventListener('click', () => {
+            if (panel.getAttribute('data-summary-state') === 'default' || !defaultState || !analysisState) return;
+
+            panel.setAttribute('data-summary-state', 'default');
+            panel.setAttribute('aria-label', 'Preset template preview');
+            analysisState.hidden = true;
+            analysisState.classList.remove('is-entering');
+            defaultState.hidden = false;
+            window.dispatchEvent(new CustomEvent('dtc:hero-panel-resize'));
+            window.setTimeout(() => window.dispatchEvent(new CustomEvent('dtc:hero-panel-resize')), 80);
+          });
+
+          analysisState?.addEventListener('animationend', () => {
+            analysisState.classList.remove('is-entering');
+          });
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeSummaryPanels, { once: true });
+      } else {
+        initializeSummaryPanels();
+      }
+    })();
+  </script>
+)}
+
+{variant === 'crm' && (
+  <div
+    class:list={['dtc-crm-panel', className]}
+    data-dtc-crm-panel
+    data-crm-state="link"
+    aria-label="CRM Lite audio context preview"
+  >
+    <div class="dtc-crm-state dtc-crm-state--link" data-crm-state-panel="link">
+      <p class="dtc-crm-panel__date" data-stagger-item style="--stagger-index: 0">2025-11-05 10:00:01</p>
+      <div class="dtc-crm-audio" data-stagger-item style="--stagger-index: 1">
+        <button class="dtc-crm-audio__play" type="button" aria-label="Play conversation preview">
+          <span aria-hidden="true"></span>
+        </button>
+        <div class="dtc-crm-audio__progress" aria-hidden="true">
+          <div class="dtc-crm-audio__track">
+            <span></span>
+          </div>
+          <strong>15:42</strong>
+        </div>
+        <em>45:12</em>
+      </div>
+      <button
+        class="dtc-product-button dtc-product-button--crm"
+        type="button"
+        data-crm-link
+        data-stagger-item
+        style="--stagger-index: 2"
+      >
+        <span>Link to Client</span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <div class="dtc-crm-state dtc-crm-state--loading" data-crm-state-panel="loading" hidden aria-live="polite">
+      <div class="dtc-crm-loading">Linking...</div>
+    </div>
+
+    <div class="dtc-crm-state dtc-crm-state--client" data-crm-state-panel="client" hidden>
+      <div class="dtc-crm-client__header">
+        <button class="dtc-crm-client__icon-button" type="button" data-crm-back aria-label="Back to audio link">
+          <img src="/assets/dtc/icon-arrow-left.svg" alt="" aria-hidden="true" />
+        </button>
+        <button class="dtc-crm-client__icon-button" type="button" aria-label="Email Anna Jackson">
+          <img src="/assets/dtc/icon-mail.svg" alt="" aria-hidden="true" />
+        </button>
+      </div>
+
+      <div class="dtc-crm-client__profile">
+        <span class="dtc-crm-client__avatar">AJ</span>
+        <div>
+          <strong>Anna Jackson</strong>
+          <p>Last time: 04/08</p>
+        </div>
+      </div>
+
+      <div class="dtc-crm-client__tabs" role="tablist" aria-label="Client record views">
+        {['file', 'timeline', 'info'].map((tab, index) => (
+          <button
+            type="button"
+            role="tab"
+            data-crm-view-tab={tab}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            tabindex={index === 0 ? '0' : '-1'}
+          >
+            {tab === 'file' ? 'File' : tab === 'timeline' ? 'Timeline' : 'Info'}
+            {tab === 'timeline' && <i aria-hidden="true"></i>}
+          </button>
+        ))}
+      </div>
+
+      <div class="dtc-crm-client__viewport">
+        <section class="dtc-crm-view is-active" data-crm-view="file" role="tabpanel">
+          <article class="dtc-crm-file-item">
+            <div>
+              <h3>2025-11-05 10:00:01 <span class="dtc-crm-file-cloud" aria-hidden="true"></span></h3>
+              <p>Anna J <i></i> 2026-02-05 10:00 15m</p>
+            </div>
+            <span class="dtc-crm-analysis-pill"><b aria-hidden="true">⌁</b> Under analysis</span>
+          </article>
+          <article class="dtc-crm-file-item">
+            <div>
+              <h3>Asset &amp; Liability Review</h3>
+              <p>Anna J <i></i> 2026-01-29 11:00 27m</p>
+            </div>
+          </article>
+          <article class="dtc-crm-file-item">
+            <div>
+              <h3>Budget Capacity Discussion</h3>
+              <p>Anna J <i></i> 2026-01-23 16:00 49m</p>
+            </div>
+          </article>
+          <article class="dtc-crm-file-item">
+            <div>
+              <h3>Coverage Comparison Review</h3>
+              <p>Anna J <i></i> 2026-01-16 14:30 1h05m</p>
+            </div>
+          </article>
+          <article class="dtc-crm-file-item">
+            <div>
+              <h3>Initial Protection Consultation</h3>
+              <p>Anna J <i></i> 2026-01-10 10:15 45m</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="dtc-crm-view" data-crm-view="timeline" role="tabpanel" hidden>
+          <div class="dtc-crm-timeline">
+            <article>
+              <time>25/04/08 10:15</time>
+              <p>Client plans to organize current insurance information at home before the next review call.</p>
+              <dl>
+                <div><dt>Need:</dt><dd>coverage overlap or gap</dd></div>
+                <div><dt>Concern:</dt><dd>保障期太短</dd></div>
+                <div><dt>Follow-up:</dt><dd>book next review meeting</dd></div>
+              </dl>
+            </article>
+            <article>
+              <time>25/04/07 14:00</time>
+              <p>Client provided asset and liability details, including mortgage context and basic savings information, but existing insurance records are still missing.</p>
+              <dl>
+                <div><dt>Need:</dt><dd>complete financial profile</dd></div>
+                <div><dt>Concern:</dt><dd>missing current policy details</dd></div>
+                <div><dt>Follow-up</dt><dd>Send the insurance comparison plan</dd></div>
+              </dl>
+            </article>
+          </div>
+        </section>
+
+        <section class="dtc-crm-view" data-crm-view="info" role="tabpanel" hidden>
+          <dl class="dtc-crm-info-grid">
+            <div><dt>Job Title</dt><dd>Business Supervisor</dd></div>
+            <div><dt>Education</dt><dd>Local clinic</dd></div>
+            <div><dt>Company</dt><dd>Healthcare</dd></div>
+            <div><dt>Day of Birth</dt><dd class="is-muted">Optional</dd></div>
+            <div><dt>Contact</dt><dd class="is-muted">Optional</dd></div>
+            <div><dt>Email</dt><dd class="is-muted">Optional</dd></div>
+            <div class="dtc-crm-info-grid__stack"><dt>Industry</dt><dd class="is-muted">Optional</dd></div>
+            <div class="dtc-crm-info-grid__stack"><dt>Home Address</dt><dd class="is-muted">Optional</dd></div>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === 'crm' && (
+  <script is:inline>
+    (() => {
+      const initializeCrmPanels = () => {
+        document.querySelectorAll('[data-dtc-crm-panel]:not([data-crm-ready])').forEach((panel) => {
+          const statePanels = Array.from(panel.querySelectorAll('[data-crm-state-panel]'));
+          const linkButton = panel.querySelector('[data-crm-link]');
+          const backButton = panel.querySelector('[data-crm-back]');
+          const viewTabs = Array.from(panel.querySelectorAll('[data-crm-view-tab]'));
+          const views = Array.from(panel.querySelectorAll('[data-crm-view]'));
+          let loadingTimer;
+
+          panel.setAttribute('data-crm-ready', 'true');
+
+          const dispatchResize = () => {
+            window.dispatchEvent(new CustomEvent('dtc:hero-panel-resize'));
+          };
+
+          const showState = (state) => {
+            panel.setAttribute('data-crm-state', state);
+            statePanels.forEach((statePanel) => {
+              const active = statePanel.getAttribute('data-crm-state-panel') === state;
+              statePanel.hidden = !active;
+              statePanel.classList.toggle('is-entering', active);
+            });
+            panel.setAttribute(
+              'aria-label',
+              state === 'link' ? 'CRM Lite audio context preview' : state === 'loading' ? 'Linking client record' : 'Anna Jackson client record'
+            );
+            dispatchResize();
+          };
+
+          const showView = (viewName, focus = false) => {
+            viewTabs.forEach((tab) => {
+              const active = tab.getAttribute('data-crm-view-tab') === viewName;
+              tab.setAttribute('aria-selected', String(active));
+              tab.setAttribute('tabindex', active ? '0' : '-1');
+              if (active && focus) tab.focus();
+            });
+
+            views.forEach((view) => {
+              const active = view.getAttribute('data-crm-view') === viewName;
+              view.hidden = !active;
+              view.classList.toggle('is-active', active);
+              view.classList.toggle('is-entering', active);
+            });
+          };
+
+          linkButton?.addEventListener('click', () => {
+            if (panel.getAttribute('data-crm-state') !== 'link') return;
+            window.clearTimeout(loadingTimer);
+            showState('loading');
+            loadingTimer = window.setTimeout(() => {
+              showView('file');
+              showState('client');
+            }, 100);
+          });
+
+          backButton?.addEventListener('click', () => {
+            window.clearTimeout(loadingTimer);
+            showState('link');
+          });
+
+          viewTabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => showView(tab.getAttribute('data-crm-view-tab')));
+            tab.addEventListener('keydown', (event) => {
+              if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+              event.preventDefault();
+              let nextIndex = index;
+              if (event.key === 'ArrowLeft') nextIndex = (index - 1 + viewTabs.length) % viewTabs.length;
+              if (event.key === 'ArrowRight') nextIndex = (index + 1) % viewTabs.length;
+              if (event.key === 'Home') nextIndex = 0;
+              if (event.key === 'End') nextIndex = viewTabs.length - 1;
+              showView(viewTabs[nextIndex].getAttribute('data-crm-view-tab'), true);
+            });
+          });
+
+          panel.addEventListener('animationend', (event) => {
+            event.target.classList?.remove('is-entering');
+          });
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeCrmPanels, { once: true });
+      } else {
+        initializeCrmPanels();
+      }
+    })();
+  </script>
+)}
+
+{variant === 'advise' && (
+  <div class:list={['dtc-advise-panel', className]} data-dtc-advise-panel aria-label="Advise follow-up preview">
+    <div
+      class="dtc-advise-placeholder"
+      role="textbox"
+      aria-readonly="true"
+      aria-label="Example follow-up prompt"
+      data-stagger-item
+      style="--stagger-index: 0"
+    >
+      <p data-advise-placeholder aria-hidden="true">Turn the conversation with Emily into a client-ready follow-up.</p>
+    </div>
+    <div class="dtc-advise-panel__action" aria-hidden="true" data-stagger-item style="--stagger-index: 1">
+      <span class="dtc-advise-panel__icon">
+        <img src="/assets/dtc/icon-plane.svg" alt="" loading="lazy" decoding="async" />
+      </span>
+    </div>
+  </div>
+)}
+
+{variant === 'advise' && (
+  <script is:inline>
+    (() => {
+      const initializeAdvisePanels = () => {
+        document.querySelectorAll('[data-dtc-advise-panel]:not([data-advise-ready])').forEach((panel) => {
+          const text = panel.querySelector('[data-advise-placeholder]');
+          const heroPanel = panel.closest('[data-panel="advise"]');
+          const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+          const examples = [
+            'Turn the conversation with Emily into a client-ready follow-up.',
+            'Draft a follow-up for Micheal.',
+            'Create a follow-up that addresses the budget concern for Mrs.Watson.',
+          ];
+          let index = 0;
+          let holdTimer;
+          let swapTimer;
+          let fadeTimer;
+
+          panel.setAttribute('data-advise-ready', 'true');
+
+          const clearTimers = () => {
+            window.clearTimeout(holdTimer);
+            window.clearTimeout(swapTimer);
+            window.clearTimeout(fadeTimer);
+          };
+
+          const isActive = () => !heroPanel || heroPanel.getAttribute('aria-hidden') === 'false';
+
+          const schedule = () => {
+            clearTimers();
+            if (!isActive()) return;
+
+            holdTimer = window.setTimeout(() => {
+              if (!isActive()) return;
+
+              if (reducedMotion.matches) {
+                index = (index + 1) % examples.length;
+                text.textContent = examples[index];
+                schedule();
+                return;
+              }
+
+              text.classList.add('is-fading-out');
+              swapTimer = window.setTimeout(() => {
+                index = (index + 1) % examples.length;
+                text.textContent = examples[index];
+                text.classList.remove('is-fading-out');
+                text.classList.add('is-fading-in');
+
+                fadeTimer = window.setTimeout(() => {
+                  text.classList.remove('is-fading-in');
+                  schedule();
+                }, 300);
+              }, 300);
+            }, 1000);
+          };
+
+          const reset = () => {
+            clearTimers();
+            index = 0;
+            text.textContent = examples[0];
+            text.classList.remove('is-fading-out', 'is-fading-in');
+            schedule();
+          };
+
+          if (heroPanel) {
+            new MutationObserver(() => {
+              if (isActive()) reset();
+              else clearTimers();
+            }).observe(heroPanel, { attributes: true, attributeFilter: ['aria-hidden'] });
+          }
+
+          reducedMotion.addEventListener?.('change', reset);
+          if (isActive()) reset();
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeAdvisePanels, { once: true });
+      } else {
+        initializeAdvisePanels();
+      }
+    })();
+  </script>
+)}
+
+{variant === 'media' && image && (
+  <figure class:list={['dtc-product-media', className]}>
+    <img src={image} alt={alt} loading="lazy" decoding="async" />
+  </figure>
+)}

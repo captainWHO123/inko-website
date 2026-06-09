@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/dtc/Header.astro';
+import Footer from '../components/dtc/Footer.astro';
+import CTA from '../components/dtc/CTA.astro';
+import ProductPanels from '../components/dtc/ProductPanels.astro';
+import BrandMark from '../components/dtc/BrandMark.astro';
+import Card from '../components/dtc/Cards.astro';
+import LegalPages from '../components/LegalPages.astro';
+
+const roles = [
+  {
+    title: 'Insurance Consultant',
+    body: 'Understand family context, protection needs, budget range, objections, and more lead signals.',
+    icon: '/assets/dtc/icon-insurance.svg',
+    href: '#insurance-consultants',
+  },
+  {
+    title: 'Real Estate Agent',
+    body: 'Remember buyer preferences, showing feedback, timeline, and next listings to send.',
+    icon: '/assets/dtc/icon-real-estate.svg',
+    href: '#real-estate-agents',
+  },
+  {
+    title: 'B2B Sales Team',
+    body: 'Transform pain points, decision makers, deal blockers, and next steps into clear notes.',
+    icon: '/assets/dtc/icon-b2b.svg',
+    href: '#b2b-sales-team',
+  },
+  {
+    title: 'More Roles',
+    body: 'Explore more workflows...',
+    icon: '/assets/dtc/icon-more-roles.svg',
+    href: '#more-roles',
+  },
+];
+
+const sections = [
+  {
+    id: 'insurance-consultants',
+    kicker: '* For Insurance Consultants *',
+    title: 'Keep the context behind follow-up',
+    body: 'Insurance consultants moves on trust, timing, and personal context. Inko helps you capture Client needs, coverage questions, budget concerns, and next steps, so every follow-up feels clear, timely, and personal.',
+    image: '/assets/dtc/solution-insurance.png',
+  },
+  {
+    id: 'real-estate-agents',
+    kicker: '* For Real Estate Agents *',
+    title: 'Remember after every showing',
+    body: 'Capture property preferences, budget, neighborhood needs, school and commute requirements, showing feedback, objections, timeline, and next viewing interests.',
+    image: '/assets/dtc/solution-real-estate.png',
+  },
+  {
+    id: 'b2b-sales-team',
+    kicker: '* For B2B Sales Teams *',
+    title: 'Turn discovery into deal progress.',
+    body: 'Capture pain points, decision makers, budget signals, competitors, blockers, implementation concerns, timeline, and next meeting goals.',
+    image: '/assets/dtc/solution-b2b.png',
+  },
+  {
+    id: 'more-roles',
+    kicker: '* For More *',
+    title: 'Built for relationship-based sales.',
+    body: 'Use Inko anywhere high-trust conversations become next steps, follow-ups, and long-term client memory.',
+    image: '/assets/dtc/solution-more.png',
+  },
+];
+---
+
+<Layout title="Inko Solutions | Built for client-facing sales" description="Explore how Inko supports insurance consultants, real estate agents, B2B sales teams, and relationship-based sellers.">
+  <Header active="solution" />
+
+  <main>
+    <section class="dtc-hero dtc-hero--split dtc-hero--solution">
+      <div class="dtc-container dtc-hero__split">
+        <div class="dtc-hero__copy">
+          <h1>Built around how relationships grow.</h1>
+          <p>Every sales role pays attention to different details. Inko helps turn those conversations into organized records, clear follow-ups, and next steps you can act on.</p>
+          <a class="dtc-arrow-button" href="#roles">Explore by Roles <span>→</span></a>
+        </div>
+        <ProductPanels variant="media" image="/assets/dtc/hero-solution.png" class="dtc-product-media--hero" />
+      </div>
+    </section>
+
+    <section class="dtc-mark-divider" aria-hidden="true">
+      <BrandMark size="lg" />
+    </section>
+
+    <section class="dtc-section dtc-section--solution-roles" id="roles">
+      <div class="dtc-container">
+        <div class="dtc-section-head dtc-section-head--center">
+          <h2>Explore by Roles</h2>
+        </div>
+        <div class="dtc-card-grid dtc-card-grid--four">
+          {roles.map((role) => <Card variant="solutionRole" {...role} />)}
+        </div>
+      </div>
+    </section>
+
+    <section class="dtc-role-detail" id="role-detail">
+      {sections.map((section) => (
+        <article class="dtc-role-detail__section" id={section.id}>
+          <div class="dtc-container">
+            <div class="dtc-section-head dtc-section-head--center">
+              <p class="dtc-eyebrow dtc-eyebrow--muted">{section.kicker}</p>
+              <h2>{section.title}</h2>
+              <p>{section.body}</p>
+            </div>
+            <img class="dtc-role-detail__image" src={section.image} alt="" loading="lazy" />
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <CTA id="solution-cta" location="solution_cta" />
+    <Footer />
+  </main>
+
+  <LegalPages slot="overlay" />
+</Layout>

@@ -1,0 +1,72 @@
+---
+import BrandMark from './BrandMark.astro';
+import DotsIcon from './DotsIcon.astro';
+
+interface Props {
+  variant: 'role' | 'solutionRole' | 'problem' | 'work' | 'security';
+  title: string;
+  body: string;
+  icon?: string;
+  image?: string;
+  href?: string;
+  buttonLabel?: string;
+}
+
+const {
+  variant,
+  title,
+  body,
+  icon,
+  image,
+  href,
+  buttonLabel = 'Explore',
+} = Astro.props;
+---
+
+{variant === 'role' && (
+  <article class="dtc-role-card">
+    {icon ? <img class="dtc-card-icon" src={icon} alt="" loading="lazy" /> : <BrandMark />}
+    <h3>{title}</h3>
+    <p>{body}</p>
+  </article>
+)}
+
+{variant === 'solutionRole' && (
+  <article class="dtc-solution-role-card">
+    {icon ? <img class="dtc-card-icon" src={icon} alt="" loading="lazy" /> : <BrandMark />}
+    <h3>{title}</h3>
+    <p>{body}</p>
+    {href && <a href={href}>{buttonLabel}<span>→</span></a>}
+  </article>
+)}
+
+{variant === 'problem' && (
+  <article class="dtc-problem-card">
+    <div class="dtc-card-copy">
+      <h3>{title}</h3>
+      <p>{body}</p>
+    </div>
+    {image && <img class="dtc-problem-card__image" src={image} alt="" loading="lazy" />}
+  </article>
+)}
+
+{variant === 'work' && (
+  <article class="dtc-work-card">
+    <div class="dtc-work-card__copy">
+      <BrandMark />
+      <h3>{title}</h3>
+      <p>{body}</p>
+    </div>
+    {image && <img class="dtc-work-card__image" src={image} alt="" loading="lazy" />}
+  </article>
+)}
+
+{variant === 'security' && (
+  <article class="dtc-security-card">
+    <div>
+      <h3>{title}</h3>
+      <p>{body}</p>
+    </div>
+    <DotsIcon />
+  </article>
+)}
